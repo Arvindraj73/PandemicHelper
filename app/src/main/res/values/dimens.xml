@@ -1,0 +1,13 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="lPadding">6dp</dimen>
+    <dimen name="tsize">8sp</dimen>
+    <dimen name="tsize2">24sp</dimen>
+    <dimen name="padding">5dp</dimen>
+    <dimen name="rHeight">400dp</dimen>
+    <dimen name="imgSize">50dp</dimen>
+    <dimen name="mTop">10dp</dimen>
+    <dimen name="tsize3">18sp</dimen>
+    <dimen name="width">250dp</dimen>
+    <dimen name="vHeight">180dp</dimen>
+</resources>

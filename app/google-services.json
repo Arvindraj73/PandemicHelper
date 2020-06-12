@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "982204635184",
+    "firebase_url": "https://pandemichelper-cb8a3.firebaseio.com",
+    "project_id": "pandemichelper-cb8a3",
+    "storage_bucket": "pandemichelper-cb8a3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:982204635184:android:a1b2efc8b68ef96bcaf5f5",
+        "android_client_info": {
+          "package_name": "com.mcet.pandemichelper"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "982204635184-rnt2hor1jug0ofc9hh5mnkn5kv5d5b69.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mcet.pandemichelper",
+            "certificate_hash": "993a4f7c47effb9e29538b406735d13ea755591c"
+          }
+        },
+        {
+          "client_id": "982204635184-c0pjmvtl9souv18dg5foj7sks1kchgii.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAuRciEQbgHCmxW3Yhwe0p6iuMz4B8A5jE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "982204635184-c0pjmvtl9souv18dg5foj7sks1kchgii.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

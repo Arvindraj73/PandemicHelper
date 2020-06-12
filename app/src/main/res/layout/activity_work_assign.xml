@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".WorkAssignActivity"
+    android:padding="@dimen/lPadding">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/work"
+        android:textSize="@dimen/tsize3"
+        app:layout_constraintBottom_toTopOf="@+id/workView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.896"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/workView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/medicals_fragment"
+        android:textSize="@dimen/tsize2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.208"
+        tools:layout_editor_absoluteX="6dp" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/desc"
+        android:textSize="@dimen/tsize3"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/descView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/workView"
+        app:layout_constraintVertical_bias="0.807" />
+
+    <TextView
+        android:id="@+id/descView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/labor_monitor"
+        android:textSize="@dimen/tsize2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/workView"
+        app:layout_constraintVertical_bias="0.127"
+        tools:layout_editor_absoluteX="6dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/noof"
+        android:textSize="@dimen/tsize3"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/numView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/descView"
+        app:layout_constraintVertical_bias="0.804"
+        android:id="@+id/t1"/>
+
+    <TextView
+        android:id="@+id/numView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/hospital_fragment"
+        android:textSize="@dimen/tsize2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/descView"
+        app:layout_constraintVertical_bias="0.172"
+        tools:layout_editor_absoluteX="6dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/phone"
+        android:textSize="@dimen/tsize3"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/phoneView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/numView"
+        app:layout_constraintVertical_bias="0.82" />
+
+    <TextView
+        android:id="@+id/phoneView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/volunteer"
+        android:textSize="@dimen/tsize2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/numView"
+        app:layout_constraintVertical_bias="0.243"
+        tools:layout_editor_absoluteX="6dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/status"
+        android:textSize="@dimen/tsize3"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/statusView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/phoneView"
+        app:layout_constraintVertical_bias="0.733"
+        android:id="@+id/t2"/>
+
+    <TextView
+        android:id="@+id/statusView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/first_responders"
+        android:textSize="@dimen/tsize2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/phoneView"
+        app:layout_constraintVertical_bias="0.341"
+        tools:layout_editor_absoluteX="6dp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/assignBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/assign"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/statusView"
+        app:layout_constraintVertical_bias="1.0"
+        tools:layout_editor_absoluteX="16dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

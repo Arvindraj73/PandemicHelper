@@ -1,0 +1,40 @@
+<resources>
+    <string name="app_name">PandemicHelper</string>
+    <!-- Strings related to login -->
+    <string name="labor_monitor">Labour Monitor</string>
+    <string name="youtube">Youtube</string>
+    <string name="todo">Image Not Found</string>
+    <string name="toll_free_numbers">Toll Free</string>
+    <string name="health_care">Locations</string>
+    <string name="first_responders">SOS</string>
+    <string name="donate">Donate</string>
+    <string name="volunteer">Volunteer</string>
+    <string name="text_label_2">Medicals</string>
+    <string name="text_label_1">Hospitals</string>
+    <string name="title_activity_maps">Map</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hospital_fragment">Hello Hospital fragment</string>
+    <string name="medicals_fragment">Hello Medicals fragment</string>
+    <string name="assign">Assign</string>
+    <string name="work">"Work : "</string>
+    <string name="desc">"Description : "</string>
+    <string name="noof">No of Workers Needed : </string>
+    <string name="phone">"Contact : "</string>
+    <string name="status">"Status : "</string>
+    <string name="dept">DEPT</string>
+    <string name="addVolunteer">Add Volunteer</string>
+    <string name="text_label_3">Health Care</string>
+    <string name="text_label_4">Labs</string>
+    <string name="epass">E-Pass</string>
+    <string name="geo">Geofences</string>
+    <string name="text_label_5">Shelters</string>
+
+    <string-array name="role">
+        <item>Select Your Role</item>
+        <item>Essential Worker</item>
+        <item>Labour</item>
+        <item>Volunteer</item>
+    </string-array>
+
+</resources>
