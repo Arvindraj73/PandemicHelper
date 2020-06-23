@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
@@ -32,135 +33,44 @@ import org.json.JSONObject;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
-public class DonateActivity extends AppCompatActivity implements PaymentResultListener {
+public class DonateActivity extends AppCompatActivity {
 
-    private MaterialButton mDonate;
-
-    private CoordinatorLayout coordinatorLayout;
-
-    private FirebaseDatabase mFirebaseDatabase;
-    private DatabaseReference mDatabaseReference;
-
-    private FirebaseUser user;
-
-    private String name, phoneNumber;
+    private BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_donate);
 
-        user = FirebaseAuth.getInstance().getCurrentUser();
+        bottomNavigationView = findViewById(R.id.donate_bnv);
 
-        mDatabaseReference = FirebaseDatabase.getInstance().getReference();
-        mDonate = findViewById(R.id.donateBtn);
+        bottomNavigationView.setOnNavigationItemSelectedListener(navigation);
 
-        Checkout.preload(getApplicationContext());
-
-        mDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                UserModel model = dataSnapshot.getValue(UserModel.class);
-                name = model.getName();
-                phoneNumber = model.getPhone();
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-        coordinatorLayout = findViewById(R.id.coordinator);
-        mDonate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startPayment();
-            }
-        });
-
-        TextView privacyPolicy = findViewById(R.id.pp);
-
-        privacyPolicy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent httpIntent = new Intent(Intent.ACTION_VIEW);
-                httpIntent.setData(Uri.parse("https://razorpay.com/sample-application/"));
-                startActivity(httpIntent);
-            }
-        });
-
+        openFragment(new FundFragment());
     }
 
-    public void startPayment() {
+    BottomNavigationView.OnNavigationItemSelectedListener navigation = new BottomNavigationView.OnNavigationItemSelectedListener() {
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            switch (item.getItemId()) {
 
-        final Activity activity = this;
-        /**
-         * Instantiate Checkout
-         */
-        final Checkout checkout = new Checkout();
-
-        /**
-         * Set your logo here
-         */
-        checkout.setImage(R.drawable.earth);
-
-        try {
-            JSONObject options = new JSONObject();
-
-            options.put("name", name);
-
-            /**
-             * Description can be anything
-             * eg: Reference No. #123123 - This order number is passed by you for your internal reference. This is not the `razorpay_order_id`.
-             *     Invoice Payment
-             *     etc.
-             */
-
-            //options.put("order_id", "order_9A33XWu170gUtm");
-            options.put("currency", "INR");
-
-            /**
-             * Amount is always passed in currency subunits
-             * Eg: "500" = INR 5.00
-             */
-
-            JSONObject theme = new JSONObject();
-            theme.put("color", "#FD9725");
-
-            JSONObject prefill = new JSONObject();
-            prefill.put("contact", phoneNumber);
-
-            options.put("theme", theme);
-            options.put("prefill", prefill);
-
-            checkout.open(activity, options);
-        } catch (Exception e) {
-            Log.e("TAG", "Error in starting Razorpay Checkout", e);
+                case R.id.money:
+                    openFragment(new FundFragment());
+                    return true;
+                case R.id.materials:
+                    openFragment(new MaterialsFragment());
+                    return true;
+            }
+            return false;
         }
-    }
+    };
 
-    @Override
-    public void onPaymentSuccess(String s) {
-
-        try {
-            Toast.makeText(this, "Payment Successful: " + s, Toast.LENGTH_SHORT).show();
-        } catch (Exception e) {
-            Log.e("TAG", "Exception in onPaymentSuccess", e);
-        }
-
-    }
-
-    @Override
-    public void onPaymentError(int i, String s) {
-
-        try {
-            Log.d("TAG", "Payment failed: " + i + " " + s);
-        } catch (Exception e) {
-            Log.e("TAG", "Exception in onPaymentError", e);
-        }
-
+    private void openFragment(Fragment fragment) {
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.d_container, fragment);
+        fragmentTransaction.commit();
     }
 }

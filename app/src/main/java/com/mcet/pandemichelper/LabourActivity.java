@@ -22,7 +22,8 @@ public class LabourActivity extends AppCompatActivity {
         webView.getSettings().setLoadsImagesAutomatically(true);
         webView.getSettings().setJavaScriptEnabled(true);
         webView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
-        webView.loadUrl("http://meghalaya.gov.in");
+        webView.loadUrl("https://spoken-tutorial.org/");
+        //https://swayam.gov.in/
 
     }
 

@@ -17,6 +17,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextClock;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -49,48 +51,59 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private FirebaseAuth auth;
 
     private MaterialToolbar mAppBar;
+    private TextView role;
 
     private VideoDetailsModel videoDetailsModel;
     private ArrayList<VideoDetailsModel> arrayList;
     private VideoDetailsAdapter adapter;
     private RecyclerView mListView;
     private String url = "https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=UC7QhK6RVJWM-yqeC2GMjlYA&maxResults=5&key=AIzaSyAuRciEQbgHCmxW3Yhwe0p6iuMz4B8A5jE";
+    private String sRole, name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        Intent is = new Intent(this,LocationService.class);
-        is.putExtra("na","start");
+        Intent is = new Intent(this, LocationService.class);
+        is.putExtra("na", "start");
         startService(is);
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         mListView = findViewById(R.id.recyclerView);
         mListView.setLayoutManager(linearLayoutManager);
 
         mAppBar = findViewById(R.id.appbar);
+        role = findViewById(R.id.role);
         findViewById(R.id.card_donate).setOnClickListener(this);
         findViewById(R.id.card_sos).setOnClickListener(this);
         findViewById(R.id.card_health).setOnClickListener(this);
         findViewById(R.id.card_toll).setOnClickListener(this);
         findViewById(R.id.card_volunteer).setOnClickListener(this);
         findViewById(R.id.card_labour).setOnClickListener(this);
+        findViewById(R.id.card_doc).setOnClickListener(this);
+        findViewById(R.id.card_eservices).setOnClickListener(this);
+        findViewById(R.id.card_courses).setOnClickListener(this);
 
         arrayList = new ArrayList<>();
 
-        adapter = new VideoDetailsAdapter(HomeActivity.this,arrayList);
+        adapter = new VideoDetailsAdapter(HomeActivity.this, arrayList);
         adapter.setOnItemClickListener(onItemClickListener);
 
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
-        reference = FirebaseDatabase.getInstance().getReference("UserInfo/"+user.getUid());
+        reference = FirebaseDatabase.getInstance().getReference("UserInfo/" + user.getUid());
 
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 UserModel model = dataSnapshot.getValue(UserModel.class);
-                mAppBar.setTitle(model.getName());
+                name = model.getName();
+                mAppBar.setTitle(name);
+                sRole = model.getRole();
+//                if (model.getRole().equals("Doctor")){
+//                    role.setText("Patients");
+//                }
 
             }
 
@@ -227,7 +240,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
 
-        switch (v.getId()){
+        switch (v.getId()) {
 
             case R.id.card_donate:
                 Intent i = new Intent(HomeActivity.this, DonateActivity.class);
@@ -237,25 +250,45 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.card_volunteer:
-                startActivity(new Intent(HomeActivity.this,VolunteerActivity.class));
+                Intent workIntent = new Intent(HomeActivity.this, LabourActivity.class);
+                workIntent.putExtra("role", sRole);
+                startActivity(workIntent);
                 break;
 
             case R.id.card_sos:
-                startActivity(new Intent(HomeActivity.this,FirstRespondersActivity.class));
+                startActivity(new Intent(HomeActivity.this, FirstRespondersActivity.class));
                 break;
 
             case R.id.card_health:
-                startActivity(new Intent(HomeActivity.this,HealthCareActivity.class));
+                startActivity(new Intent(HomeActivity.this, HealthCareActivity.class));
                 break;
 
             case R.id.card_toll:
-                startActivity(new Intent(HomeActivity.this,TollFreeActivity.class));
+                startActivity(new Intent(HomeActivity.this, TollFreeActivity.class));
                 break;
 
             case R.id.card_labour:
-                Intent i2 = new Intent(HomeActivity.this,MapsActivity.class);
+                Intent i2 = new Intent(HomeActivity.this, MapsActivity.class);
 //                i2.putExtra("phone",phone);
                 startActivity(i2);
+                break;
+
+            case R.id.card_doc:
+                Intent docIntent = new Intent(HomeActivity.this, DoctorActivity.class);
+                docIntent.putExtra("name", name);
+                startActivity(docIntent);
+                break;
+
+            case R.id.card_eservices:
+                Intent esIntent = new Intent(HomeActivity.this, EservicesActivity.class);
+                esIntent.putExtra("name", name);
+                startActivity(esIntent);
+                break;
+
+            case R.id.card_courses:
+                Intent cIntent = new Intent(HomeActivity.this, CoursesActivity.class);
+                cIntent.putExtra("name", name);
+                startActivity(cIntent);
                 break;
         }
 

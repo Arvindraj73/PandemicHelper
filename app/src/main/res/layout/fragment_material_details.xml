@@ -1,0 +1,763 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:numberpicker="http://schemas.android.com/apk/res-auto"
+    tools:context=".MaterialDetailsFragment"
+    android:padding="@dimen/lPadding">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/chipGroup"
+        android:layout_marginTop="@dimen/lPadding">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="@dimen/lPadding">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/lPadding"
+                android:visibility="gone"
+                android:id="@+id/ltoilet">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/toiletries"
+                    android:textSize="@dimen/tsize2"
+                    android:fontFamily="@font/poppins_light"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textStyle="bold" />
+
+                <CheckBox
+                    android:id="@+id/ch_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Soap"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/poppins_light"
+                    android:textColor="@color/colorPrimary" />
+
+                <CheckBox
+                    android:id="@+id/ch_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Washing soap"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/poppins_light"
+                    android:textColor="@color/colorPrimary" />
+
+                <CheckBox
+                    android:id="@+id/ch_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Dish wash bar"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/poppins_light"
+                    android:textColor="@color/colorPrimary" />
+
+                <CheckBox
+                    android:id="@+id/ch_4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Sanitizer"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/poppins_light"
+                    android:textColor="@color/colorPrimary" />
+
+                <CheckBox
+                    android:id="@+id/ch_5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Handwash"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/poppins_light"
+                    android:textColor="@color/colorPrimary" />
+
+                <CheckBox
+                    android:id="@+id/ch_6"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Toothbrush"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/poppins_light"
+                    android:textColor="@color/colorPrimary" />
+
+                <CheckBox
+                    android:id="@+id/ch_7"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Rubber chappals"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/poppins_light"
+                    android:textColor="@color/colorPrimary" />
+
+                <CheckBox
+                    android:id="@+id/ch_8"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Tissue paper"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/poppins_light"
+                    android:textColor="@color/colorPrimary" />
+
+                <CheckBox
+                    android:id="@+id/ch_9"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Rubber chappals"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/poppins_light"
+                    android:textColor="@color/colorPrimary" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/lPadding"
+                android:visibility="gone"
+                android:id="@+id/lfood">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/fooditems"
+                    android:textSize="@dimen/tsize2"
+                    android:fontFamily="@font/poppins_light"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textStyle="bold" />
+
+                <CheckBox
+                    android:id="@+id/ch_10"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Rice"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/poppins_light"
+                    android:textColor="@color/colorPrimary" />
+
+                <CheckBox
+                    android:id="@+id/ch_11"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Wheat"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/poppins_light"
+                    android:textColor="@color/colorPrimary" />
+
+                <CheckBox
+                    android:id="@+id/ch_12"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Sugar"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/poppins_light"
+                    android:textColor="@color/colorPrimary" />
+
+                <CheckBox
+                    android:id="@+id/ch_13"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Salt"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/poppins_light"
+                    android:textColor="@color/colorPrimary" />
+
+                <CheckBox
+                    android:id="@+id/ch_14"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Tea powder"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/poppins_light"
+                    android:textColor="@color/colorPrimary" />
+
+                <CheckBox
+                    android:id="@+id/ch_15"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Pulses"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/poppins_light"
+                    android:textColor="@color/colorPrimary" />
+
+                <CheckBox
+                    android:id="@+id/ch_16"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Biscuits"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/poppins_light"
+                    android:textColor="@color/colorPrimary" />
+
+                <CheckBox
+                    android:id="@+id/ch_17"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Baby food"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/poppins_light"
+                    android:textColor="@color/colorPrimary" />
+
+                <CheckBox
+                    android:id="@+id/ch_18"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Glucose"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/poppins_light"
+                    android:textColor="@color/colorPrimary" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/lPadding"
+                android:visibility="gone"
+                android:id="@+id/lstat">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Stationery"
+                    android:textSize="@dimen/tsize2"
+                    android:fontFamily="@font/poppins_light"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textStyle="bold" />
+
+                <CheckBox
+                    android:id="@+id/ch_19"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Notebooks"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/poppins_light"
+                    android:textColor="@color/colorPrimary" />
+
+                <CheckBox
+                    android:id="@+id/ch_20"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Pen"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/poppins_light"
+                    android:textColor="@color/colorPrimary" />
+
+                <CheckBox
+                    android:id="@+id/ch_21"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Pencil"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/poppins_light"
+                    android:textColor="@color/colorPrimary" />
+
+                <CheckBox
+                    android:id="@+id/ch_22"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="School bags"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/poppins_light"
+                    android:textColor="@color/colorPrimary" />
+
+                <CheckBox
+                    android:id="@+id/ch_23"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Water bottles"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/poppins_light"
+                    android:textColor="@color/colorPrimary" />
+
+                <CheckBox
+                    android:id="@+id/ch_24"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Umbrella"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/poppins_light"
+                    android:textColor="@color/colorPrimary" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/lPadding"
+                android:visibility="gone"
+                android:id="@+id/lsan">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Sanitation"
+                    android:textSize="@dimen/tsize2"
+                    android:fontFamily="@font/poppins_light"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textStyle="bold" />
+
+                <CheckBox
+                    android:id="@+id/ch_25"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Sanitary napkins"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/poppins_light"
+                    android:textColor="@color/colorPrimary" />
+
+                <CheckBox
+                    android:id="@+id/ch_26"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Bleaching powder"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/poppins_light"
+                    android:textColor="@color/colorPrimary" />
+
+                <CheckBox
+                    android:id="@+id/ch_27"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Dettol or any antiseptic"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/poppins_light"
+                    android:textColor="@color/colorPrimary" />
+
+                <CheckBox
+                    android:id="@+id/ch_28"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Detergents and dish wash"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/poppins_light"
+                    android:textColor="@color/colorPrimary" />
+
+                <CheckBox
+                    android:id="@+id/ch_29"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Floor and toilet cleaners"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/poppins_light"
+                    android:textColor="@color/colorPrimary" />
+
+                <CheckBox
+                    android:id="@+id/ch_30"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Baby and adult diapers"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/poppins_light"
+                    android:textColor="@color/colorPrimary" />
+
+                <CheckBox
+                    android:id="@+id/ch_31"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Masks"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/poppins_light"
+                    android:textColor="@color/colorPrimary" />
+
+                <CheckBox
+                    android:id="@+id/ch_32"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Rubber Gloves"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/poppins_light"
+                    android:textColor="@color/colorPrimary" />
+
+                <CheckBox
+                    android:id="@+id/ch_33"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Mosquito coils"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/poppins_light"
+                    android:textColor="@color/colorPrimary" />
+
+                <CheckBox
+                    android:id="@+id/ch_34"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Toilet brush"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/poppins_light"
+                    android:textColor="@color/colorPrimary" />
+
+                <CheckBox
+                    android:id="@+id/ch_35"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Mop"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/poppins_light"
+                    android:textColor="@color/colorPrimary" />
+
+                <CheckBox
+                    android:id="@+id/ch_36"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Broom"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/poppins_light"
+                    android:textColor="@color/colorPrimary" />
+
+                <CheckBox
+                    android:id="@+id/ch_37"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Bucket and mug"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/poppins_light"
+                    android:textColor="@color/colorPrimary" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/lPadding"
+                android:visibility="gone"
+                android:id="@+id/lcloth">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/clothes"
+                    android:textSize="@dimen/tsize2"
+                    android:fontFamily="@font/poppins_light"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Please avoid giving used clothes"
+                    android:textSize="@dimen/tsize3"
+                    android:fontFamily="@font/poppins_light"
+                    android:textColor="#000000"
+                    android:textStyle="italic" />
+
+                <CheckBox
+                    android:id="@+id/ch_38"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Blankets and sleeping"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/poppins_light"
+                    android:textColor="@color/colorPrimary" />
+
+                <CheckBox
+                    android:id="@+id/ch_39"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Undergarments for ladies, gents and children"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/poppins_light"
+                    android:textColor="@color/colorPrimary" />
+
+                <CheckBox
+                    android:id="@+id/ch_40"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Bath towels"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/poppins_light"
+                    android:textColor="@color/colorPrimary" />
+
+                <CheckBox
+                    android:id="@+id/ch_41"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Kids wear"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/poppins_light"
+                    android:textColor="@color/colorPrimary" />
+
+                <CheckBox
+                    android:id="@+id/ch_42"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Other Clothes"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/poppins_light"
+                    android:textColor="@color/colorPrimary" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/lPadding"
+                android:visibility="gone"
+                android:id="@+id/lmed">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Medicines"
+                    android:textSize="@dimen/tsize2"
+                    android:fontFamily="@font/poppins_light"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="(Please provide the bill as well)"
+                    android:textSize="@dimen/tsize3"
+                    android:fontFamily="@font/poppins_light"
+                    android:textColor="#000000"
+                    android:textStyle="italic" />
+
+                <CheckBox
+                    android:id="@+id/ch_43"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Betadine ointment"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/poppins_light"
+                    android:textColor="@color/colorPrimary" />
+
+                <CheckBox
+                    android:id="@+id/ch_44"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="ORS packets"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/poppins_light"
+                    android:textColor="@color/colorPrimary" />
+
+                <CheckBox
+                    android:id="@+id/ch_45"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Citrizine 10 mg"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/poppins_light"
+                    android:textColor="@color/colorPrimary" />
+
+                <CheckBox
+                    android:id="@+id/ch_46"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Paracetamol 500 mg"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/poppins_light"
+                    android:textColor="@color/colorPrimary" />
+
+                <CheckBox
+                    android:id="@+id/ch_47"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Doxycycline"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/poppins_light"
+                    android:textColor="@color/colorPrimary" />
+
+                <CheckBox
+                    android:id="@+id/ch_48"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Absorbent cotton wool"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/poppins_light"
+                    android:textColor="@color/colorPrimary" />
+
+                <CheckBox
+                    android:id="@+id/ch_49"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Clotrimazole"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/poppins_light"
+                    android:textColor="@color/colorPrimary" />
+
+                <CheckBox
+                    android:id="@+id/ch_50"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Tab Cefixime 200 mg"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/poppins_light"
+                    android:textColor="@color/colorPrimary" />
+
+                <CheckBox
+                    android:id="@+id/ch_51"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Amplodipine 5 mg"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/poppins_light"
+                    android:textColor="@color/colorPrimary" />
+
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <RelativeLayout
+        android:id="@+id/chipGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/padding">
+
+        <TextView
+            android:id="@+id/tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimaryDark"
+            android:fontFamily="@font/poppins_light"
+            android:text="@string/category"
+            android:textSize="@dimen/tsize2" />
+
+        <HorizontalScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv"
+            android:padding="@dimen/lPadding">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip"
+                    style="@style/Widget.MaterialComponents.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/toiletries"
+                    app:chipBackgroundColor="@color/colorPrimaryLight" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip1"
+                    style="@style/Widget.MaterialComponents.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/lPadding"
+                    android:text="@string/fooditems"
+                    app:chipBackgroundColor="@color/colorPrimaryLight" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip2"
+                    style="@style/Widget.MaterialComponents.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_marginStart="@dimen/lPadding"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Stationery"
+                    app:chipBackgroundColor="@color/colorPrimaryLight" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip3"
+                    style="@style/Widget.MaterialComponents.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Sanitation"
+                    android:layout_marginStart="@dimen/lPadding"
+                    app:chipBackgroundColor="@color/colorPrimaryLight" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip4"
+                    style="@style/Widget.MaterialComponents.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/lPadding"
+                    android:text="@string/clothes"
+                    app:chipBackgroundColor="@color/colorPrimaryLight" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip5"
+                    style="@style/Widget.MaterialComponents.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_marginStart="@dimen/lPadding"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Medicines"
+                    app:chipBackgroundColor="@color/colorPrimaryLight" />
+            </LinearLayout>
+        </HorizontalScrollView>
+
+
+    </RelativeLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/Widget.PandemicHelper.Button"
+        android:text="@string/submit"
+        android:id="@+id/submitItems"
+        android:layout_alignParentBottom="true" />
+
+</RelativeLayout>

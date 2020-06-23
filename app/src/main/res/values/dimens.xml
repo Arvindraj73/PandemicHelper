@@ -10,4 +10,5 @@
     <dimen name="tsize3">18sp</dimen>
     <dimen name="width">250dp</dimen>
     <dimen name="vHeight">180dp</dimen>
+    <dimen name="dp200">200dp</dimen>
 </resources>

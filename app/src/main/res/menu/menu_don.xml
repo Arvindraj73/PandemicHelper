@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/money"
+        android:title="@string/money"
+        android:icon="@drawable/ic_money_bag"
+        android:enabled="true" />
+
+    <item
+        android:enabled="true"
+        android:title="@string/material"
+        android:icon="@drawable/ic_donation_1"
+        android:id="@+id/materials" />
+
+</menu>

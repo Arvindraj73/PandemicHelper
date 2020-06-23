@@ -19,7 +19,7 @@ public class HealthCareActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_health_care);
 
-        bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView = findViewById(R.id.hos_bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
 
         openFragment(new HospitalsFragment());
@@ -29,8 +29,7 @@ public class HealthCareActivity extends AppCompatActivity {
     private void openFragment(Fragment fragment) {
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.container,fragment);
-        transaction.addToBackStack(null);
+        transaction.replace(R.id.hos_container, fragment);
         transaction.commit();
 
     }

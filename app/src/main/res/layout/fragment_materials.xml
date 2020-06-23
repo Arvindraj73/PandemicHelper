@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".MaterialsFragment"
+    android:orientation="vertical"
+    android:id="@+id/d2_container">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight=".5"
+        android:id="@+id/mapSelect">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/border"
+            android:padding="@dimen/padding"
+            android:layout_margin="@dimen/padding">
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:layout_width="@dimen/dp200"
+                android:layout_height="@dimen/dp200"
+                app:lottie_rawRes="@raw/map"
+                app:lottie_loop="true"
+                android:scaleType="fitStart"
+                app:lottie_autoPlay="true"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:fontFamily="@font/poppins_light"
+                android:lineSpacingExtra="10dp"
+                android:text="@string/click_here_to_handover_the_materials_in_a_relief_material_center"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/tsize2"
+                android:textStyle="bold" />
+        </RelativeLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight=".5"
+        android:id="@+id/details">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/border"
+            android:padding="@dimen/padding"
+            android:layout_margin="@dimen/padding">
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:layout_width="@dimen/dp200"
+                android:layout_height="@dimen/dp200"
+                app:lottie_rawRes="@raw/form"
+                app:lottie_loop="true"
+                android:scaleType="fitStart"
+                app:lottie_autoPlay="true"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:fontFamily="@font/poppins_light"
+                android:lineSpacingExtra="10dp"
+                android:text="@string/click_here_to_handover_the_materials_to_a_volunteer"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/tsize2"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+</LinearLayout>

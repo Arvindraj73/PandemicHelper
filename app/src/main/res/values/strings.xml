@@ -29,10 +29,40 @@
     <string name="epass">E-Pass</string>
     <string name="geo">Geofences</string>
     <string name="text_label_5">Shelters</string>
+    <string name="text">Available</string>
+    <string name="noOfPatients">Enter Patients Limit</string>
+    <string name="time">Enter Your Timing</string>
+    <string name="from">From</string>
+    <string name="to">To</string>
+    <string name="patients">Patients</string>
+    <string name="profile">Profile</string>
 
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="doctor">Doctors</string>
+    <string name="appoint">Make Appoinment</string>
+    <string name="name">Name : </string>
+    <string name="email">Email : </string>
+    <string name="money">Fund Donation</string>
+    <string name="material">Relief Materials</string>
+    <string name="or">Or</string>
+    <string name="click_here_to_handover_the_materials_to_a_volunteer">Click here\nto handover the\nmaterials\nto a Volunteer</string>
+    <string name="click_here_to_handover_the_materials_in_a_relief_material_center">Click here\nto handover\nthe materials in\na Relief Material\nCenter</string>
+    <string name="toiletries">"Toiletries "</string>
+    <string name="fooditems">Food items</string>
+    <string name="clothes">Clothes</string>
+    <string name="Sanitation">Sanitation</string>
+    <string name="Stationery">Stationery</string>
+    <string name="Medicines">Medicines</string>
+    <string name="category">Select Category</string>
+    <string name="submit">Submit</string>
+    <string name="eserv">eServices</string>
+    <string name="courses">Courses</string>
+    <!-- TODO: Remove or change this placeholder text -->
     <string-array name="role">
         <item>Select Your Role</item>
         <item>Essential Worker</item>
+        <item>User</item>
+        <item>Doctor</item>
         <item>Labour</item>
         <item>Volunteer</item>
     </string-array>

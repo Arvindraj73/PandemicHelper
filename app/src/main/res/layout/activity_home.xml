@@ -27,7 +27,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/rHeight"
+        android:layout_height="match_parent"
         android:background="@drawable/my_gradient"
         android:layout_below="@+id/sc">
 
@@ -37,8 +37,7 @@
             android:layout_height="@dimen/imgSize"
             android:layout_centerHorizontal="true"
             android:contentDescription="@string/todo"
-            android:src="@drawable/earth"
-            android:layout_marginTop="@dimen/mTop"/>
+            android:src="@drawable/earth" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -56,7 +55,6 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
         android:padding="@dimen/lPadding">
 
 
@@ -74,9 +72,7 @@
             android:alignmentMode="alignMargins"
             android:columnCount="3"
             android:columnOrderPreserved="false"
-            android:rowCount="2">
-
-
+            android:rowCount="3">
 
             <com.google.android.material.card.MaterialCardView
                 android:layout_height="wrap_content"
@@ -84,13 +80,13 @@
                 android:layout_columnWeight="1"
                 android:layout_rowWeight="1"
                 app:cardCornerRadius="12dp"
-                android:layout_margin="12dp"
-                android:layout_centerInParent="true"
+                android:layout_margin="5dp"
                 android:id="@+id/card_donate">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:gravity="center"
                     android:orientation="vertical"
                     android:padding="@dimen/lPadding">
@@ -103,7 +99,6 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
                         android:textSize="@dimen/tsize"
                         android:text="@string/donate"
                         android:textStyle="bold"
@@ -114,21 +109,20 @@
 
             </com.google.android.material.card.MaterialCardView>
 
-
-
             <com.google.android.material.card.MaterialCardView
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:layout_columnWeight="1"
                 android:layout_rowWeight="1"
                 app:cardCornerRadius="12dp"
-                android:layout_margin="12dp"
+                android:layout_margin="5dp"
                 android:id="@+id/card_health"
                 android:layout_centerInParent="true">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:gravity="center"
                     android:orientation="vertical"
                     android:padding="@dimen/lPadding">
@@ -141,7 +135,6 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
                         android:textSize="@dimen/tsize"
                         android:text="@string/health_care"
                         android:textStyle="bold"
@@ -152,21 +145,19 @@
 
             </com.google.android.material.card.MaterialCardView>
 
-
-
             <com.google.android.material.card.MaterialCardView
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:layout_columnWeight="1"
                 android:layout_rowWeight="1"
                 app:cardCornerRadius="12dp"
-                android:layout_margin="12dp"
-                android:layout_centerInParent="true"
+                android:layout_margin="5dp"
                 android:id="@+id/card_labour">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:gravity="center"
                     android:orientation="vertical"
                     android:padding="@dimen/lPadding">
@@ -179,7 +170,6 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
                         android:textSize="@dimen/tsize"
                         android:text="@string/geo"
                         android:textStyle="bold"
@@ -190,21 +180,19 @@
 
             </com.google.android.material.card.MaterialCardView>
 
-
-
             <com.google.android.material.card.MaterialCardView
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:layout_columnWeight="1"
                 android:layout_rowWeight="1"
                 app:cardCornerRadius="12dp"
-                android:layout_margin="12dp"
-                android:layout_centerInParent="true"
+                android:layout_margin="5dp"
                 android:id="@+id/card_volunteer">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:gravity="center"
                     android:orientation="vertical"
                     android:padding="@dimen/lPadding">
@@ -217,9 +205,9 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
                         android:textSize="@dimen/tsize"
                         android:text="@string/volunteer"
+                        android:id="@+id/role"
                         android:textStyle="bold"
                         android:textColor="@color/primaryTextColor"/>
 
@@ -228,44 +216,142 @@
 
             </com.google.android.material.card.MaterialCardView>
 
-
-
             <com.google.android.material.card.MaterialCardView
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:layout_columnWeight="1"
                 android:layout_rowWeight="1"
                 app:cardCornerRadius="12dp"
-                android:layout_margin="12dp"
-                android:layout_centerInParent="true"
+                android:layout_margin="5dp"
                 android:id="@+id/card_sos">
 
                 <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:padding="@dimen/lPadding">
-
-                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_sos"/>
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="@dimen/lPadding">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:textSize="@dimen/tsize"
-                    android:text="@string/first_responders"
-                    android:textStyle="bold"
-                    android:textColor="@color/primaryTextColor"/>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_sos" />
 
-            </LinearLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/tsize"
+                        android:text="@string/first_responders"
+                        android:textStyle="bold"
+                        android:textColor="@color/primaryTextColor" />
+
+                </LinearLayout>
 
 
             </com.google.android.material.card.MaterialCardView>
 
+            <com.google.android.material.card.MaterialCardView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_columnWeight="1"
+                android:layout_rowWeight="1"
+                app:cardCornerRadius="12dp"
+                android:layout_margin="5dp"
+                android:id="@+id/card_toll">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="@dimen/lPadding">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_support" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/tsize"
+                        android:text="@string/toll_free_numbers"
+                        android:textStyle="bold"
+                        android:textColor="@color/primaryTextColor" />
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_columnWeight="1"
+                android:layout_rowWeight="1"
+                app:cardCornerRadius="12dp"
+                android:layout_margin="5dp"
+                android:id="@+id/card_doc">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="@dimen/lPadding">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_stethoscope_1" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/tsize"
+                        android:text="@string/doctor"
+                        android:textStyle="bold"
+                        android:textColor="@color/primaryTextColor" />
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_columnWeight="1"
+                android:layout_rowWeight="1"
+                app:cardCornerRadius="12dp"
+                android:layout_margin="5dp"
+                android:id="@+id/card_eservices">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="@dimen/lPadding">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_admin" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/tsize"
+                        android:text="@string/eserv"
+                        android:textStyle="bold"
+                        android:textColor="@color/primaryTextColor" />
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
 
 
             <com.google.android.material.card.MaterialCardView
@@ -274,32 +360,31 @@
                 android:layout_columnWeight="1"
                 android:layout_rowWeight="1"
                 app:cardCornerRadius="12dp"
-                android:layout_margin="12dp"
-                android:layout_centerInParent="true"
-                android:id="@+id/card_toll">
+                android:layout_margin="5dp"
+                android:id="@+id/card_courses">
 
                 <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:padding="@dimen/lPadding">
-
-                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_support"/>
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="@dimen/lPadding">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:textSize="@dimen/tsize"
-                    android:text="@string/toll_free_numbers"
-                    android:textStyle="bold"
-                    android:textColor="@color/primaryTextColor"/>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_online_education" />
 
-            </LinearLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/tsize"
+                        android:text="@string/courses"
+                        android:textStyle="bold"
+                        android:textColor="@color/primaryTextColor" />
+
+                </LinearLayout>
 
             </com.google.android.material.card.MaterialCardView>
 
@@ -313,14 +398,13 @@
             android:text="News"
             android:textSize="@dimen/tsize2"
             android:textColor="@color/colorPrimaryDark"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginTop="8dp"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true" />
 
     </RelativeLayout>
 

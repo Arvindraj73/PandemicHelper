@@ -42,16 +42,23 @@ public class AdminVolunteerActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         mDatabase = FirebaseDatabase.getInstance();
-        mRef = mDatabase.getReference("VolunteerWorks");
 
         id = getIntent().getStringExtra("id");
+
+        if (id.equals("rm")) {
+            fab.setVisibility(View.GONE);
+            mRef = mDatabase.getReference("ReliefMaterials");
+        } else {
+            fab.setVisibility(View.VISIBLE);
+            mRef = mDatabase.getReference("VolunteerWorks");
+        }
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Intent i = new Intent(AdminVolunteerActivity.this,CreateWorkActivity.class);
-                i.putExtra("id","vol");
+                Intent i = new Intent(AdminVolunteerActivity.this, CreateWorkActivity.class);
+                i.putExtra("id", "vol");
                 startActivity(i);
             }
         });
