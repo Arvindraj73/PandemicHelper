@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -35,6 +37,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ThrowOnExtraProperties;
 import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONArray;
@@ -43,6 +46,7 @@ import org.json.JSONObject;
 
 import java.nio.file.FileStore;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -63,6 +67,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        loadLocale();
         setContentView(R.layout.activity_home);
 
         Intent is = new Intent(this, LocationService.class);
@@ -116,12 +121,23 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         mAppBar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()){
-                    case R.id.logout :
+                switch (item.getItemId()) {
+                    case R.id.logout:
                         logOut();
                         return true;
+                    case R.id.en:
+                        Toast.makeText(HomeActivity.this, "en", Toast.LENGTH_SHORT).show();
+                        setLocale("en");
+                        recreate();
+                        return true;
+                    case R.id.ml:
+                        Toast.makeText(HomeActivity.this, "ml", Toast.LENGTH_SHORT).show();
+                        setLocale("ml");
+                        recreate();
+                        return true;
 
-                    default: return false;
+                    default:
+                        return false;
                 }
             }
         });
@@ -131,9 +147,32 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    private void setLocale(String lang) {
+
+        Toast.makeText(HomeActivity.this, lang, Toast.LENGTH_SHORT).show();
+        Locale locale = new Locale(lang);
+        Locale.setDefault(locale);
+        Configuration configuration = new Configuration();
+        configuration.locale = locale;
+        getBaseContext().getResources().updateConfiguration(configuration, getBaseContext().getResources().getDisplayMetrics());
+        SharedPreferences.Editor editor = getSharedPreferences("settings", MODE_PRIVATE).edit();
+        editor.putString("Lang", lang);
+        editor.apply();
+
+    }
+
+    public void loadLocale() {
+
+        Log.d("tag", "Inlocale");
+        SharedPreferences preferences = getSharedPreferences("settings", MODE_PRIVATE);
+        String lang = preferences.getString("Lang", "");
+        setLocale(lang);
+
+    }
+
     private void logOut() {
         auth.signOut();
-        startActivity(new Intent(HomeActivity.this,LoginActivity.class));
+        startActivity(new Intent(HomeActivity.this, LoginActivity.class));
     }
 
     private void displayVideos() {
