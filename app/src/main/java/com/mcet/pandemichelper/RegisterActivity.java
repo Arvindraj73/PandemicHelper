@@ -37,6 +37,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 
 import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
@@ -51,7 +53,7 @@ public class RegisterActivity extends AppCompatActivity implements GoogleApiClie
 
     private TextView errorView;
 
-    private String name, email, pass, cpass, phone;
+    private String name, email, pass, cpass, phone, deviceToken;
 
     private ProgressDialog progressDialog;
 
@@ -106,6 +108,16 @@ public class RegisterActivity extends AppCompatActivity implements GoogleApiClie
                 email = mEmail.getEditText().getText().toString();
                 pass = mPass.getEditText().getText().toString();
                 cpass = mConfirmPass.getEditText().getText().toString();
+
+                FirebaseInstanceId.getInstance().getInstanceId().addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                        if (task.isSuccessful()) {
+                            deviceToken = task.getResult().getToken();
+                            Log.d("token", deviceToken);
+                        }
+                    }
+                });
 
                 //Log.d("df",String.valueOf(phoneStr.length()));
                 if (name.isEmpty()) {
@@ -194,7 +206,7 @@ public class RegisterActivity extends AppCompatActivity implements GoogleApiClie
 
                                 FirebaseUser mFirebaseUser = mAuth.getCurrentUser();
 
-                                UserModel mUser = new UserModel(name, phone, email, pass, mFirebaseUser.getUid(), spinner.getSelectedItem().toString(), String.valueOf(lat), String.valueOf(lon));
+                                UserModel mUser = new UserModel(name, phone, email, pass, mFirebaseUser.getUid(), spinner.getSelectedItem().toString(), String.valueOf(lat), String.valueOf(lon), deviceToken);
                                 mRef.child("UserInfo/"+mFirebaseUser.getUid()).setValue(mUser).addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {

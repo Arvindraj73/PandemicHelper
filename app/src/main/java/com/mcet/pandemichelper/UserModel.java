@@ -2,7 +2,24 @@ package com.mcet.pandemichelper;
 
 public class UserModel {
 
-    String Name,Phone,Email,Pass,Uid,Role,lat,lon;
+    String Name;
+    String Phone;
+    String Email;
+    String Pass;
+    String Uid;
+    String Role;
+    String lat;
+    String lon;
+
+    public String getDeviceToken() {
+        return deviceToken;
+    }
+
+    public void setDeviceToken(String deviceToken) {
+        this.deviceToken = deviceToken;
+    }
+
+    String deviceToken;
 
     public String getLat() {
         return lat;
@@ -71,7 +88,7 @@ public class UserModel {
         Role = role;
     }
 
-    public UserModel(String name, String phone, String email, String pass, String uid, String role, String lat, String lon) {
+    public UserModel(String name, String phone, String email, String pass, String uid, String role, String lat, String lon, String deviceToken) {
         Name = name;
         Phone = phone;
         Email = email;
@@ -80,5 +97,6 @@ public class UserModel {
         Role = role;
         this.lat = lat;
         this.lon = lon;
+        this.deviceToken = deviceToken;
     }
 }

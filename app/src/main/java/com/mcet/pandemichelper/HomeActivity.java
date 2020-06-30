@@ -27,6 +27,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.card.MaterialCardView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -36,6 +38,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -58,7 +62,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private VideoDetailsAdapter adapter;
     private RecyclerView mListView;
     private String url = "https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=UC7QhK6RVJWM-yqeC2GMjlYA&maxResults=5&key=AIzaSyAuRciEQbgHCmxW3Yhwe0p6iuMz4B8A5jE";
-    private String sRole, name;
+    private String sRole, name, deviceToken;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,11 +117,21 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
+        FirebaseInstanceId.getInstance().getInstanceId().addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+            @Override
+            public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                if (task.isSuccessful()) {
+                    deviceToken = task.getResult().getToken();
+                    Log.d("token", deviceToken);
+                }
+            }
+        });
+
         mAppBar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()){
-                    case R.id.logout :
+                switch (item.getItemId()) {
+                    case R.id.logout:
                         logOut();
                         return true;
 
