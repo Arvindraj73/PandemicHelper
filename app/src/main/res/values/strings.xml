@@ -1,62 +1,62 @@
 <resources>
     <string name="app_name">PandemicHelper</string>
     <!-- Strings related to login -->
-    <string name="labor_monitor">Labour Monitor</string>
-    <string name="youtube">Youtube</string>
-    <string name="todo">Image Not Found</string>
-    <string name="toll_free_numbers">Toll Free</string>
-    <string name="health_care">Locations</string>
-    <string name="first_responders">SOS</string>
-    <string name="donate">Donate</string>
-    <string name="volunteer">Volunteer</string>
-    <string name="text_label_2">Medicals</string>
-    <string name="text_label_1">Hospitals</string>
-    <string name="title_activity_maps">Map</string>
+    <string name="labor_monitor" translatable="false">Labour Monitor</string>
+    <string name="youtube" translatable="false">Youtube</string>
+    <string name="todo" translatable="false">Image Not Found</string>
+    <string name="toll_free_numbers" translatable="false">Toll Free</string>
+    <string name="health_care" translatable="false">Locations</string>
+    <string name="first_responders" translatable="false">SOS</string>
+    <string name="donate" translatable="false">Donate</string>
+    <string name="volunteer" translatable="false">Volunteer</string>
+    <string name="text_label_2" translatable="false">Medicals</string>
+    <string name="text_label_1" translatable="false">Hospitals</string>
+    <string name="title_activity_maps" translatable="false">Map</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hospital_fragment">Hello Hospital fragment</string>
-    <string name="medicals_fragment">Hello Medicals fragment</string>
-    <string name="assign">Assign</string>
-    <string name="work">"Work : "</string>
-    <string name="desc">"Description : "</string>
-    <string name="noof">No of Workers Needed : </string>
-    <string name="phone">"Contact : "</string>
-    <string name="status">"Status : "</string>
-    <string name="dept">DEPT</string>
-    <string name="addVolunteer">Add Volunteer</string>
-    <string name="text_label_3">Health Care</string>
-    <string name="text_label_4">Labs</string>
-    <string name="epass">E-Pass</string>
-    <string name="geo">Geofences</string>
-    <string name="text_label_5">Shelters</string>
-    <string name="text">Available</string>
-    <string name="noOfPatients">Enter Patients Limit</string>
-    <string name="time">Enter Your Timing</string>
-    <string name="from">From</string>
-    <string name="to">To</string>
-    <string name="patients">Patients</string>
-    <string name="profile">Profile</string>
+    <string name="hospital_fragment" translatable="false">Hello Hospital fragment</string>
+    <string name="medicals_fragment" translatable="false">Hello Medicals fragment</string>
+    <string name="assign" translatable="false">Assign</string>
+    <string name="work" translatable="false">"Work : "</string>
+    <string name="desc" translatable="false">"Description : "</string>
+    <string name="noof" translatable="false">No of Workers Needed : </string>
+    <string name="phone" translatable="false">"Contact : "</string>
+    <string name="status" translatable="false">"Status : "</string>
+    <string name="dept" translatable="false">DEPT</string>
+    <string name="addVolunteer" translatable="false">Add Volunteer</string>
+    <string name="text_label_3" translatable="false">Health Care</string>
+    <string name="text_label_4" translatable="false">Labs</string>
+    <string name="epass" translatable="false">E-Pass</string>
+    <string name="geo" translatable="false">Geofences</string>
+    <string name="text_label_5" translatable="false">Shelters</string>
+    <string name="text" translatable="false">Available</string>
+    <string name="noOfPatients" translatable="false">Enter Patients Limit</string>
+    <string name="time" translatable="false">Enter Your Timing</string>
+    <string name="from" translatable="false">From</string>
+    <string name="to" translatable="false">To</string>
+    <string name="patients" translatable="false">Patients</string>
+    <string name="profile" translatable="false">Profile</string>
 
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="doctor">Doctors</string>
-    <string name="appoint">Make Appoinment</string>
-    <string name="name">Name : </string>
-    <string name="email">Email : </string>
-    <string name="money">Fund Donation</string>
-    <string name="material">Relief Materials</string>
-    <string name="or">Or</string>
-    <string name="click_here_to_handover_the_materials_to_a_volunteer">Click here\nto handover the\nmaterials\nto a Volunteer</string>
-    <string name="click_here_to_handover_the_materials_in_a_relief_material_center">Click here\nto handover\nthe materials in\na Relief Material\nCenter</string>
-    <string name="toiletries">"Toiletries "</string>
-    <string name="fooditems">Food items</string>
-    <string name="clothes">Clothes</string>
-    <string name="Sanitation">Sanitation</string>
-    <string name="Stationery">Stationery</string>
-    <string name="Medicines">Medicines</string>
-    <string name="category">Select Category</string>
-    <string name="submit">Submit</string>
-    <string name="eserv">eServices</string>
-    <string name="courses">Courses</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+    <string name="doctor" translatable="false">Doctors</string>
+    <string name="appoint" translatable="false">Make Appoinment</string>
+    <string name="name" translatable="false">Name : </string>
+    <string name="email" translatable="false">Email : </string>
+    <string name="money" translatable="false">Fund Donation</string>
+    <string name="material" translatable="false">Relief Materials</string>
+    <string name="or" translatable="false">Or</string>
+    <string name="click_here_to_handover_the_materials_to_a_volunteer" translatable="false">Click here\nto handover the\nmaterials\nto a Volunteer</string>
+    <string name="click_here_to_handover_the_materials_in_a_relief_material_center" translatable="false">Click here\nto handover\nthe materials in\na Relief Material\nCenter</string>
+    <string name="toiletries" translatable="false">"Toiletries "</string>
+    <string name="fooditems" translatable="false">Food items</string>
+    <string name="clothes" translatable="false">Clothes</string>
+    <string name="Sanitation" translatable="false">Sanitation</string>
+    <string name="Stationery" translatable="false">Stationery</string>
+    <string name="Medicines" translatable="false">Medicines</string>
+    <string name="category" translatable="false">Select Category</string>
+    <string name="submit" translatable="false">Submit</string>
+    <string name="eserv" translatable="false">eServices</string>
+    <string name="courses" translatable="false">Courses</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string-array name="role">
         <item>Select Your Role</item>
