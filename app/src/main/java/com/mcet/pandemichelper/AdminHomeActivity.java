@@ -22,7 +22,7 @@ public class AdminHomeActivity extends AppCompatActivity implements View.OnClick
         findViewById(R.id.card_sm).setOnClickListener(this);
         findViewById(R.id.card_relif).setOnClickListener(this);
         findViewById(R.id.card_essential).setOnClickListener(this);
-        findViewById(R.id.card_health).setOnClickListener(this);
+        findViewById(R.id.card_healthworker).setOnClickListener(this);
 
     }
 
