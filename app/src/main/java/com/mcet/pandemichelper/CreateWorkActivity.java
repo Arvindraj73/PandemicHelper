@@ -128,6 +128,7 @@ public class CreateWorkActivity extends AppCompatActivity {
             mWork.setHint("Shelter Name");
         }
 
+
         select.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

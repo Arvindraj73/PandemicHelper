@@ -49,7 +49,7 @@ public class AdminHealthWorkerActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 Intent i = new Intent(AdminHealthWorkerActivity.this, CreateWorkActivity.class);
-                i.putExtra("id", "vol");
+                i.putExtra("id", "hw");
                 startActivity(i);
             }
         });
