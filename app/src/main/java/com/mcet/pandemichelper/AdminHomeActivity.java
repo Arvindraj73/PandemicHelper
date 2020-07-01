@@ -6,8 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.google.android.material.card.MaterialCardView;
-
 public class AdminHomeActivity extends AppCompatActivity implements View.OnClickListener {
 
     @Override
@@ -23,6 +21,8 @@ public class AdminHomeActivity extends AppCompatActivity implements View.OnClick
         findViewById(R.id.card_geo).setOnClickListener(this);
         findViewById(R.id.card_sm).setOnClickListener(this);
         findViewById(R.id.card_relif).setOnClickListener(this);
+        findViewById(R.id.card_essential).setOnClickListener(this);
+        findViewById(R.id.card_health).setOnClickListener(this);
 
     }
 
@@ -74,6 +74,15 @@ public class AdminHomeActivity extends AppCompatActivity implements View.OnClick
                 iR.putExtra("id", "rm");
                 startActivity(iR);
                 break;
+            case R.id.card_essential:
+                Intent iE=new Intent(AdminHomeActivity.this,AdminEssentialWorkerActivity.class);
+                iE.putExtra("id","ew");
+                startActivity(iE);
+            case R.id.card_health:
+                Intent ih=new Intent(AdminHomeActivity.this, AdminHealthWorkerActivity.class);
+                ih.putExtra("id","hw");
+                startActivity(ih);
+
         }
 
     }
