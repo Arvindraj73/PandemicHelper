@@ -395,7 +395,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_above="@+id/recyclerView"
-            android:text="News"
+            android:text="@string/news"
             android:textSize="@dimen/tsize2"
             android:textColor="@color/colorPrimaryDark"
             android:textStyle="bold" />

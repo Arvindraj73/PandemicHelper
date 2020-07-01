@@ -30,7 +30,7 @@ public class PatientsActivity extends AppCompatActivity {
     private void openFragment(Fragment fragment) {
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.doc_container, fragment);
+        transaction.replace(R.id.p_container, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
 

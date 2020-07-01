@@ -303,7 +303,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.card_volunteer:
-                Intent workIntent = new Intent(HomeActivity.this, LabourActivity.class);
+                Intent workIntent = new Intent(HomeActivity.this, PatientsActivity.class);
                 workIntent.putExtra("role", sRole);
                 startActivity(workIntent);
                 break;

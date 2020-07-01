@@ -10,6 +10,30 @@ public class UserModel {
     String Role;
     String lat;
     String lon;
+    String deviceToken;
+    String limit;
+    String time;
+
+    public UserModel(String limit, String time) {
+        this.limit = limit;
+        this.time = time;
+    }
+
+    public String getLimit() {
+        return limit;
+    }
+
+    public void setLimit(String limit) {
+        this.limit = limit;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
 
     public String getDeviceToken() {
         return deviceToken;
@@ -18,8 +42,6 @@ public class UserModel {
     public void setDeviceToken(String deviceToken) {
         this.deviceToken = deviceToken;
     }
-
-    String deviceToken;
 
     public String getLat() {
         return lat;

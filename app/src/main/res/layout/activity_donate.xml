@@ -10,7 +10,7 @@
         android:layout_height="match_parent"
         android:layout_width="match_parent"
         android:id="@+id/d_container"
-        android:layout_above="@+id/donate_bnv"></androidx.coordinatorlayout.widget.CoordinatorLayout>
+        android:layout_above="@+id/donate_bnv" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:layout_width="match_parent"
