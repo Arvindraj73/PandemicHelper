@@ -14,6 +14,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.NumberPicker;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -40,11 +41,13 @@ public class MaterialDetailsFragment extends Fragment {
 
     private Chip toilet, cloth, sanitary, stationery, med, food;
     private LinearLayout l_toilet, l_cloth, l_sanitary, l_stationery, l_med, l_food;
+    private RelativeLayout chipGroup;
 
-    private CheckBox ch1, ch2, ch3, ch4, ch5, ch6, ch7, ch8, ch9, ch10, ch11,
-            ch12, ch13, ch14, ch15, ch16, ch17, ch18, ch19, ch20, ch21, ch22, ch23, ch24, ch25, ch26, ch27,
-            ch28, ch29, ch30, ch31, ch32, ch33, ch34, ch35, ch36, ch37, ch38, ch39,
-            ch40, ch41, ch42, ch43, ch44, ch45, ch46, ch47, ch48, ch49, ch50, ch51;
+    private CheckBox ch1, ch2, ch3, ch4, ch5, ch6, ch7, ch8, ch9, ch10,
+            ch11, ch12, ch13, ch14, ch15, ch16, ch17, ch18, ch19, ch20,
+            ch21, ch22, ch23, ch24, ch25, ch26, ch27, ch28, ch29, ch30,
+            ch31, ch32, ch33, ch34, ch35, ch36, ch37, ch38, ch39, ch40,
+            ch41, ch42, ch43, ch44, ch45, ch46, ch47, ch48, ch49, ch50, ch51;
 
     private ArrayList<String> itemName, quantity;
     private String quan;
@@ -110,6 +113,7 @@ public class MaterialDetailsFragment extends Fragment {
         stationery = view.findViewById(R.id.chip2);
         sanitary = view.findViewById(R.id.chip3);
         med = view.findViewById(R.id.chip5);
+        chipGroup = view.findViewById(R.id.chipGroup);
 
         l_cloth = view.findViewById(R.id.lcloth);
         l_med = view.findViewById(R.id.lmed);
@@ -546,9 +550,15 @@ public class MaterialDetailsFragment extends Fragment {
     }
 
     private void showLayout(boolean isChecked, LinearLayout layout) {
-        if (isChecked)
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        if (isChecked) {
+            params.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+            chipGroup.setLayoutParams(params);
             layout.setVisibility(View.VISIBLE);
-        else
+        } else {
+            params.addRule(RelativeLayout.CENTER_IN_PARENT);
+            chipGroup.setLayoutParams(params);
             layout.setVisibility(View.GONE);
+        }
     }
 }

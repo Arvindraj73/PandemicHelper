@@ -29,7 +29,8 @@
     <string name="epass">E-Pass</string>
     <string name="geo">Geofences</string>
     <string name="text_label_5">Shelters</string>
-    <string name="text">Available</string>
+    <string name="avail">Available</string>
+    <string name="availNot">Not Available</string>
     <string name="noOfPatients">Patients Limit</string>
     <string name="time">Choose Your Time</string>
     <string name="from">From</string>
@@ -63,7 +64,15 @@
     <string name="time2">Your Timing</string>
     <string name="cancel">Cancel</string>
     <string name="changeDetails">Change Details</string>
-    <string name="toogle">Turn this on to show the patients that you will be available today.</string>
+    <string name="toogle">Turn on to show Patients that you will be available today.</string>
+    <string name="toogleNeg">Turn off to show Patients that you will not be available today.</string>
+    <string name="register">Register</string>
+    <string name="speciality">Speciality</string>
+    <string name="password">Password</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="emailHint">Email</string>
+    <string name="nameHint">Name</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string-array name="role">
         <item>Select Your Role</item>

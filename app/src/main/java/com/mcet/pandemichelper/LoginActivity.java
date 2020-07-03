@@ -12,6 +12,7 @@ import android.content.pm.PackageManager;
 import android.media.tv.TvContract;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -122,8 +123,8 @@ public class LoginActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
 
 //                            DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Admin");
-//
-//                            if (ref.child(mFirebaseUser.getUid()) != null) {
+                            Log.d("login", String.valueOf(task.isSuccessful()));
+                            if (task.isSuccessful()) {
 //                                progressDialog.dismiss();
 //                                startActivity(new Intent(LoginActivity.this, AdminHomeActivity.class));
 //                            } else {
@@ -131,7 +132,9 @@ public class LoginActivity extends AppCompatActivity {
                                 progressDialog.dismiss();
                                 startActivity(new Intent(LoginActivity.this, HomeActivity.class));
 
-                            //}
+                            } else {
+                                Log.d("login", task.getException().toString());
+                            }
                         }
                     });
 
@@ -145,7 +148,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         switch (requestCode) {
             case PERMISSION_REQUEST_CODE:
                 if (grantResults.length > 0) {

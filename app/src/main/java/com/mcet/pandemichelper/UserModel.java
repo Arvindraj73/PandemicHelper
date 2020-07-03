@@ -13,6 +13,15 @@ public class UserModel {
     String deviceToken;
     String limit;
     String time;
+    String dailyLimit;
+
+    public String getDailyLimit() {
+        return dailyLimit;
+    }
+
+    public void setDailyLimit(String dailyLimit) {
+        this.dailyLimit = dailyLimit;
+    }
 
     public UserModel(String limit, String time) {
         this.limit = limit;

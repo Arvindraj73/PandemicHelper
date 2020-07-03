@@ -61,15 +61,17 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/text"
+                        android:text="@string/availNot"
                         android:textSize="@dimen/tsize2"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:id="@+id/docAvail" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/toogle"
-                        android:textSize="@dimen/tsize3" />
+                        android:textSize="@dimen/tsize3"
+                        android:id="@+id/docAvailHelp" />
                 </LinearLayout>
 
                 <com.google.android.material.switchmaterial.SwitchMaterial
@@ -203,6 +205,26 @@
                         android:text="@string/email"
                         android:textSize="@dimen/tsize2"
                         android:textStyle="bold" />
+
+                    <!--                    <TextView
+                                            android:id="@+id/doc9"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_below="@+id/docEmail"
+                                            android:layout_marginTop="@dimen/mTop"
+                                            android:fontFamily="@font/poppins_light"
+                                            android:text="@string/status"
+                                            android:textSize="@dimen/tsize3" />
+
+                                        <TextView
+                                            android:id="@+id/docSta"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_below="@+id/doc9"
+                                            android:fontFamily="@font/poppins_light"
+                                            android:text="@string/status"
+                                            android:textSize="@dimen/tsize2"
+                                            android:textStyle="bold" />-->
                 </RelativeLayout>
             </com.google.android.material.card.MaterialCardView>
 

@@ -3,6 +3,7 @@ package com.mcet.pandemichelper;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -29,6 +30,8 @@ public class DocViewActivity extends AppCompatActivity {
     private TextView name, email, phone;
     private MaterialButton appoint;
 
+    private int limit;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +56,7 @@ public class DocViewActivity extends AppCompatActivity {
                 name.setText(mModel.getName());
                 email.setText(mModel.getEmail());
                 phone.setText(mModel.getPhone());
+                limit = Integer.parseInt(mModel.getDailyLimit());
             }
 
             @Override
@@ -64,15 +68,22 @@ public class DocViewActivity extends AppCompatActivity {
         appoint.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                WorkDetailsModel model = new WorkDetailsModel(nameUser, uid);
-                mRef.child(uid).child("Patients").push().setValue(model).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            Toast.makeText(DocViewActivity.this, "Appoinment Registered.\nWait for Confirmation", Toast.LENGTH_SHORT).show();
+                Log.d("l", String.valueOf(limit));
+                if (limit > 0) {
+                    mRef.child(uid + "/dailyLimit").setValue(String.valueOf(--limit));
+                    WorkDetailsModel model = new WorkDetailsModel(nameUser, mUser.getUid());
+                    mRef.child(uid).child("Patients").push().setValue(model).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                Toast.makeText(DocViewActivity.this, "Appointment Registered.", Toast.LENGTH_SHORT).show();
+                            }
                         }
-                    }
-                });
+                    });
+                } else {
+                    Toast.makeText(DocViewActivity.this, "You can't make appointment to this Doctor currently.Try others.", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(DocViewActivity.this, DoctorActivity.class));
+                }
             }
         });
 

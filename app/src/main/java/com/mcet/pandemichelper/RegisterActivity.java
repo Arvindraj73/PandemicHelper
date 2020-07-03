@@ -12,6 +12,7 @@ import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -49,7 +50,7 @@ public class RegisterActivity extends AppCompatActivity implements GoogleApiClie
 
     private MaterialButton mReg;
 
-    private TextInputLayout mName, mEmail, mPhone, mPass, mConfirmPass;
+    private TextInputLayout mName, mEmail, mPhone, mPass, mConfirmPass, mSpeciality;
 
     private TextView errorView;
 
@@ -75,6 +76,8 @@ public class RegisterActivity extends AppCompatActivity implements GoogleApiClie
 
     private double lat, lon;
 
+    private String[] roleArray;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,6 +93,7 @@ public class RegisterActivity extends AppCompatActivity implements GoogleApiClie
         errorView = findViewById(R.id.errorView);
         mEmail = findViewById(R.id.emailText);
         spinner = findViewById(R.id.spinner);
+        mSpeciality = findViewById(R.id.specialityText);
 
         progressDialog = new ProgressDialog(this);
 
@@ -97,6 +101,25 @@ public class RegisterActivity extends AppCompatActivity implements GoogleApiClie
         mRef = mData.getReference();
 
         setUpLocation();
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (position == 3) {
+                    Log.d("DocI", "inside");
+                    mSpeciality.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        if (spinner.getSelectedItem().toString().equals("Doctor")) {
+            Log.d("Doc", "inside");
+            mSpeciality.setVisibility(View.VISIBLE);
+        }
 
         mReg.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -211,10 +234,16 @@ public class RegisterActivity extends AppCompatActivity implements GoogleApiClie
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
 
-                                        if (task.isSuccessful()){
+                                        if (task.isSuccessful()) {
+
+                                            if (spinner.getSelectedItem().toString().equals("Doctor")) {
+                                                mRef.child("UserInfo/" + mFirebaseUser.getUid()).child("/status").setValue("0");
+                                                mRef.child("Doctors").push().setValue(mUser.getUid());
+                                                mRef.child("UserInfo/" + mFirebaseUser.getUid() + "/DocDetails/Speciality").setValue(mSpeciality.getEditText().getText().toString());
+                                            }
 
                                             progressDialog.dismiss();
-                                            startActivity(new Intent(RegisterActivity.this,LoginActivity.class));
+                                            startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
 
                                         }
 

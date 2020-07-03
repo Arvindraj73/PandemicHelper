@@ -199,8 +199,8 @@ public class DoctorActivity extends FragmentActivity implements OnMapReadyCallba
                     UserModel mModel = s.getValue(UserModel.class);
                     Log.d("in", mModel.getRole());
                     if (mModel.getRole().equals("Doctor")) {
-                        Log.d("in2", String.valueOf(s.child("DocDetails/status").getValue()));
-                        int status = Integer.parseInt(s.child("DocDetails/status").getValue().toString());
+                        Log.d("in2", String.valueOf(s.child("/status").getValue()));
+                        int status = Integer.parseInt(s.child("/status").getValue().toString());
                         if (status == 0) {
                             marker = googleMap.addMarker(new MarkerOptions().icon(bitmapDescriptorFromVector(getApplicationContext(), R.drawable.ic_cancel)).title(mModel.getName()).position(new LatLng(Double.parseDouble(mModel.getLat()), Double.parseDouble(mModel.getLon()))));
                             marker.setTag(mModel.getUid());
