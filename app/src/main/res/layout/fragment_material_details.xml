@@ -672,7 +672,8 @@
         android:id="@+id/chipGroup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/padding">
+        android:padding="@dimen/padding"
+        android:layout_centerInParent="true">
 
         <TextView
             android:id="@+id/tv"
