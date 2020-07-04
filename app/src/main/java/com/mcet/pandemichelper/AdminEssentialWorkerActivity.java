@@ -93,7 +93,9 @@ public class AdminEssentialWorkerActivity extends AppCompatActivity {
             };
 
         }catch (Exception e){
-
+            Log.v("s", "s");
+            View v=findViewById(android.R.id.content).getRootView();
+            new Notify(v,"NO WORKS");
             Toast.makeText(AdminEssentialWorkerActivity.this,"No Works",Toast.LENGTH_SHORT).show();
 
         }

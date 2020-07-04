@@ -14,6 +14,7 @@ public class WorkDetailsModel {
         Name = name;
         this.lat = lat;
         this.lon = lon;
+
     }
 
     public String getLat() {

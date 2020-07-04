@@ -71,6 +71,8 @@ public class LoginActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mAuth.getCurrentUser();
+        View v=findViewById(android.R.id.content).getRootView();
+        new Notify(v,"NO WORKS");
 
         registerClick.setOnClickListener(new View.OnClickListener() {
             @Override
