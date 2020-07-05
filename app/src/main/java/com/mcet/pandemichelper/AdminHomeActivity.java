@@ -46,7 +46,7 @@ public class AdminHomeActivity extends AppCompatActivity implements View.OnClick
                 startActivity(iToll);
                 break;
             case R.id.card_add_volunteer:
-                Intent iVol = new Intent(AdminHomeActivity.this, AdminVolunteerActivity.class);
+                Intent iVol = new Intent(AdminHomeActivity.this,TabActivity.class);
                 iVol.putExtra("id", "vol");
                 startActivity(iVol);
                 break;

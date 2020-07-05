@@ -12,8 +12,8 @@
         android:roundIcon="@mipmap/ic_icon_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AdminEssentialWorkerActivity"></activity>
-        <activity android:name=".AdminHealthWorkerActivity"></activity>
+        <activity android:name=".Relief_items"></activity>
+        <activity android:name=".TabActivity" />
         <activity android:name=".CoursesActivity" />
         <activity android:name=".EservicesActivity" />
         <!--

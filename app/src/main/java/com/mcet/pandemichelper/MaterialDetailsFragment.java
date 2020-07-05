@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.NotificationManager;
 import android.app.admin.DelegatedAdminReceiver;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,14 +24,21 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.chip.Chip;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.sucho.placepicker.AddressData;
 
 import java.util.ArrayList;
 
 import androidx.annotation.ColorRes;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import static android.app.Activity.RESULT_OK;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -38,11 +46,15 @@ import androidx.fragment.app.Fragment;
  * create an instance of this fragment.
  */
 public class MaterialDetailsFragment extends Fragment {
+    private DatabaseReference reference;
 
     private Chip toilet, cloth, sanitary, stationery, med, food;
     private LinearLayout l_toilet, l_cloth, l_sanitary, l_stationery, l_med, l_food;
     private RelativeLayout chipGroup;
-
+    private Double dbl_lon,dbl_lat;
+    private int REQUEST_CODE = 100;
+    private String lat,name;
+    private String lon;
     private CheckBox ch1, ch2, ch3, ch4, ch5, ch6, ch7, ch8, ch9, ch10,
             ch11, ch12, ch13, ch14, ch15, ch16, ch17, ch18, ch19, ch20,
             ch21, ch22, ch23, ch24, ch25, ch26, ch27, ch28, ch29, ch30,
@@ -65,6 +77,16 @@ public class MaterialDetailsFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
+            AddressData addressData = data.getParcelableExtra("ADDRESS_INTENT");
+            lat = String.valueOf(addressData.getLatitude());
+            lon = String.valueOf(addressData.getLongitude());
+            Toast.makeText(getContext(), addressData.toString(), Toast.LENGTH_SHORT).show();
+        }
+    }
 
     public MaterialDetailsFragment() {
         // Required empty public constructor
@@ -98,6 +120,7 @@ public class MaterialDetailsFragment extends Fragment {
 
         user = FirebaseAuth.getInstance().getCurrentUser();
         mRef = FirebaseDatabase.getInstance().getReference("ReliefMaterials");
+
 
     }
 
@@ -178,6 +201,25 @@ public class MaterialDetailsFragment extends Fragment {
 
         itemName = new ArrayList<String>();
         quantity = new ArrayList<String>();
+
+        reference = FirebaseDatabase.getInstance().getReference("UserInfo/" + user.getUid());
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                UserModel model = dataSnapshot.getValue(UserModel.class);
+                name = model.getName();
+                lat=model.getLat();
+                lon=model.getLon();
+                dbl_lat=Double.parseDouble(lat);
+                dbl_lon=Double.parseDouble(lon);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         CompoundButton.OnCheckedChangeListener checkListener = new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -480,11 +522,12 @@ public class MaterialDetailsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Log.d("onClick", itemName.toString() + " " + quantity.toString());
-
+                MaterialModel modelUser = new MaterialModel(name,lat,lon,String.valueOf(itemName.size()));
+                mRef.child(user.getUid()).setValue(modelUser);
                 for (int i = 0; i < quantity.size() && i < itemName.size(); i++) {
                     Log.d("for", itemName.get(i) + " " + quantity.get(i));
-                    MaterialModel model = new MaterialModel(itemName.get(i), quantity.get(i));
-                    mRef.child(user.getUid()).push().setValue(model).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    MaterialModel modelItem = new MaterialModel(itemName.get(i), quantity.get(i));
+                    mRef.child(user.getUid()+"/Items").push().setValue(modelItem).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
