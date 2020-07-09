@@ -3,17 +3,45 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fr1_Fragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/VolunteerList" />
+
     <TextView
         android:layout_below="@+id/VolunteerList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="@dimen/tsize"
-        android:id="@+id/tv"/>
+        android:id="@+id/tv" />
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/floating_action_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="16dp"
+            app:srcCompat="@drawable/ic_add_black_24dp" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/filter_floating_action_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="80dp"
+            android:layout_marginEnd="@dimen/place_autocomplete_button_padding"
+            android:layout_gravity="top|end"
+            app:layout_anchor="@id/floating_action_button"
+            app:layout_anchorGravity="top"
+            app:srcCompat="@drawable/ic_filter_3" />
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </RelativeLayout>

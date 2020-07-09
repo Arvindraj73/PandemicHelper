@@ -22,7 +22,7 @@
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Enter Your Email and Password \n to get started"
+        android:text="@string/enter_your_email_and_password_n_to_get_started"
         android:textAlignment="center"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="@dimen/tsize2"
@@ -38,7 +38,7 @@
         android:id="@+id/regView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="New User? Click to Register."
+        android:text="@string/new_user_click_to_register"
         android:textAlignment="center"
         android:textSize="18sp"
         android:textStyle="italic"
@@ -46,7 +46,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.625"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/errorView"
         app:layout_constraintVertical_bias="0.833"
         android:textColor="@color/colorPrimaryLight"/>
 
@@ -98,32 +97,19 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/emailText"
         android:shadowColor="#1F000000"
-        android:text="Login"
+        android:text="@string/login"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/passText"
         app:layout_constraintVertical_bias="0.333" />
 
-    <TextView
-        android:id="@+id/errorView"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loginBtn"
-        app:layout_constraintVertical_bias="0.301" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
-        android:text="admin login"
-        app:layout_constraintBottom_toTopOf="@+id/regView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.982"
-        app:layout_constraintStart_toStartOf="parent"
-        android:id="@+id/admin"/>
+        android:id="@+id/anv" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

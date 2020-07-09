@@ -73,6 +73,19 @@
     <string name="confirm_password">Confirm Password</string>
     <string name="emailHint">Email</string>
     <string name="nameHint">Name</string>
+    <string name="login">Login</string>
+    <string name="new_user_click_to_register">New User? Click to Register.</string>
+    <string name="enter_your_email_and_password_n_to_get_started">Enter Your Email and Password \n to get started</string>
+    <string name="filter">Filter</string>
+    <string name="completed">Completed</string>
+    <string name="notCompleted">Not Completed</string>
+    <string name="assigned">Assigned</string>
+    <string name="notAssigned">Not Assigned</string>
+    <string name="accept">Accept</string>
+    <string name="decline">Decline</string>
+    <string name="personal_pass">Personal Transport Pass Request</string>
+    <string name="est_pass">Essential Service Transport Pass Request</string>
+    <string name="pincode">Pincode</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string-array name="role">
         <item>Select Your Role</item>

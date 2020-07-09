@@ -68,6 +68,9 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private String url = "https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=UC7QhK6RVJWM-yqeC2GMjlYA&maxResults=5&key=AIzaSyAuRciEQbgHCmxW3Yhwe0p6iuMz4B8A5jE";
     private String sRole, name, deviceToken;
 
+    private SharedPreferences preferences;
+    private SharedPreferences.Editor editor;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,24 +105,12 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
         reference = FirebaseDatabase.getInstance().getReference("UserInfo/" + user.getUid());
-        reference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                UserModel model = dataSnapshot.getValue(UserModel.class);
-                name = model.getName();
-                mAppBar.setTitle(name);
-                sRole = model.getRole();
-//                if (model.getRole().equals("Doctor")){
-//                    role.setText("Patients");
-//                }
 
-            }
+        preferences = getApplicationContext().getSharedPreferences("UserData", MODE_PRIVATE);
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.d("error", databaseError.getMessage());
-            }
-        });
+        Log.d("pre", preferences.toString());
+
+        mAppBar.setTitle(preferences.getString("name", "Wait"));
 
         FirebaseInstanceId.getInstance().getInstanceId().addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
             @Override
@@ -162,7 +153,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
     private void setLocale(String lang) {
 
-        Toast.makeText(HomeActivity.this, lang, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(HomeActivity.this, lang, Toast.LENGTH_SHORT).show();
         Locale locale = new Locale(lang);
         Locale.setDefault(locale);
         Configuration configuration = new Configuration();
@@ -296,14 +287,11 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.card_donate:
                 Intent i = new Intent(HomeActivity.this, DonateActivity.class);
-//                i.putExtra("phone",phone);
-//                i.putExtra("name",name);
                 startActivity(i);
                 break;
 
             case R.id.card_volunteer:
-                Intent workIntent = new Intent(HomeActivity.this, PatientsActivity.class);
-                workIntent.putExtra("role", sRole);
+                Intent workIntent = new Intent(HomeActivity.this, VolunteerActivity.class);
                 startActivity(workIntent);
                 break;
 
@@ -321,7 +309,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.card_labour:
                 Intent i2 = new Intent(HomeActivity.this, MapsActivity.class);
-//                i2.putExtra("phone",phone);
                 startActivity(i2);
                 break;
 

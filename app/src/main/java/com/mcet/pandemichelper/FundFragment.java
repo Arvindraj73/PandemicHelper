@@ -1,7 +1,9 @@
 package com.mcet.pandemichelper;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -46,6 +48,8 @@ public class FundFragment extends Fragment implements PaymentResultListener {
     private FirebaseUser user;
 
     private String name, phoneNumber;
+
+    private SharedPreferences preferences;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -100,20 +104,7 @@ public class FundFragment extends Fragment implements PaymentResultListener {
 
         Checkout.preload(getContext());
 
-        mDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                UserModel model = dataSnapshot.getValue(UserModel.class);
-                name = model.getName();
-                phoneNumber = model.getPhone();
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
+        preferences = getActivity().getSharedPreferences("UserData", Context.MODE_PRIVATE);
 
         coordinatorLayout = view.findViewById(R.id.coordinator);
         mDonate.setOnClickListener(new View.OnClickListener() {
@@ -153,7 +144,7 @@ public class FundFragment extends Fragment implements PaymentResultListener {
         try {
             JSONObject options = new JSONObject();
 
-            options.put("name", name);
+            options.put("name", preferences.getString("name", ""));
 
             /**
              * Description can be anything
@@ -174,7 +165,7 @@ public class FundFragment extends Fragment implements PaymentResultListener {
             theme.put("color", "#FD9725");
 
             JSONObject prefill = new JSONObject();
-            prefill.put("contact", phoneNumber);
+            prefill.put("contact", preferences.getString("phone", ""));
 
             options.put("theme", theme);
             options.put("prefill", prefill);

@@ -1,48 +1,48 @@
 package com.mcet.pandemichelper;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link PatientsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class fr1_Fragment extends Fragment {
+public class fr1_Fragment extends Fragment implements View.OnClickListener {
 
     private RecyclerView recyclerView;
 
     private FirebaseDatabase mDatabase;
     private DatabaseReference mRef;
 
-    private FirebaseRecyclerAdapter<WorkDetailsModel,WorkViewHolder> adapter;
+    private FirebaseRecyclerAdapter<WorkDetailsModel, WorkViewHolder> adapter;
 
-    private String id;
+    private String id, filterOption;
     TextView tv;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -100,44 +100,97 @@ public class fr1_Fragment extends Fragment {
 
         recyclerView = (RecyclerView) view.findViewById(R.id.VolunteerList);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        tv=(TextView)view.findViewById(R.id.tv);
+        tv = (TextView) view.findViewById(R.id.tv);
+
+        view.findViewById(R.id.floating_action_button).setOnClickListener(this);
+        view.findViewById(R.id.filter_floating_action_button).setOnClickListener(this);
 
 
         mDatabase = FirebaseDatabase.getInstance();
 
 
-        Log.d("dbb",mDatabase.toString());
-        Log.d("dataurl",mDatabase.getApp().toString());
+        Log.d("dbb", mDatabase.toString());
+        Log.d("dataurl", mDatabase.getApp().toString());
 
         mRef = mDatabase.getReference("VolunteerWorks");
-        // Inflate the layout for this fragment
-        mRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Log.d("data",dataSnapshot.toString());
-            }
 
+        changeAdapterData(mRef);
+
+        Log.d("adpter", String.valueOf(recyclerView.getAdapter().getItemCount()));
+        return view;
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+
+            case R.id.floating_action_button:
+                Intent createIntent = new Intent(getContext(), CreateWorkActivity.class);
+                createIntent.putExtra("id", "vol");
+                startActivity(createIntent);
+                break;
+
+            case R.id.filter_floating_action_button:
+                showFilterDialog();
+                break;
+
+        }
+    }
+
+    private void showFilterDialog() {
+
+        Log.d("dialog", "showdialog");
+
+        View filterView = LayoutInflater.from(getContext()).inflate(R.layout.filter_layout, null);
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setView(filterView);
+
+        RadioGroup radioGroup = filterView.findViewById(R.id.filter_radio);
+
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.d("dataerror",databaseError.toString());
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                RadioButton rb = group.findViewById(checkedId);
+                filterOption = rb.getText().toString();
+
+                Log.d("dialogOption", filterOption);
             }
         });
-        try {
-            FirebaseRecyclerOptions options = new FirebaseRecyclerOptions.Builder<WorkDetailsModel>().setQuery(mRef,WorkDetailsModel.class).build();
 
-            adapter = new FirebaseRecyclerAdapter<WorkDetailsModel,WorkViewHolder>(options) {
+        builder.setTitle("Select an Option")
+                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Query query = FirebaseDatabase.getInstance().getReference("VolunteerWorks")
+                                .orderByChild("status")
+                                .equalTo(filterOption);
+                        changeAdapterData(query);
+                    }
+                });
+        builder.show();
+
+    }
+
+    private void changeAdapterData(Query query) {
+
+        Log.d("dialog", query.toString());
+
+        try {
+            FirebaseRecyclerOptions options = new FirebaseRecyclerOptions.Builder<WorkDetailsModel>().setQuery(query, WorkDetailsModel.class).build();
+
+            adapter = new FirebaseRecyclerAdapter<WorkDetailsModel, WorkViewHolder>(options) {
                 @NonNull
                 @Override
                 public WorkViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-                    View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.work_view_layout,parent,false);
+                    View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.work_view_layout, parent, false);
                     return new WorkViewHolder(view);
                 }
 
                 @Override
                 public void onError(@NonNull DatabaseError error) {
                     super.onError(error);
-                    Log.d("error",error.toString());
+                    Log.d("error", error.toString());
                 }
 
                 @Override
@@ -146,16 +199,17 @@ public class fr1_Fragment extends Fragment {
                     final String key = getRef(position).getKey();
 
                     holder.work.setText(model.getName());
-                    Log.d("WOrk",model.getName());
-                    holder.num.setText("No of Workers Required : "+model.getNoOfWorkers());
+                    Log.d("WOrk", model.getName());
+                    holder.num.setText("No of Workers Required : " + model.getNoOfWorkers());
 
                     holder.cardView.setOnClickListener(new View.OnClickListener() {
                         @Override
-                        public void onClick(View v) {
-                            Intent i = new Intent(getContext(),WorkAssignActivity.class);
-                            i.putExtra("key",key);
-                            i.putExtra("id","admin");
-                            i.putExtra("name",model.getName());
+                        public void
+                        onClick(View v) {
+                            Intent i = new Intent(getContext(), WorkAssignActivity.class);
+                            i.putExtra("key", key);
+                            i.putExtra("id", "admin");
+                            i.putExtra("name", model.getName());
                             startActivity(i);
                         }
                     });
@@ -163,10 +217,10 @@ public class fr1_Fragment extends Fragment {
                 }
             };
 
-        }catch (Exception e){
+        } catch (Exception e) {
 
-            Log.d("exce",e.toString());
-            Toast.makeText(getContext(),"No Works",Toast.LENGTH_SHORT).show();
+            Log.d("exce", e.toString());
+            Toast.makeText(getContext(), "No Works", Toast.LENGTH_SHORT).show();
 
         }
 
@@ -174,7 +228,7 @@ public class fr1_Fragment extends Fragment {
         adapter.notifyDataSetChanged();
         recyclerView.setAdapter(adapter);
 
-        Log.d("adpter", String.valueOf(recyclerView.getAdapter().getItemCount()));
-        return view;
     }
+
+
 }

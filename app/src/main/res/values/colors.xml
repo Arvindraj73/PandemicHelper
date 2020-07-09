@@ -6,4 +6,7 @@
     <color name="primaryTextColor">#000000</color>
     <color name="colorPrimaryLight">#6ab7ff</color>
     <color name="white">#FFFFFF</color>
+    <color name="red">#EA6868</color>
+    <color name="green">#6DF473</color>
+    <color name="black">#000000</color>
 </resources>

@@ -140,4 +140,34 @@
         app:layout_constraintVertical_bias="1.0"
         tools:layout_editor_absoluteX="16dp" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:id="@+id/linearLayout">
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/mTop"
+            android:layout_weight="1"
+            android:backgroundTint="@color/green"
+            android:text="@string/accept"
+            app:icon="@drawable/ic_baseline_check_24_white" />
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/mTop"
+            android:layout_weight="1"
+            android:backgroundTint="@color/red"
+            android:text="@string/decline"
+            android:textColor="@color/black"
+            app:icon="@drawable/ic_baseline_close_24_black" />
+
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -76,8 +76,6 @@ public class RegisterActivity extends AppCompatActivity implements GoogleApiClie
 
     private double lat, lon;
 
-    private String[] roleArray;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -261,7 +259,6 @@ public class RegisterActivity extends AppCompatActivity implements GoogleApiClie
         });
 
     }
-
 
     private void setUpLocation() {
 
