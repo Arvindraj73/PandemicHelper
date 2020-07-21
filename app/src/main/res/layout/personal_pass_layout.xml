@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/place_autocomplete_button_padding">
+
+    <!--    <TextView-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent"-->
+    <!--        android:text="@string/personal_pass"/>-->
+
+    <!--    <ScrollView-->
+    <!--        android:id="@+id/sv"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent"-->
+    <!--        android:padding="@dimen/place_autocomplete_button_padding">-->
+
+    <!--        <LinearLayout-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:orientation="vertical">-->
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/mTop"
+            android:orientation="vertical">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/Widget.PandemicHelper.TextInputLayout"
+                android:layout_weight="1"
+                android:id="@+id/pincode">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/pincode"
+                    android:inputType="number" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/Widget.PandemicHelper.TextInputLayout"
+                android:layout_weight="1"
+                android:id="@+id/state">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/name" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/Widget.PandemicHelper.TextInputLayout"
+                android:layout_weight="1"
+                android:id="@+id/district">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/name" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!--                    <com.google.android.material.textfield.TextInputLayout-->
+            <!--                        android:layout_width="match_parent"-->
+            <!--                        android:layout_height="wrap_content"-->
+            <!--                        style="@style/Widget.PandemicHelper.TextInputLayout"-->
+            <!--                        android:layout_weight="1">-->
+            <!--                        <com.google.android.material.textfield.TextInputEditText-->
+            <!--                            android:layout_width="match_parent"-->
+            <!--                            android:layout_height="wrap_content"-->
+            <!--                            android:text="@string/name"/>-->
+            <!--                    </com.google.android.material.textfield.TextInputLayout>-->
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <!--        </LinearLayout>-->
+
+
+    <!--    </ScrollView>-->
+
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/Widget.PandemicHelper.Button"
+        android:text="@string/submit"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/submit1" />
+
+</RelativeLayout>

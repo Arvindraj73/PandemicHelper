@@ -73,29 +73,38 @@ public class ShelterFragment extends Fragment {
             updateLocationUI();
 
             getDeviceLocation();
-            mReference.child("Shelter").addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                    for (DataSnapshot s : dataSnapshot.getChildren()) {
-                        Log.d("Children", s.toString());
-                        WorkDetailsModel mModel = s.getValue(WorkDetailsModel.class);
-                        Log.d("in", mModel.getName());
-                        Log.d("in", "in");
-                        LatLng location = new LatLng(Double.parseDouble(mModel.getLat()), Double.parseDouble(mModel.getLon()));
-                        googleMap.addMarker(new MarkerOptions().position(location).snippet(mModel.getPhoneNumber()).title(mModel.getName()));
-                    }
-
-
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            });
+            if (getArguments().getString("id").equals("vul")) {
+                addMarkers("Vulnerable");
+            } else {
+                addMarkers("Shelter");
+            }
         }
     };
+
+    private void addMarkers(String string) {
+        mReference.child(string).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                for (DataSnapshot s : dataSnapshot.getChildren()) {
+                    Log.d("Children", s.toString());
+                    WorkDetailsModel mModel = s.getValue(WorkDetailsModel.class);
+                    Log.d("in", mModel.getName());
+                    Log.d("in", "in");
+                    LatLng location = new LatLng(Double.parseDouble(mModel.getLat()), Double.parseDouble(mModel.getLon()));
+                    mMap.addMarker(new MarkerOptions().position(location).snippet(mModel.getPhoneNumber()).title(mModel.getName()));
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
 
     private void updateLocationUI() {
         Log.d("TAG", "UpdateUI");

@@ -10,6 +10,7 @@ public class WorkDetailsModel {
     String lat;
     String lon;
     String key;
+
     public WorkDetailsModel(String name, String lat, String lon) {
         Name = name;
         this.lat = lat;

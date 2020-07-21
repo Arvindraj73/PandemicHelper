@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RequestHelpActivity"
+    android:padding="@dimen/text_margin">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp30"
+        android:textSize="@dimen/tsize2"
+        android:id="@+id/reqName"
+        android:textColor="@color/colorPrimaryDark" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/nameReq"
+            style="@style/Widget.PandemicHelper.TextInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp200">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/nameHint"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/cause"
+            style="@style/Widget.PandemicHelper.TextInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/disease"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/symptoms"
+            style="@style/Widget.PandemicHelper.TextInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/symptoms"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/person_count"
+            style="@style/Widget.PandemicHelper.TextInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:endIconDrawable="@drawable/ic_number"
+            app:endIconMode="custom"
+            android:visibility="visible">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/noOfPersons"
+                android:inputType="number" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:baselineAligned="false"
+            android:layout_marginTop="@dimen/mTop"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/select_location"
+                android:layout_weight="1"
+                android:textSize="@dimen/tsize4"
+                android:layout_gravity="center"
+                android:id="@+id/myLocation"
+                android:paddingStart="@dimen/mTop" />
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_baseline_my_location_24"
+                android:backgroundTint="@color/colorPrimary"
+                android:id="@+id/selectLocation" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/requestBtn"
+        style="@style/Widget.PandemicHelper.Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="@string/request" />
+
+</RelativeLayout>

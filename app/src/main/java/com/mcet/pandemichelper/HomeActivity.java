@@ -14,12 +14,7 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.TextClock;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,15 +27,10 @@ import com.android.volley.toolbox.Volley;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.appbar.MaterialToolbar;
-import com.google.android.material.card.MaterialCardView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ThrowOnExtraProperties;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 
@@ -48,7 +38,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.nio.file.FileStore;
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -65,7 +54,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private ArrayList<VideoDetailsModel> arrayList;
     private VideoDetailsAdapter adapter;
     private RecyclerView mListView;
-    private String url = "https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=UC7QhK6RVJWM-yqeC2GMjlYA&maxResults=5&key=AIzaSyAuRciEQbgHCmxW3Yhwe0p6iuMz4B8A5jE";
+    private String url = "https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=UC7QhK6RVJWM-yqeC2GMjlYA&maxResults=5&key=AIzaSyBzHbDmyGXgM5Sd11V-CIJw38-VqBTdOdk";
     private String sRole, name, deviceToken;
 
     private SharedPreferences preferences;
@@ -96,6 +85,12 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.card_doc).setOnClickListener(this);
         findViewById(R.id.card_eservices).setOnClickListener(this);
         findViewById(R.id.card_courses).setOnClickListener(this);
+
+        findViewById(R.id.orphan).setOnClickListener(this);
+        findViewById(R.id.councel).setOnClickListener(this);
+        findViewById(R.id.patients).setOnClickListener(this);
+        findViewById(R.id.unorg).setOnClickListener(this);
+        findViewById(R.id.store).setOnClickListener(this);
 
         arrayList = new ArrayList<>();
 
@@ -139,7 +134,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                         setLocale("ml");
                         recreate();
                         return true;
-
                     default:
                         return false;
                 }
@@ -291,7 +285,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.card_volunteer:
-                Intent workIntent = new Intent(HomeActivity.this, VolunteerActivity.class);
+                Intent workIntent = new Intent(HomeActivity.this, EPassActivity.class);
                 startActivity(workIntent);
                 break;
 
@@ -314,20 +308,43 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.card_doc:
                 Intent docIntent = new Intent(HomeActivity.this, DoctorActivity.class);
-                docIntent.putExtra("name", name);
+                docIntent.putExtra("id", "doc");
                 startActivity(docIntent);
                 break;
 
             case R.id.card_eservices:
                 Intent esIntent = new Intent(HomeActivity.this, EservicesActivity.class);
-                esIntent.putExtra("name", name);
+                esIntent.putExtra("name", preferences.getString("name", "Wait"));
                 startActivity(esIntent);
                 break;
 
             case R.id.card_courses:
                 Intent cIntent = new Intent(HomeActivity.this, CoursesActivity.class);
-                cIntent.putExtra("name", name);
+                cIntent.putExtra("name", preferences.getString("name", "Wait"));
+                cIntent.putExtra("id", "course");
                 startActivity(cIntent);
+                break;
+
+            case R.id.patients:
+                startActivity(new Intent(HomeActivity.this, PatientHelpActivity.class));
+                break;
+
+            case R.id.orphan:
+                startActivity(new Intent(HomeActivity.this, OrphansActivity.class));
+                break;
+
+            case R.id.unorg:
+                startActivity(new Intent(HomeActivity.this, UnorganisedActivity.class));
+                break;
+
+            case R.id.councel:
+                startActivity(new Intent(HomeActivity.this, CounsellingActivity.class));
+                break;
+
+            case R.id.store:
+                Intent j = new Intent(HomeActivity.this, CoursesActivity.class);
+                j.putExtra("id", "msme");
+                startActivity(j);
                 break;
         }
 

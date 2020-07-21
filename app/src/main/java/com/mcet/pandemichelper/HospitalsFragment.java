@@ -227,9 +227,10 @@ public class HospitalsFragment extends Fragment {
         googlePlacesUrl.append("&radius=" + PROXIMITY_RADIUS);
         googlePlacesUrl.append("&type=" + nearbyPlace);
         googlePlacesUrl.append("&sensor=true");
-        googlePlacesUrl.append("&key=" + "AIzaSyAuRciEQbgHCmxW3Yhwe0p6iuMz4B8A5jE");
+        googlePlacesUrl.append("&key=" + "AIzaSyBzHbDmyGXgM5Sd11V-CIJw38-VqBTdOdk");
         Log.d("getUrl", googlePlacesUrl.toString());
         return (googlePlacesUrl.toString());
     }
+
 
 }

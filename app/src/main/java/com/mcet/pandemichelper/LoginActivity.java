@@ -32,6 +32,8 @@ import androidx.core.app.ActivityCompat;
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static android.Manifest.permission.CALL_PHONE;
+import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
+import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -139,6 +141,7 @@ public class LoginActivity extends AppCompatActivity {
                                             editor.putString("role", model.getRole());
                                             editor.putString("email", model.getEmail());
                                             editor.putString("phone", model.getPhone());
+                                            editor.putString("uid", user.getUid());
                                             editor.commit();
                                             progressDialog.dismiss();
                                             startActivity(new Intent(LoginActivity.this, HomeActivity.class));
@@ -165,7 +168,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        ActivityCompat.requestPermissions(this, new String[]{ACCESS_FINE_LOCATION, CALL_PHONE}, PERMISSION_REQUEST_CODE);
+        ActivityCompat.requestPermissions(this, new String[]{ACCESS_FINE_LOCATION, CALL_PHONE, READ_EXTERNAL_STORAGE, WRITE_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
 
     }
 
@@ -177,8 +180,10 @@ public class LoginActivity extends AppCompatActivity {
 
                     boolean locationAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
                     boolean cameraAccepted = grantResults[1] == PackageManager.PERMISSION_GRANTED;
+                    boolean readStorageAccepted = grantResults[2] == PackageManager.PERMISSION_GRANTED;
+                    boolean writeStorageAccepted = grantResults[3] == PackageManager.PERMISSION_GRANTED;
 
-                    if (locationAccepted && cameraAccepted)
+                    if (locationAccepted && cameraAccepted && readStorageAccepted && writeStorageAccepted)
                         Log.d("LoginActivity.this", "Permissions Granted");
                     else {
 
@@ -191,7 +196,7 @@ public class LoginActivity extends AppCompatActivity {
                                             @Override
                                             public void onClick(DialogInterface dialog, int which) {
                                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                                                    requestPermissions(new String[]{ACCESS_FINE_LOCATION, CALL_PHONE},
+                                                    requestPermissions(new String[]{ACCESS_FINE_LOCATION, CALL_PHONE, READ_EXTERNAL_STORAGE, WRITE_EXTERNAL_STORAGE},
                                                             PERMISSION_REQUEST_CODE);
                                                 }
                                             }

@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -32,6 +33,8 @@ public class DocViewActivity extends AppCompatActivity {
 
     private int limit;
 
+    private SharedPreferences preferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,8 +48,9 @@ public class DocViewActivity extends AppCompatActivity {
         mRef = FirebaseDatabase.getInstance().getReference("UserInfo/");
         mUser = FirebaseAuth.getInstance().getCurrentUser();
 
+        preferences = getApplicationContext().getSharedPreferences("UserData", MODE_PRIVATE);
         String uid = getIntent().getStringExtra("uid");
-        String nameUser = getIntent().getStringExtra("name");
+        String nameUser = preferences.getString("name", "null");
         Log.d("namep", nameUser);
 
         mRef.child(uid).addListenerForSingleValueEvent(new ValueEventListener() {

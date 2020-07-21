@@ -86,7 +86,60 @@
     <string name="personal_pass">Personal Transport Pass Request</string>
     <string name="est_pass">Essential Service Transport Pass Request</string>
     <string name="pincode">Pincode</string>
-    <!-- TODO: Remove or change this placeholder text -->
+
+    <string name="age">Age</string>
+    <string name="gender">Gender</string>
+    <string name="id">Id Type</string>
+    <string name="choose">Choose File</string>
+    <string name="copy_of_id_proof_selected">Copy of Id Proof Selected</string>
+    <string name="idNo">Id Proof Number</string>
+    <string name="noOfPass">No of Passengers</string>
+    <string name="vehicleNo">Vehicle Number</string>
+    <string name="format">Format : TN 00 XX 1111</string>
+    <string name="choose_proof_for_reason">Choose Proof for Reason</string>
+    <string name="travel_date">Travel Date</string>
+    <string name="select_from_location">Select From Location</string>
+    <string name="select_to_location">Select To Location</string>
+    <string name="organisationName">Organisation Name</string>
+    <string name="choose_proof_for_organisation">Choose Proof for Organisation Type Selected</string>
+    <string name="applicantNameHint">Applicant Name</string>
+    <string name="noOfEmployees">No of Employees in the Organisation</string>
+    <string name="organisationType">Organisation Type</string>
+    <string name="organisationCat">Organisation Category</string>
+    <string name="orAddress">Organisation Address</string>
+    <string name="noOfVehicles">No of Vehicles Required</string>
+    <string name="unorg_worker">If you\'re an unorganised worker and need support</string>
+    <string name="support_to_unorganised_workers">Support to Unorganised Workers</string>
+    <string name="support_for_orphans_and_vulnerable_category">Support for Orphans and Vulnerable Category</string>
+    <string name="counselling_for_patients_and_family">Counselling for Patients and Family</string>
+    <string name="support_for_patients">Support For Patients</string>
+    <string name="food_for_isolated_patients">Food for isolated Patients</string>
+    <string name="call_to_order">Call to Order</string>
+    <string name="_9876543210">9876543210</string>
+    <string name="send_a_request_via_app">Send a request via App</string>
+    <string name="set_alarm_for_taking_tablets">Set Alarm for Taking Medicines</string>
+    <string name="call_to_request">Call to Request</string>
+    <string name="home_treatment">Home Treatment</string>
+    <string name="symptoms">Symptoms</string>
+    <string name="Cause">Cause</string>
+    <string name="disease">Disease</string>
+    <string name="noOfPersons">No of Persons</string>
+    <string name="request">Request</string>
+    <string name="select_location">Select Location</string>
+    <string name="reqfood">Enter details for Food Request</string>
+    <string name="reqMed">Enter details for Home Treatment Request</string>
+    <string name="enter_work_details">Enter Work Details</string>
+    <string name="noOfLabours">Number of Workers Required</string>
+    <string name="if_you_are_an_unorganised_sector_worker_and_need_help_click_here">If you are an unorganised sector worker and need help, Click Here</string>
+    <string name="workName">Work Name</string>
+    <string name="counselling_videos">Counselling videos</string>
+    <string name="psychiatrist">Psychiatrist</string>
+    <string name="counsellor_council_of_india">Counsellor Council of India</string>
+    <string name="nearby_orphanages">Nearby Orphanages</string>
+    <string name="indian_orphanage">Indian Orphanage</string>
+    <string name="adopt">Adopt Orphans</string>
+    <string name="vulnerable_cat">Vulnerable Category Shelters</string>
+    <string name="msme_store">MSME Store</string>
     <string-array name="role">
         <item>Select Your Role</item>
         <item>Essential Worker</item>
@@ -94,6 +147,42 @@
         <item>Doctor</item>
         <item>Labour</item>
         <item>Volunteer</item>
+    </string-array>
+
+    <string-array name="gender">
+        <item>Select Gender</item>
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
+
+    <string-array name="idType">
+        <item>Select Id Proof Type</item>
+        <item>Aadhar Card</item>
+        <item>Pan Card</item>
+        <item>Driving License</item>
+        <item>Passport</item>
+        <item>Ration Card</item>
+    </string-array>
+
+    <string-array name="reason">
+        <item>Select Reason For Travel</item>
+        <item>Marriage</item>
+        <item>Medical Emergency</item>
+        <item>Death</item>
+    </string-array>
+
+    <string-array name="vehicle_type">
+        <item>Select Vehicle Type</item>
+        <item>Car (Max : Driver + 3)</item>
+        <item>Suv (Max : Driver + 4)</item>
+        <item>Van (Max : Driver + 7)</item>
+    </string-array>
+
+    <string-array name="oRProofType">
+        <item>Select Organisation Proof Type</item>
+        <item>Udyog Aadhar</item>
+        <item>GST Certificate</item>
+        <item>RoC Registration Certificate</item>
     </string-array>
 
 </resources>

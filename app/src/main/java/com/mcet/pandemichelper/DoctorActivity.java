@@ -15,6 +15,7 @@ import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -64,14 +65,14 @@ public class DoctorActivity extends FragmentActivity implements OnMapReadyCallba
     private static int UPDATE_INTERVAL = 5000;
     private static int FASTEST_INTERVAL = 3000;
     private static int DISPLACEMENT = 10;
-
+    private int PROXIMITY_RADIUS = 10000;
     private DatabaseReference mReference;
 
     private Marker marker;
 
     private FirebaseUser mUser;
 
-    private String name;
+    private String id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,12 +84,13 @@ public class DoctorActivity extends FragmentActivity implements OnMapReadyCallba
         mapFragment.getMapAsync(this);
 
         mUser = FirebaseAuth.getInstance().getCurrentUser();
-        mReference = FirebaseDatabase.getInstance().getReference("UserInfo");
-
-        name = getIntent().getStringExtra("name");
-        Log.d("nameMap", name);
+        mReference = FirebaseDatabase.getInstance().getReference();
 
         setUpLocation();
+        id = getIntent().getStringExtra("id");
+        if (id.equals("unorg")) {
+
+        }
     }
 
     private BitmapDescriptor bitmapDescriptorFromVector(Context context, int vectorResId) {
@@ -190,121 +192,159 @@ public class DoctorActivity extends FragmentActivity implements OnMapReadyCallba
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        mReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                for (DataSnapshot s : dataSnapshot.getChildren()) {
-                    Log.d("Children", s.toString());
-                    UserModel mModel = s.getValue(UserModel.class);
-                    Log.d("in", mModel.getRole());
-                    if (mModel.getRole().equals("Doctor")) {
-                        Log.d("in2", String.valueOf(s.child("/status").getValue()));
-                        int status = Integer.parseInt(s.child("/status").getValue().toString());
-                        if (status == 0) {
-                            marker = googleMap.addMarker(new MarkerOptions().icon(bitmapDescriptorFromVector(getApplicationContext(), R.drawable.ic_cancel)).title(mModel.getName()).position(new LatLng(Double.parseDouble(mModel.getLat()), Double.parseDouble(mModel.getLon()))));
-                            marker.setTag(mModel.getUid());
-                        } else if (status == 1) {
-                            marker = googleMap.addMarker(new MarkerOptions().title(mModel.getName()).icon(bitmapDescriptorFromVector(getApplicationContext(), R.drawable.ic_location)).position(new LatLng(Double.parseDouble(mModel.getLat()), Double.parseDouble(mModel.getLon()))));
-                            marker.setTag(mModel.getUid());
+        if (getIntent().getStringExtra("id").equals("doc")) {
+            mReference.child("UserInfo").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    for (DataSnapshot s : dataSnapshot.getChildren()) {
+                        Log.d("Children", s.toString());
+                        UserModel mModel = s.getValue(UserModel.class);
+                        Log.d("in", mModel.getRole());
+                        if (mModel.getRole().equals("Doctor")) {
+                            Log.d("in2", String.valueOf(s.child("/status").getValue()));
+                            int status = Integer.parseInt(s.child("/status").getValue().toString());
+                            if (status == 0) {
+                                marker = googleMap.addMarker(new MarkerOptions().icon(bitmapDescriptorFromVector(getApplicationContext(), R.drawable.ic_cancel)).title(mModel.getName()).position(new LatLng(Double.parseDouble(mModel.getLat()), Double.parseDouble(mModel.getLon()))));
+                                marker.setTag(mModel.getUid());
+                            } else if (status == 1) {
+                                marker = googleMap.addMarker(new MarkerOptions().title(mModel.getName()).icon(bitmapDescriptorFromVector(getApplicationContext(), R.drawable.ic_location)).position(new LatLng(Double.parseDouble(mModel.getLat()), Double.parseDouble(mModel.getLon()))));
+                                marker.setTag(mModel.getUid());
+                            }
                         }
                     }
                 }
 
-            }
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+                }
+            });
+            mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+                @Override
+                public void onInfoWindowClick(Marker marker) {
+                    Toast.makeText(DoctorActivity.this, Objects.requireNonNull(marker.getTag()).toString(), Toast.LENGTH_SHORT).show();
+                    // handle the clicked marker object
+                    Intent docIntent = new Intent(DoctorActivity.this, DocViewActivity.class);
+                    docIntent.putExtra("id", "user");
+                    docIntent.putExtra("uid", marker.getTag().toString());
+                    startActivity(docIntent);
+                }
+            });
+        } else if (getIntent().getStringExtra("id").equals("psy")) {
+            mReference.child("UserInfo").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    for (DataSnapshot s : dataSnapshot.getChildren()) {
+                        Log.d("Children", s.toString());
+                        UserModel mModel = s.getValue(UserModel.class);
+                        Log.d("in", mModel.getRole());
+                        if (mModel.getRole().equals("Doctor") && mModel.getSpeciality().equals("Psychiatrist")) {
+                            Log.d("in2", String.valueOf(s.child("/status").getValue()));
+                            int status = Integer.parseInt(s.child("/status").getValue().toString());
+                            if (status == 0) {
+                                marker = googleMap.addMarker(new MarkerOptions().icon(bitmapDescriptorFromVector(getApplicationContext(), R.drawable.ic_cancel)).title(mModel.getName()).position(new LatLng(Double.parseDouble(mModel.getLat()), Double.parseDouble(mModel.getLon()))));
+                                marker.setTag(mModel.getUid());
+                            } else if (status == 1) {
+                                marker = googleMap.addMarker(new MarkerOptions().title(mModel.getName()).icon(bitmapDescriptorFromVector(getApplicationContext(), R.drawable.ic_location)).position(new LatLng(Double.parseDouble(mModel.getLat()), Double.parseDouble(mModel.getLon()))));
+                                marker.setTag(mModel.getUid());
+                            }
+                        }
+                    }
+                }
 
-            }
-        });
-//
-//        CustomMarkerInfoView markerWindowView = new CustomMarkerInfoView(this);
-//        googleMap.setInfoWindowAdapter(markerWindowView);
-        mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
-            @Override
-            public void onInfoWindowClick(Marker marker) {
-                Toast.makeText(DoctorActivity.this, Objects.requireNonNull(marker.getTag()).toString(), Toast.LENGTH_SHORT).show();
-                // handle the clicked marker object
-                Intent docIntent = new Intent(DoctorActivity.this, DocViewActivity.class);
-                docIntent.putExtra("id", "user");
-                docIntent.putExtra("name", name);
-                docIntent.putExtra("uid", marker.getTag().toString());
-                startActivity(docIntent);
-            }
-        });
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
+                }
+            });
+            mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+                @Override
+                public void onInfoWindowClick(Marker marker) {
+                    Toast.makeText(DoctorActivity.this, Objects.requireNonNull(marker.getTag()).toString(), Toast.LENGTH_SHORT).show();
+                    // handle the clicked marker object
+                    Intent docIntent = new Intent(DoctorActivity.this, DocViewActivity.class);
+                    docIntent.putExtra("id", "user");
+                    docIntent.putExtra("uid", marker.getTag().toString());
+                    startActivity(docIntent);
+                }
+            });
+        } else if (getIntent().getStringExtra("id").equals("vul")) {
+            mReference.child("Vulnerable").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    for (DataSnapshot s : dataSnapshot.getChildren()) {
+                        Log.d("Children", s.toString());
+                        WorkDetailsModel mModel = s.getValue(WorkDetailsModel.class);
+                        Log.d("in", mModel.getName());
+                        Log.d("in", "in");
+                        LatLng location = new LatLng(Double.parseDouble(mModel.getLat()), Double.parseDouble(mModel.getLon()));
+                        mMap.addMarker(new MarkerOptions().position(location).snippet(mModel.getPhoneNumber()).title(mModel.getName()));
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+        } else if (getIntent().getStringExtra("id").equals("orph")) {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+
+                    mMap.clear();
+                    String url = getUrl(mLastlocation.getLatitude(), mLastlocation.getLongitude());
+                    Object[] DataTransfer = new Object[2];
+                    DataTransfer[0] = mMap;
+                    DataTransfer[1] = url;
+                    GetNearbyPlacesData getNearbyPlacesData = new GetNearbyPlacesData();
+                    getNearbyPlacesData.execute(DataTransfer);
+
+                }
+            }, 10000);
+        } else if (getIntent().getStringExtra("id").equals("unorg")) {
+            mReference.child("UserInfo").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    for (DataSnapshot s : dataSnapshot.getChildren()) {
+                        Log.d("Children", s.toString());
+                        UserModel mModel = s.getValue(UserModel.class);
+                        Log.d("in", mModel.getRole());
+                        if (mModel.getRole().equals("Unorganised Worker")) {
+                            marker = googleMap.addMarker(new MarkerOptions().title(mModel.getName()).position(new LatLng(Double.parseDouble(mModel.getLat()), Double.parseDouble(mModel.getLon()))));
+                            marker.setTag(mModel.getUid());
+
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+            mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+                @Override
+                public void onInfoWindowClick(Marker marker) {
+                    Toast.makeText(DoctorActivity.this, Objects.requireNonNull(marker.getTag()).toString(), Toast.LENGTH_SHORT).show();
+                    // handle the clicked marker object
+                    Intent docIntent = new Intent(DoctorActivity.this, UnorganisedActivity.class);
+                    docIntent.putExtra("id", "user");
+                    docIntent.putExtra("uid", marker.getTag().toString());
+                    startActivity(docIntent);
+                }
+            });
+        }
     }
 
-//    public class CustomMarkerInfoView implements GoogleMap.InfoWindowAdapter {
-//
-//        private final View markerView;
-//
-//        public CustomMarkerInfoView(Context con) {
-//            markerView = LayoutInflater.from(con).inflate(R.layout.marker_view,null);
-//        }
-//
-//        @Override
-//        public View getInfoWindow(Marker marker) {
-//
-//            mReference.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//
-//                for (DataSnapshot s : dataSnapshot.getChildren()){
-//                    Log.d("Children",s.toString());
-//                    UserModel mModel = s.getValue(UserModel.class);
-//                    Log.d("in",mModel.getRole());
-//                    if(mModel.getRole().equals("Doctor")){
-//                        Log.d("in","in");
-//                        TextView name = markerView.findViewById(R.id.name);
-//                        ImageView avail = markerView.findViewById(R.id.availability);
-//                        name.setText(mModel.getName());
-//
-//                    }
-//                }
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//            }
-//        });
-//            return markerView;
-//        }
-//
-//        @Override
-//        public View getInfoContents(Marker marker) {
-//            return null;
-//        }
-//    }
-
-
-//    private void sendNotification(String pandemicHelper, String s) {
-//        Log.d("NO", "notify");
-//        Notification.Builder builder = new Notification.Builder(this)
-//                .setSmallIcon(R.drawable.ic_earth)
-//                .setContentTitle(pandemicHelper)
-//                .setContentText(s);
-//        NotificationManager manager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
-//        Intent intent = new Intent(this, MapsActivity.class);
-//        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE);
-//        builder.setContentIntent(pendingIntent);
-//        Notification notification = builder.build();
-//        notification.flags |= Notification.FLAG_AUTO_CANCEL;
-//        notification.defaults |= Notification.DEFAULT_SOUND;
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//            String channelId = "geo";
-//            NotificationChannel channel = new NotificationChannel(
-//                    channelId,
-//                    "Geofence",
-//                    NotificationManager.IMPORTANCE_HIGH);
-//            manager.createNotificationChannel(channel);
-//            builder.setChannelId(channelId);
-//        }
-//        manager.notify(0, builder.build());
-//    }
+    private String getUrl(double latitude, double longitude) {
+        //maps.googleapis.com/maps/api/place/findplacefromtext/json?input=orphanages&inputtype=textquery&key=AIzaSyBzHbDmyGXgM5Sd11V-CIJw38-VqBTdOdk
+        StringBuilder googlePlacesUrl = new StringBuilder("maps.googleapis.com/maps/api/place/findplacefromtext/json?input=orphanages&inputtype=textquery");
+        googlePlacesUrl.append("locationbaias=circle:" + PROXIMITY_RADIUS + "@" + latitude + "," + longitude);
+        googlePlacesUrl.append("&key=" + "AIzaSyBzHbDmyGXgM5Sd11V-CIJw38-VqBTdOdk");
+        Log.d("getUrl", googlePlacesUrl.toString());
+        return (googlePlacesUrl.toString());
+    }
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {

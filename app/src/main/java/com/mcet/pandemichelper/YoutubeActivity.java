@@ -28,7 +28,6 @@ public class YoutubeActivity extends AppCompatActivity {
     private ListView mListView;
     private ArrayList<VideoDetailsModel> mVideoArrayList;
     private VideoAdapter mVideoDetailsAdapter;
-    private String url="https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=UC7QhK6RVJWM-yqeC2GMjlYA&maxResults=10&key=AIzaSyAuRciEQbgHCmxW3Yhwe0p6iuMz4B8A5jE";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,13 +38,21 @@ public class YoutubeActivity extends AppCompatActivity {
 
         mVideoArrayList = new ArrayList<>();
 
-        mVideoDetailsAdapter = new VideoAdapter(YoutubeActivity.this,mVideoArrayList);
+        mVideoDetailsAdapter = new VideoAdapter(YoutubeActivity.this, mVideoArrayList);
 
-        displayVideos();
+        if (getIntent().getStringExtra("id").equals("c_videos")) {
+            String url = "https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=537&q=councelling%20for%20patients&type=video&key=AIzaSyBzHbDmyGXgM5Sd11V-CIJw38-VqBTdOdk";
+
+            displayVideos(url);
+        } else if (getIntent().getStringExtra("id").equals("home")) {
+            String url = "https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=UC7QhK6RVJWM-yqeC2GMjlYA&maxResults=10&key=AIzaSyBzHbDmyGXgM5Sd11V-CIJw38-VqBTdOdk";
+
+            displayVideos(url);
+        }
 
     }
 
-    private void displayVideos() {
+    private void displayVideos(String url) {
 
         final RequestQueue mRequestQueue = Volley.newRequestQueue(getApplicationContext());
         StringRequest mStringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {

@@ -10,7 +10,7 @@
         android:id="@+id/hos_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/hos_bottom_navigation"></androidx.coordinatorlayout.widget.CoordinatorLayout>
+        android:layout_above="@+id/hos_bottom_navigation" />
     <!-- Main content -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/hos_bottom_navigation"

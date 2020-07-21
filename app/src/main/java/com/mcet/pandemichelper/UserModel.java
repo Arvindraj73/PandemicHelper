@@ -15,6 +15,32 @@ public class UserModel {
     String time;
     String dailyLimit;
 
+    public String getSpeciality() {
+        return speciality;
+    }
+
+    public void setSpeciality(String speciality) {
+        this.speciality = speciality;
+    }
+
+    public UserModel(String name, String phone, String email, String pass, String uid, String role, String lat, String lon, String deviceToken, String limit, String time, String dailyLimit, String speciality) {
+        Name = name;
+        Phone = phone;
+        Email = email;
+        Pass = pass;
+        Uid = uid;
+        Role = role;
+        this.lat = lat;
+        this.lon = lon;
+        this.deviceToken = deviceToken;
+        this.limit = limit;
+        this.time = time;
+        this.dailyLimit = dailyLimit;
+        this.speciality = speciality;
+    }
+
+    String speciality;
+
     public String getDailyLimit() {
         return dailyLimit;
     }

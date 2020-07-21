@@ -1,9 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<fragment xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:map="http://schemas.android.com/apk/res-auto"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/doc_map"
-    android:name="com.google.android.gms.maps.SupportMapFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DoctorActivity" />
+    android:fillViewport="true">
+    <!--    <LinearLayout-->
+    <!--        android:id="@+id/validity"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:orientation="vertical"-->
+    <!--        android:layout_gravity="top"-->
+    <!--        android:background="@android:color/white">-->
+    <!--    </LinearLayout>-->
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/history_floating_action_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/text_margin"
+        android:backgroundTint="@color/colorPrimary"
+        app:srcCompat="@drawable/ic_baseline_history_24" />
+
+    <fragment
+        android:id="@+id/doc_map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".DoctorActivity">
+
+        <TextView
+            android:id="@+id/clickHere"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:text="@string/if_you_are_an_unorganised_sector_worker_and_need_help_click_here"
+            android:textColor="@color/colorPrimary"
+            android:backgroundTint="@color/white" />
+    </fragment>
+</FrameLayout>

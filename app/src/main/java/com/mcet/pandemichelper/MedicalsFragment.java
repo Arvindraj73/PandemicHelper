@@ -150,7 +150,7 @@ public class MedicalsFragment extends Fragment {
                             // Set the map's camera position to the current location of the device.
                             mLastKnownLocation = (Location) task.getResult();
 
-                            Log.d("Location", String.valueOf(mLastKnownLocation.getLatitude()+" "+mLastKnownLocation.getLongitude()));
+                            Log.d("Location", mLastKnownLocation.getLatitude() + " " + mLastKnownLocation.getLongitude());
                             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
                                     new LatLng(mLastKnownLocation.getLatitude(),
                                             mLastKnownLocation.getLongitude()), DEFAULT_ZOOM));
@@ -238,7 +238,7 @@ public class MedicalsFragment extends Fragment {
         googlePlacesUrl.append("&radius=" + PROXIMITY_RADIUS);
         googlePlacesUrl.append("&type=" + nearbyPlace);
         googlePlacesUrl.append("&sensor=true");
-        googlePlacesUrl.append("&key=" + "AIzaSyAuRciEQbgHCmxW3Yhwe0p6iuMz4B8A5jE");
+        googlePlacesUrl.append("&key=" + "AIzaSyBzHbDmyGXgM5Sd11V-CIJw38-VqBTdOdk");
         Log.d("getUrl", googlePlacesUrl.toString());
         return (googlePlacesUrl.toString());
     }
