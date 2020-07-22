@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -22,14 +23,14 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public class AdminPassApproveActivity extends AppCompatActivity {
-    TextView name, age, gender, from, to, reason, imgurl, test;
+    TextView name, age, gender, from, to, reason, imgurl, test,status;
     Button map;
     ImageView id, rproof;
     Button accept, reject;
     String key, flat, flog, tlat, tlog;
     FirebaseDatabase database;
     DatabaseReference reference;
-    String fromaddress, toaddress;
+    String fromaddress, toaddress,strstatus, path;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +48,7 @@ public class AdminPassApproveActivity extends AppCompatActivity {
         accept = findViewById(R.id.actbtn);
         reject = findViewById(R.id.rjtbtn);
         map = findViewById(R.id.map);
-
+        status=findViewById(R.id.statustatus);
         test = findViewById(R.id.t4);
         key = getIntent().getStringExtra("path");
         database = FirebaseDatabase.getInstance();
@@ -64,7 +65,8 @@ public class AdminPassApproveActivity extends AppCompatActivity {
                 to.setText(model.getToAddress());
                 fromaddress = model.getFromAddress();
                 toaddress = model.getToAddress();
-
+                status.setText(model.getStatus());
+                strstatus=model.getStatus();
                 Picasso.get().load(model.getIdProof()).into(id);
                 reason.setText(model.getReason());
 
@@ -91,6 +93,53 @@ public class AdminPassApproveActivity extends AppCompatActivity {
                 fm.putExtra("tlog", tlog);
                 test.setText(tlat);
                 startActivity(fm);
+            }
+        });
+        if((status.equals("Accepted")||(status.equals("Rejected")))) {
+            accept.setVisibility(View.GONE);
+            reject.setVisibility(View.GONE);
+        }
+        accept.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                reference.child("PersonalPass/" + key).child("status").setValue("Accepted");
+
+                reference.child("PersonalPass/" + key).child("key").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        path = dataSnapshot.getValue().toString();
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+                reference.child("UserInfo/" + key).child("epass/"+path).child("status").setValue("Accepted");
+                startActivity(new Intent(AdminPassApproveActivity.this,AdminPersonalPassActivity.class));
+                Toast.makeText(AdminPassApproveActivity.this,"Accepted",Toast.LENGTH_SHORT).show();
+            }
+        });
+        reject.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                reference.child("PersonalPass/" + key).child("status").setValue("Rejected");
+                reference.child("PersonalPass/" + key).child("key").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        path = dataSnapshot.getValue().toString();
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+                reference.child("UserInfo/" + key).child("epass/"+path).child("status").setValue("Rejected");
+
+                startActivity(new Intent(AdminPassApproveActivity.this,AdminPersonalPassActivity.class));
+                Toast.makeText(AdminPassApproveActivity.this,"Rejected",Toast.LENGTH_SHORT).show();
             }
         });
     }

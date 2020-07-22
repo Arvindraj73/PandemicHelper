@@ -4,7 +4,7 @@ public class PassDetailsModel {
 
     String name, age, gender, reason, idType, idNumber, reasonProof,
             idProof, fromAddress, toAddress, noOfPassengers,
-            vehicleType, vehicleNo, travelDate;
+            vehicleType, vehicleNo, travelDate, status,key;
 
     public String getName() {
         return name;
@@ -118,13 +118,7 @@ public class PassDetailsModel {
         this.travelDate = travelDate;
     }
 
-    public PassDetailsModel() {
-    }
-
-    public PassDetailsModel(String name, String age, String gender,
-                            String reason, String idType, String idNumber,
-                            String fromAddress, String toAddress, String noOfPassengers,
-                            String vehicleType, String vehicleNo, String travelDate) {
+    public PassDetailsModel(String name, String age, String gender, String reason, String idType, String idNumber, String fromAddress, String toAddress, String noOfPassengers, String vehicleType, String vehicleNo, String travelDate, String status) {
         this.name = name;
         this.age = age;
         this.gender = gender;
@@ -137,5 +131,25 @@ public class PassDetailsModel {
         this.vehicleType = vehicleType;
         this.vehicleNo = vehicleNo;
         this.travelDate = travelDate;
+        this.status = status;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public PassDetailsModel() {
     }
 }

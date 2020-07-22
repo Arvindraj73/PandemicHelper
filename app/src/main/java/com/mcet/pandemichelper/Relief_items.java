@@ -95,9 +95,6 @@ public class Relief_items extends AppCompatActivity {
                     holder.work.setText(model.getItemName());
                     holder.num.setText(model.getQuantity());
 
-
-
-
                 }
             };
 

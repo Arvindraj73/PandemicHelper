@@ -209,10 +209,20 @@
                             android:layout_below="@+id/RProof"
                             android:layout_centerHorizontal="true"
                             android:id="@+id/ReasonProof"></ImageView>
-<Button
+                        <TextView
+                            android:id="@+id/statustatus"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/ReasonProof"
+                            android:fontFamily="@font/poppins_light"
+                            android:text="Reason"
+                            android:textSize="@dimen/tsize2"
+                            android:textStyle="bold" />
+
+                        <Button
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-android:layout_below="@+id/ReasonProof"
+android:layout_below="@+id/statustatus"
     android:text="Accept"
     android:id="@+id/actbtn">
 </Button>

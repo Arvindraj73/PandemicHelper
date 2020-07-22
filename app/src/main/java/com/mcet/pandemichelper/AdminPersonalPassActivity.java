@@ -58,7 +58,7 @@ try{
             holder.from.setText(model.getFromAddress());
             holder.to.setText(model.getToAddress());
             holder.date.setText(model.getTravelDate());
-
+            holder.status.setText(model.getStatus());
             holder.cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
