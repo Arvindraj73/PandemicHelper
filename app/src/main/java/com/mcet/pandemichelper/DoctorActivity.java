@@ -160,9 +160,8 @@ public class DoctorActivity extends FragmentActivity implements OnMapReadyCallba
             double lat = mLastlocation.getLatitude();
             double lon = mLastlocation.getLongitude();
             Log.d("DATA", lat + " " + lon);
-            marker = mMap.addMarker(new MarkerOptions()
-                    .position(new LatLng(lat, lon))
-                    .title("You"));
+            mMap.setMyLocationEnabled(true);
+            mMap.getUiSettings().setMyLocationButtonEnabled(true);
             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat, lon), 12.0f));
 
         }
@@ -320,21 +319,29 @@ public class DoctorActivity extends FragmentActivity implements OnMapReadyCallba
             });
         }
         else if (getIntent().getStringExtra("id").equals("orph")) {
-            new Handler().postDelayed(new Runnable() {
+            mReference.child("orphange Center").addValueEventListener(new ValueEventListener() {
                 @Override
-                public void run() {
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                    mMap.clear();
-                    String url = getUrl(mLastlocation.getLatitude(), mLastlocation.getLongitude());
-                    Object[] DataTransfer = new Object[2];
-                    DataTransfer[0] = mMap;
-                    DataTransfer[1] = url;
-                    GetNearbyPlacesData getNearbyPlacesData = new GetNearbyPlacesData();
-                    getNearbyPlacesData.execute(DataTransfer);
+                    for (DataSnapshot s : dataSnapshot.getChildren()) {
+                        Log.d("Children", s.toString());
+                        WorkDetailsModel mModel = s.getValue(WorkDetailsModel.class);
+                        Log.d("in", mModel.getName());
+                        Log.d("in", "in");
+                        LatLng location = new LatLng(Double.parseDouble(mModel.getLat()), Double.parseDouble(mModel.getLon()));
+                        googleMap.addMarker(new MarkerOptions().position(location).snippet(mModel.getPhoneNumber()).title(mModel.getName()));
+                    }
+
 
                 }
-            }, 10000);
-        } else if (getIntent().getStringExtra("id").equals("unorg")) {
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+        }
+        else if (getIntent().getStringExtra("id").equals("unorg")) {
             mReference.child("UserInfo").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

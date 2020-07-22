@@ -38,6 +38,8 @@ public class AdminHomeActivity extends AppCompatActivity implements View.OnClick
         findViewById(R.id.card_Tpass).setOnClickListener(this);
         findViewById(R.id.card_orphange_center).setOnClickListener(this);
         findViewById(R.id.card_reliefmaterialcenter).setOnClickListener(this);
+        findViewById(R.id.card_vulnerable_center).setOnClickListener(this);
+        findViewById(R.id.card_food_Request).setOnClickListener(this);
         mAppBar = findViewById(R.id.appbarAdmin);
 
         auth = FirebaseAuth.getInstance();
@@ -142,7 +144,14 @@ public class AdminHomeActivity extends AppCompatActivity implements View.OnClick
                 startActivity(oc);
 
                 break;
-
+            case R.id.card_vulnerable_center:
+                Intent vc=new Intent(AdminHomeActivity.this, CreateWorkActivity.class);
+                vc.putExtra("id","vc");
+                startActivity(vc);
+                break;
+            case R.id.card_food_Request:
+                startActivity(new Intent(AdminHomeActivity.this,AdminFoodRequestActivity.class));
+                break;
         }
 
     }
