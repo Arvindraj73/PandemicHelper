@@ -172,6 +172,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private void logOut() {
         auth.signOut();
         preferences.getAll().clear();
+        finish();
         startActivity(new Intent(HomeActivity.this, LoginActivity.class));
     }
 

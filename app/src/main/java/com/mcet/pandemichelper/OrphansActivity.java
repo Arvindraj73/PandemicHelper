@@ -26,7 +26,7 @@ public class OrphansActivity extends AppCompatActivity implements View.OnClickLi
         switch (v.getId()) {
 
             case R.id.nearbyOr:
-                Intent i = new Intent(OrphansActivity.this, DoctorActivity.class);
+                Intent i = new Intent(OrphansActivity.this, OrphanageActivity.class);
                 i.putExtra("id", "orph");
                 startActivity(i);
                 break;

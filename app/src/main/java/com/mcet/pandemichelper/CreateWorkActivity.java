@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
@@ -43,6 +44,8 @@ public class CreateWorkActivity extends AppCompatActivity {
     private String work,desc,numWorkers,phone;
 
     private ProgressDialog progressDialog;
+
+    private SharedPreferences preferences;
 
     private FirebaseDatabase mData;
     private DatabaseReference mRef;
@@ -91,6 +94,7 @@ public class CreateWorkActivity extends AppCompatActivity {
         select = findViewById(R.id.selectLoc);
 
         errorView = findViewById(R.id.errorView);
+        preferences = getApplicationContext().getSharedPreferences("UserData", MODE_PRIVATE);
 
         progressDialog = new ProgressDialog(this);
 
@@ -128,13 +132,25 @@ public class CreateWorkActivity extends AppCompatActivity {
             mWork.setHint("Shelter Name");
         }
 
+        else if (id.equals("rmc")){
+            mNum.setVisibility(View.GONE);
+            mDesc.setVisibility(View.GONE);
+            mWork.setHint("Center Name");
+        }
+
+        else if (id.equals("oc")){
+            mNum.setVisibility(View.GONE);
+            mDesc.setVisibility(View.GONE);
+            mWork.setHint("Orphange Name");
+        }
+
 
         select.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 Intent intent = new PlacePicker.IntentBuilder()
-                        .setLatLong(25.4670, 91.3662)
+                        .setLatLong(Double.parseDouble(preferences.getString("lat", "25.4670")), Double.parseDouble(preferences.getString("lon", "91.3662")))
                         .showLatLong(true)
                         .setMapType(MapType.NORMAL)
                         .build(CreateWorkActivity.this);
@@ -220,6 +236,38 @@ public class CreateWorkActivity extends AppCompatActivity {
                                     progressDialog.dismiss();
                                     startActivity(new Intent(CreateWorkActivity.this,AdminHomeActivity.class));
                                     
+                                }
+
+                            }
+                        });
+                    }
+                    else if (id.equals("rmc")){
+                        WorkDetailsModel workDetailsModel = new WorkDetailsModel(work,phone,lat,lon);
+                        mRef.child("ReliefMaterialCenter/").push().setValue(workDetailsModel).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+
+                                if (task.isSuccessful()){
+
+                                    progressDialog.dismiss();
+                                    startActivity(new Intent(CreateWorkActivity.this,AdminHomeActivity.class));
+
+                                }
+
+                            }
+                        });
+                    }
+                    else if (id.equals("oc")){
+                        WorkDetailsModel workDetailsModel = new WorkDetailsModel(work,phone,lat,lon);
+                        mRef.child("orphange Center/").push().setValue(workDetailsModel).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+
+                                if (task.isSuccessful()){
+
+                                    progressDialog.dismiss();
+                                    startActivity(new Intent(CreateWorkActivity.this,AdminHomeActivity.class));
+
                                 }
 
                             }

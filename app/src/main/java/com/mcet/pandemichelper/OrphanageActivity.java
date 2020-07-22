@@ -3,7 +3,7 @@ package com.mcet.pandemichelper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -30,10 +30,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class ReliefCenterFragment extends Fragment {
+public class OrphanageActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
-
     private DatabaseReference mReference;
     private FusedLocationProviderClient mFusedLocationProviderClient;
 
@@ -53,49 +52,59 @@ public class ReliefCenterFragment extends Fragment {
 
     private CameraPosition mCameraPosition;
 
-    private OnMapReadyCallback callback = new OnMapReadyCallback() {
 
-        /**
-         * Manipulates the map once available.
-         * This callback is triggered when the map is ready to be used.
-         * This is where we can add markers or lines, add listeners or move the camera.
-         * In this case, we just add a marker near Sydney, Australia.
-         * If Google Play services is not installed on the device, the user will be prompted to
-         * install it inside the SupportMapFragment. This method will only be triggered once the
-         * user has installed Google Play services and returned to the app.
-         */
+
+
         @Override
-        public void onMapReady(GoogleMap googleMap) {
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_orphanage);
+        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
+    }
 
-            mMap = googleMap;
+    /**
+     * Manipulates the map once available.
+     * This callback is triggered when the map is ready to be used.
+     * This is where we can add markers or lines, add listeners or move the camera. In this case,
+     * we just add a marker near Sydney, Australia.
+     * If Google Play services is not installed on the device, the user will be prompted to install
+     * it inside the SupportMapFragment. This method will only be triggered once the user has
+     * installed Google Play services and returned to the app.
+     */
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
 
-            updateLocationUI();
+        mMap = googleMap;
 
-            getDeviceLocation();
+        updateLocationUI();
 
-            mReference.child("ReliefMaterialCenter").addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+        getDeviceLocation();
 
-                    for (DataSnapshot s : dataSnapshot.getChildren()) {
-                        Log.d("Children", s.toString());
-                        WorkDetailsModel mModel = s.getValue(WorkDetailsModel.class);
-                        Log.d("in", mModel.getName());
-                        Log.d("in", "in");
-                        LatLng location = new LatLng(Double.parseDouble(mModel.getLat()), Double.parseDouble(mModel.getLon()));
-                        googleMap.addMarker(new MarkerOptions().position(location).snippet(mModel.getPhoneNumber()).title(mModel.getName()));
-                    }
+        mReference.child("ReliefMaterialCenter").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-
+                for (DataSnapshot s : dataSnapshot.getChildren()) {
+                    Log.d("Children", s.toString());
+                    WorkDetailsModel mModel = s.getValue(WorkDetailsModel.class);
+                    Log.d("in", mModel.getName());
+                    Log.d("in", "in");
+                    LatLng location = new LatLng(Double.parseDouble(mModel.getLat()), Double.parseDouble(mModel.getLon()));
+                    googleMap.addMarker(new MarkerOptions().position(location).snippet(mModel.getPhoneNumber()).title(mModel.getName()));
                 }
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                }
-            });
-        }
-    };
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+}
 
     private void updateLocationUI() {
         Log.d("TAG", "UpdateUI");
@@ -126,7 +135,7 @@ public class ReliefCenterFragment extends Fragment {
          * onRequestPermissionsResult.
          */
         Log.d("TAG", "getLocationPermission");
-        if (ContextCompat.checkSelfPermission(this.getContext(),
+        if (ContextCompat.checkSelfPermission(this,
                 android.Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
             mLocationPermissionGranted = true;
@@ -192,7 +201,6 @@ public class ReliefCenterFragment extends Fragment {
             Log.e("Exception: %s", e.getMessage());
         }
     }
-
     @Override
     public void onSaveInstanceState(Bundle outState) {
         if (mMap != null) {
@@ -202,28 +210,4 @@ public class ReliefCenterFragment extends Fragment {
         }
     }
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_relief_center, container, false);
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        SupportMapFragment mapFragment =
-                (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
-        if (mapFragment != null) {
-            mapFragment.getMapAsync(callback);
-        }
-        if (savedInstanceState != null) {
-            mLastKnownLocation = savedInstanceState.getParcelable(KEY_LOCATION);
-            mCameraPosition = savedInstanceState.getParcelable(KEY_CAMERA_POSITION);
-        }
-
-        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(ReliefCenterFragment.this.getContext());
-        mReference = FirebaseDatabase.getInstance().getReference();
-    }
 }

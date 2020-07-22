@@ -36,6 +36,8 @@ public class AdminHomeActivity extends AppCompatActivity implements View.OnClick
         findViewById(R.id.card_healthworker).setOnClickListener(this);
         findViewById(R.id.card_personalpass).setOnClickListener(this);
         findViewById(R.id.card_Tpass).setOnClickListener(this);
+        findViewById(R.id.card_orphange_center).setOnClickListener(this);
+        findViewById(R.id.card_reliefmaterialcenter).setOnClickListener(this);
         mAppBar = findViewById(R.id.appbarAdmin);
 
         auth = FirebaseAuth.getInstance();
@@ -44,7 +46,7 @@ public class AdminHomeActivity extends AppCompatActivity implements View.OnClick
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
-                    case R.id.logout:
+                    case R.id.logoutAdmin:
                         logOut();
                         return true;
 
@@ -58,6 +60,7 @@ public class AdminHomeActivity extends AppCompatActivity implements View.OnClick
     private void logOut() {
         auth.signOut();
         preferences.getAll().clear();
+        finish();
         startActivity(new Intent(AdminHomeActivity.this, LoginActivity.class));
     }
 
@@ -126,6 +129,18 @@ public class AdminHomeActivity extends AppCompatActivity implements View.OnClick
                 break;
             case R.id.card_Tpass:
                 startActivity(new Intent(AdminHomeActivity.this,AdminTransportPassActivity.class));
+                break;
+            case R.id.card_reliefmaterialcenter:
+                Intent rmc = new Intent(AdminHomeActivity.this, CreateWorkActivity.class);
+                rmc.putExtra("id", "rmc");
+                startActivity(rmc);
+
+                break;
+            case R.id.card_orphange_center:
+                Intent oc = new Intent(AdminHomeActivity.this, CreateWorkActivity.class);
+                oc.putExtra("id", "oc");
+                startActivity(oc);
+
                 break;
 
         }
