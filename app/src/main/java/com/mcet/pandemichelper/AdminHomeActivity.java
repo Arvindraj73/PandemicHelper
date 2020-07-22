@@ -23,6 +23,7 @@ public class AdminHomeActivity extends AppCompatActivity implements View.OnClick
         findViewById(R.id.card_relif).setOnClickListener(this);
         findViewById(R.id.card_essential).setOnClickListener(this);
         findViewById(R.id.card_healthworker).setOnClickListener(this);
+        findViewById(R.id.card_personalpass).setOnClickListener(this);
 
     }
 
@@ -82,6 +83,10 @@ public class AdminHomeActivity extends AppCompatActivity implements View.OnClick
                 Intent ih=new Intent(AdminHomeActivity.this, AdminHealthWorkerActivity.class);
                 ih.putExtra("id","hw");
                 startActivity(ih);
+            case R.id.card_personalpass:
+                Intent ip=new Intent(AdminHomeActivity.this,AdminPersonalPassActivity.class);
+                ip.putExtra("id","ip");
+                startActivity(ip);
 
         }
 

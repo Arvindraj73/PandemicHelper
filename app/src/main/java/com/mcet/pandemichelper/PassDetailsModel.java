@@ -2,8 +2,8 @@ package com.mcet.pandemichelper;
 
 public class PassDetailsModel {
 
-    String name, age, gender, reason, idType, idNumber, reasonProofUrl,
-            idProofUrl, fromAddress, toAddress, noOfPassengers,
+    String name, age, gender, reason, idType, idNumber, reasonProof,
+            idProof, fromAddress, toAddress, noOfPassengers,
             vehicleType, vehicleNo, travelDate;
 
     public String getName() {
@@ -54,20 +54,20 @@ public class PassDetailsModel {
         this.idNumber = idNumber;
     }
 
-    public String getReasonProofUrl() {
-        return reasonProofUrl;
+    public String getReasonProof() {
+        return reasonProof;
     }
 
-    public void setReasonProofUrl(String reasonProofUrl) {
-        this.reasonProofUrl = reasonProofUrl;
+    public void setReasonProof(String reasonProof) {
+        this.reasonProof = reasonProof;
     }
 
-    public String getIdProofUrl() {
-        return idProofUrl;
+    public String getIdProof() {
+        return idProof;
     }
 
-    public void setIdProofUrl(String idProofUrl) {
-        this.idProofUrl = idProofUrl;
+    public void setIdProof(String idProof) {
+        this.idProof = idProof;
     }
 
     public String getFromAddress() {

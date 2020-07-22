@@ -184,5 +184,6 @@
         <item>GST Certificate</item>
         <item>RoC Registration Certificate</item>
     </string-array>
+    <string name="title_activity_admin_from_maps">Map</string>
 
 </resources>

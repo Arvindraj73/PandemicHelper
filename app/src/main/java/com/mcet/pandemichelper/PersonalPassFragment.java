@@ -30,6 +30,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -57,7 +58,7 @@ public class PersonalPassFragment extends Fragment implements View.OnClickListen
     private ImageView imageView, imageView2;
     private TextView chosenFile, chosenReasonFile;
     private Spinner gender, idProofType, travelReason, vehicleType;
-
+    private FloatingActionButton history;
     private TextInputLayout ageText, noOfPassengersText, dateText, nameText, idProofNoText, vehicleNoText;
 
     private View myView;
@@ -65,7 +66,7 @@ public class PersonalPassFragment extends Fragment implements View.OnClickListen
     private ArrayList<Uri> filePath = new ArrayList<Uri>();
 
     private StorageReference storageReference;
-    private DatabaseReference databaseReference;
+    private DatabaseReference databaseReference,databaseReference1;
 
     private SharedPreferences preferences;
 
@@ -82,7 +83,7 @@ public class PersonalPassFragment extends Fragment implements View.OnClickListen
 
         storageReference = FirebaseStorage.getInstance().getReference(preferences.getString("uid", ""));
         databaseReference = FirebaseDatabase.getInstance().getReference("PersonalPass");
-
+        databaseReference1 = FirebaseDatabase.getInstance().getReference("UserInfo");
         gender = myView.findViewById(R.id.genderSpinner);
         travelReason = myView.findViewById(R.id.travel_reason_spinner);
         chosenFile = myView.findViewById(R.id.chosen_file);
@@ -91,7 +92,7 @@ public class PersonalPassFragment extends Fragment implements View.OnClickListen
         imageView = myView.findViewById(R.id.img);
         imageView2 = myView.findViewById(R.id.img2);
         vehicleType = myView.findViewById(R.id.vehicle_spinner);
-
+        history = myView.findViewById(R.id.Epass_history);
         ageText = myView.findViewById(R.id.age);
         noOfPassengersText = myView.findViewById(R.id.passenger_count);
         dateText = myView.findViewById(R.id.travelDate);
@@ -100,6 +101,13 @@ public class PersonalPassFragment extends Fragment implements View.OnClickListen
         idProofNoText = myView.findViewById(R.id.idProofNo);
 
         ageText.getEditText().setEnabled(true);
+        history.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent his= new Intent(getContext(), HistoryActivity.class);
+                startActivity(his);
+            }
+        });
         ageText.setEndIconOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -175,6 +183,9 @@ public class PersonalPassFragment extends Fragment implements View.OnClickListen
                 vehicleNoText.getEditText().getText().toString(),
                 dateText.getEditText().getText().toString()
         );
+        String ref=databaseReference1.child(preferences.getString("uid", "")).child("epass").push().getKey();
+        databaseReference1.child(preferences.getString("uid", "")).child("epass/"+ref).setValue(model);
+
         databaseReference.child(preferences.getString("uid", "")).setValue(model).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
@@ -188,6 +199,7 @@ public class PersonalPassFragment extends Fragment implements View.OnClickListen
                                 public void onComplete(@NonNull Task<Uri> task) {
                                     Log.d("urlm", task.getResult().toString());
                                     databaseReference.child(preferences.getString("uid", "") + "/idProof").setValue(task.getResult().toString());
+                                    databaseReference1.child("epass/"+ref).child("/idProof").setValue(task.getResult().toString());
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
                                 @Override
@@ -206,6 +218,7 @@ public class PersonalPassFragment extends Fragment implements View.OnClickListen
                                 public void onComplete(@NonNull Task<Uri> task) {
                                     Log.d("urlm", task.getResult().toString());
                                     databaseReference.child(preferences.getString("uid", "") + "/reasonProof").setValue(task.getResult().toString());
+                                    databaseReference1.child("epass/"+ref).child("/reasonProof").setValue(task.getResult().toString());
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
                                 @Override
