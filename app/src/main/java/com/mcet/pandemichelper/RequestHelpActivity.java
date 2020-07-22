@@ -129,7 +129,7 @@ public class RequestHelpActivity extends AppCompatActivity implements View.OnCli
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {
-                        ref.child("MedRequests").child(user.getUid()).setValue(model);
+                        ref.child("HealthWorks").child(user.getUid()).setValue(model);
                         Toast.makeText(RequestHelpActivity.this, "Request Send", Toast.LENGTH_SHORT).show();
                     }
                 }

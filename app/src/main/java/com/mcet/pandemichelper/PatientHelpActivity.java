@@ -97,17 +97,17 @@ public class PatientHelpActivity extends AppCompatActivity implements View.OnCli
                 startActivity(i);
                 break;
 
-//            case R.id.viewMedHistory:
-//                Intent j = new Intent(PatientHelpActivity.this, AdminHomeActivity.class);
-//                j.putExtra("id", "med");
-//                startActivity(j);
-//                break;
-//
-//            case R.id.viewFoodHistory:
-//                Intent k = new Intent(PatientHelpActivity.this, MaterialCardView.class);
-//                k.putExtra("id", "hos");
-//                startActivity(k);
-//                break;
+            case R.id.viewMedHistory:
+                Intent j = new Intent(PatientHelpActivity.this, HistoryActivity.class);
+                j.putExtra("id", "med");
+                startActivity(j);
+                break;
+
+            case R.id.viewFoodHistory:
+                Intent k = new Intent(PatientHelpActivity.this, HistoryActivity.class);
+                k.putExtra("id", "food");
+                startActivity(k);
+                break;
 
         }
     }

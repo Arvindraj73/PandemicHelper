@@ -150,6 +150,7 @@
         <item>Labour</item>
         <item>Volunteer</item>
         <item>Unorganised Worker</item>
+        <item>Health Worker</item>
     </string-array>
 
     <string-array name="gender">

@@ -105,6 +105,7 @@ public class PersonalPassFragment extends Fragment implements View.OnClickListen
             @Override
             public void onClick(View v) {
                 Intent his= new Intent(getContext(), HistoryActivity.class);
+                his.putExtra("id", "perPass");
                 startActivity(his);
             }
         });

@@ -30,7 +30,7 @@ public class HistoryActivity extends AppCompatActivity {
     private DatabaseReference mRef;
     private String id;
     private SharedPreferences preferences;
-    private FirebaseRecyclerAdapter<PassDetailsModel, EpassViewHolder> adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,39 +38,159 @@ public class HistoryActivity extends AppCompatActivity {
         recyclerView=findViewById(R.id.historyView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         mDatabase = FirebaseDatabase.getInstance();
-        id = getIntent().getStringExtra("id");
         preferences = getApplicationContext().getSharedPreferences("UserData", Context.MODE_PRIVATE);
-        mRef = mDatabase.getReference("UserInfo").child(preferences.getString("uid", "")).child("epass");
-        try{
-            FirebaseRecyclerOptions list = new FirebaseRecyclerOptions.Builder<PassDetailsModel>().setQuery(mRef,PassDetailsModel.class).build();
-            adapter=new FirebaseRecyclerAdapter<PassDetailsModel,EpassViewHolder>(list) {
+        id = getIntent().getStringExtra("id");
 
-                @NonNull
-                @Override
-                public EpassViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                    View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.pass_view_layout,parent,false);
-                    return new EpassViewHolder(view);
-                }
+        if (id.equals("food")) {
+            mRef = mDatabase.getReference("UserInfo").child(preferences.getString("uid", "")).child("FoodRequests");
+            try{
+                FirebaseRecyclerOptions list = new FirebaseRecyclerOptions.Builder<HelpModel>().setQuery(mRef,HelpModel.class).build();
+                FirebaseRecyclerAdapter<HelpModel, EpassViewHolder> adapter=new FirebaseRecyclerAdapter<HelpModel,EpassViewHolder>(list) {
 
-                @Override
-                protected void onBindViewHolder(@NonNull EpassViewHolder holder, int position, @NonNull PassDetailsModel model) {
-                    final String key = getRef(position).getKey();
-                    holder.name.setText(model.getName());
-                    holder.from.setText(model.getFromAddress());
-                    holder.to.setText(model.getToAddress());
-                    holder.date.setText(model.getTravelDate());
+                    @NonNull
+                    @Override
+                    public EpassViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.pass_view_layout,parent,false);
+                        return new EpassViewHolder(view);
+                    }
 
-                }
-            };
-            adapter.startListening();
-            adapter.notifyDataSetChanged();
-            recyclerView.setAdapter(adapter);
-        } catch (Exception e) {
-            e.printStackTrace();
+                    @Override
+                    protected void onBindViewHolder(@NonNull EpassViewHolder holder, int position, @NonNull HelpModel model) {
+                        final String key = getRef(position).getKey();
+                        holder.name.setText("Name : \n"+model.getName());
+                        holder.date.setText("Number of Persons : \n"+model.getPerson_count());
+                        holder.from.setText("Address : \n"+model.getLocation());
+                        holder.to.setVisibility(View.GONE);
+
+                    }
+                };
+                adapter.startListening();
+                adapter.notifyDataSetChanged();
+                recyclerView.setAdapter(adapter);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
+        else if (id.equals("med")) {
+            mRef = mDatabase.getReference("UserInfo").child(preferences.getString("uid", "")).child("MedRequests");
+            try{
+                FirebaseRecyclerOptions list = new FirebaseRecyclerOptions.Builder<HelpModel>().setQuery(mRef,HelpModel.class).build();
+                FirebaseRecyclerAdapter<HelpModel, EpassViewHolder> adapter=new FirebaseRecyclerAdapter<HelpModel,EpassViewHolder>(list) {
 
+                    @NonNull
+                    @Override
+                    public EpassViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.pass_view_layout,parent,false);
+                        return new EpassViewHolder(view);
+                    }
 
+                    @Override
+                    protected void onBindViewHolder(@NonNull EpassViewHolder holder, int position, @NonNull HelpModel model) {
+                        final String key = getRef(position).getKey();
+                        holder.name.setText("Name : \n"+model.getName());
+                        holder.date.setText("Symptoms : \n"+model.getSymptoms());
+                        holder.to.setText("Disease : \n"+model.getDisease());
+                        holder.from.setText("Address : \n"+model.getLocation());
 
+                    }
+                };
+                adapter.startListening();
+                adapter.notifyDataSetChanged();
+                recyclerView.setAdapter(adapter);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        else if (id.equals("perPass")) {
+            mRef = mDatabase.getReference("UserInfo").child(preferences.getString("uid", "")).child("epass");
+            try{
+                FirebaseRecyclerOptions list = new FirebaseRecyclerOptions.Builder<PassDetailsModel>().setQuery(mRef,PassDetailsModel.class).build();
+                FirebaseRecyclerAdapter<PassDetailsModel, EpassViewHolder> adapter=new FirebaseRecyclerAdapter<PassDetailsModel,EpassViewHolder>(list) {
+
+                    @NonNull
+                    @Override
+                    public EpassViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.pass_view_layout,parent,false);
+                        return new EpassViewHolder(view);
+                    }
+
+                    @Override
+                    protected void onBindViewHolder(@NonNull EpassViewHolder holder, int position, @NonNull PassDetailsModel model) {
+                        final String key = getRef(position).getKey();
+                        holder.name.setText("Name : \n"+model.getName());
+                        holder.from.setText("FromAddress : \n"+model.getFromAddress());
+                        holder.to.setText("ToAddress :\n"+model.getToAddress());
+                        holder.date.setText("TravelDate :\n"+model.getTravelDate());
+
+                    }
+                };
+                adapter.startListening();
+                adapter.notifyDataSetChanged();
+                recyclerView.setAdapter(adapter);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        else if (id.equals("transPass")) {
+            mRef = mDatabase.getReference("UserInfo").child(preferences.getString("uid", "")).child("epass");
+            try{
+                FirebaseRecyclerOptions list = new FirebaseRecyclerOptions.Builder<PassDetailsModel>().setQuery(mRef,PassDetailsModel.class).build();
+                FirebaseRecyclerAdapter<PassDetailsModel, EpassViewHolder> adapter=new FirebaseRecyclerAdapter<PassDetailsModel,EpassViewHolder>(list) {
+
+                    @NonNull
+                    @Override
+                    public EpassViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.pass_view_layout,parent,false);
+                        return new EpassViewHolder(view);
+                    }
+
+                    @Override
+                    protected void onBindViewHolder(@NonNull EpassViewHolder holder, int position, @NonNull PassDetailsModel model) {
+                        final String key = getRef(position).getKey();
+                        holder.name.setText("Name : \n"+model.getName());
+                        holder.from.setText("FromAddress : \n"+model.getFromAddress());
+                        holder.to.setText("ToAddress :\n"+model.getToAddress());
+                        holder.date.setText("TravelDate :\n"+model.getTravelDate());
+
+                    }
+                };
+                adapter.startListening();
+                adapter.notifyDataSetChanged();
+                recyclerView.setAdapter(adapter);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        else if (id.equals("unorg")) {
+            mRef = mDatabase.getReference("UserInfo").child(preferences.getString("uid", "")).child("unorg");
+            try{
+                FirebaseRecyclerOptions list = new FirebaseRecyclerOptions.Builder<PassDetailsModel>().setQuery(mRef,PassDetailsModel.class).build();
+                FirebaseRecyclerAdapter<PassDetailsModel, EpassViewHolder> adapter=new FirebaseRecyclerAdapter<PassDetailsModel,EpassViewHolder>(list) {
+
+                    @NonNull
+                    @Override
+                    public EpassViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.pass_view_layout,parent,false);
+                        return new EpassViewHolder(view);
+                    }
+
+                    @Override
+                    protected void onBindViewHolder(@NonNull EpassViewHolder holder, int position, @NonNull PassDetailsModel model) {
+                        final String key = getRef(position).getKey();
+                        holder.name.setText("Name : \n"+model.getName());
+                        holder.from.setText("FromAddress : \n"+model.getFromAddress());
+                        holder.to.setText("ToAddress :\n"+model.getToAddress());
+                        holder.date.setText("TravelDate :\n"+model.getTravelDate());
+
+                    }
+                };
+                adapter.startListening();
+                adapter.notifyDataSetChanged();
+                recyclerView.setAdapter(adapter);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
 
     }
 }
