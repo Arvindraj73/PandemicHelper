@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -57,6 +58,15 @@ public class AdminFoodRequestActivity extends AppCompatActivity {
                     holder.from.setText(model.person_count);
                     holder.to.setText(model.location);
                     holder.date.setText("");
+                    holder.cardView.setOnLongClickListener(new View.OnLongClickListener() {
+                        @Override
+                        public boolean onLongClick(View v) {
+
+                            mRef.child(key).removeValue();
+                            Toast.makeText(AdminFoodRequestActivity.this,"data deleted",Toast.LENGTH_SHORT).show();
+                            return false;
+                        }
+                    });
 
 
 

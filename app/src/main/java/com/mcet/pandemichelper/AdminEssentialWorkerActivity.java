@@ -55,54 +55,90 @@ public class AdminEssentialWorkerActivity extends AppCompatActivity {
             }
         });
 
-        try {
+        try{
+            FirebaseRecyclerOptions list = new FirebaseRecyclerOptions.Builder<HelpModel>().setQuery(mRef,HelpModel.class).build();
+            FirebaseRecyclerAdapter<HelpModel, EpassViewHolder> adapter=new FirebaseRecyclerAdapter<HelpModel,EpassViewHolder>(list) {
 
-            FirebaseRecyclerOptions options = new FirebaseRecyclerOptions.Builder<WorkDetailsModel>().setQuery(mRef, WorkDetailsModel.class).build();
-
-            adapter = new FirebaseRecyclerAdapter<WorkDetailsModel, WorkViewHolder>(options) {
                 @NonNull
                 @Override
-                public WorkViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
-                    View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.work_view_layout,parent,false);
-                    return new WorkViewHolder(view);
+                public EpassViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                    View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.pass_view_layout,parent,false);
+                    return new EpassViewHolder(view);
                 }
 
                 @Override
-                protected void onBindViewHolder(@NonNull WorkViewHolder holder, final int position, @NonNull final WorkDetailsModel model) {
-
+                protected void onBindViewHolder(@NonNull EpassViewHolder holder, int position, @NonNull HelpModel model) {
                     final String key = getRef(position).getKey();
-
-                    holder.work.setText(model.getName());
-                    Log.d("WOrk",model.getName());
-                    holder.num.setText("No of Workers Required : "+model.getNoOfWorkers());
-
+                    holder.name.setText("Name : \n"+model.getName());
+                    holder.date.setText("Symptoms : \n"+model.getSymptoms());
+                    holder.to.setText("Disease : \n"+model.getDisease());
+                    holder.from.setText("Address : \n"+model.getLocation());
                     holder.cardView.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-
-                            Intent i = new Intent(AdminEssentialWorkerActivity.this, WorkAssignActivity.class);
-                            i.putExtra("key",key);
-                            i.putExtra("id","admin");
-                            i.putExtra("name",model.getName());
-                            startActivity(i);
+                            Intent i = new Intent();
                         }
                     });
 
                 }
             };
-
-        }catch (Exception e){
-            Log.v("s", "s");
-            View v=findViewById(android.R.id.content).getRootView();
-            new Notify(v,"NO WORKS");
-            Toast.makeText(AdminEssentialWorkerActivity.this,"No Works",Toast.LENGTH_SHORT).show();
-
+            adapter.startListening();
+            adapter.notifyDataSetChanged();
+            recyclerView.setAdapter(adapter);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
-        adapter.startListening();
-        adapter.notifyDataSetChanged();
-        recyclerView.setAdapter(adapter);
-
     }
+
+//        try {
+//
+//            FirebaseRecyclerOptions options = new FirebaseRecyclerOptions.Builder<WorkDetailsModel>().setQuery(mRef, WorkDetailsModel.class).build();
+//
+//            adapter = new FirebaseRecyclerAdapter<WorkDetailsModel, WorkViewHolder>(options) {
+//                @NonNull
+//                @Override
+//                public WorkViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+//
+//                    View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.work_view_layout,parent,false);
+//                    return new WorkViewHolder(view);
+//                }
+//
+//                @Override
+//                protected void onBindViewHolder(@NonNull WorkViewHolder holder, final int position, @NonNull final WorkDetailsModel model) {
+//
+//                    final String key = getRef(position).getKey();
+//
+//                    holder.work.setText(model.getName());
+//                    Log.d("WOrk",model.getName());
+//                    holder.num.setText("No of Workers Required : "+model.getNoOfWorkers());
+//
+//                    holder.cardView.setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View v) {
+//
+//                            Intent i = new Intent(AdminEssentialWorkerActivity.this, WorkAssignActivity.class);
+//                            i.putExtra("key",key);
+//                            i.putExtra("id","admin");
+//                            i.putExtra("id1","ew");
+//                            i.putExtra("name",model.getName());
+//                            startActivity(i);
+//                        }
+//                    });
+//
+//                }
+//            };
+//
+//        }catch (Exception e){
+//            Log.v("s", "s");
+//            View v=findViewById(android.R.id.content).getRootView();
+//            new Notify(v,"NO WORKS");
+//            Toast.makeText(AdminEssentialWorkerActivity.this,"No Works",Toast.LENGTH_SHORT).show();
+//
+//        }
+//
+//        adapter.startListening();
+//        adapter.notifyDataSetChanged();
+//        recyclerView.setAdapter(adapter);
+
+
     }

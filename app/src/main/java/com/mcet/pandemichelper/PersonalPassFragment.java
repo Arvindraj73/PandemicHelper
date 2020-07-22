@@ -183,13 +183,14 @@ public class PersonalPassFragment extends Fragment implements View.OnClickListen
                 dateText.getEditText().getText().toString(),
                 "Pending"
         );
-        String ref=databaseReference1.child(preferences.getString("uid", "")).child("epass").push().getKey();
-        databaseReference1.child(preferences.getString("uid", "")).child("epass/"+ref).setValue(model);
+        String key=databaseReference1.child(preferences.getString("uid", "")).child("epass").push().getKey();
+        databaseReference1.child(preferences.getString("uid", "")).child("epass/"+key).setValue(model);
 
         databaseReference.child(preferences.getString("uid", "")).setValue(model).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
+                    databaseReference.child(preferences.getString("uid", "")).child("key").setValue(key);
                     storageReference.child(fileName[0]).putFile(filePath.get(0)).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -199,7 +200,7 @@ public class PersonalPassFragment extends Fragment implements View.OnClickListen
                                 public void onComplete(@NonNull Task<Uri> task) {
                                     Log.d("urlm", task.getResult().toString());
                                     databaseReference.child(preferences.getString("uid", "") + "/idProof").setValue(task.getResult().toString());
-                                    databaseReference1.child("epass/"+ref).child("/idProof").setValue(task.getResult().toString());
+                                    databaseReference1.child("epass/"+key).child("/idProof").setValue(task.getResult().toString());
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
                                 @Override
@@ -218,7 +219,7 @@ public class PersonalPassFragment extends Fragment implements View.OnClickListen
                                 public void onComplete(@NonNull Task<Uri> task) {
                                     Log.d("urlm", task.getResult().toString());
                                     databaseReference.child(preferences.getString("uid", "") + "/reasonProof").setValue(task.getResult().toString());
-                                    databaseReference1.child("epass/"+ref).child("/reasonProof").setValue(task.getResult().toString());
+                                    databaseReference1.child("epass/"+key).child("/reasonProof").setValue(task.getResult().toString());
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
                                 @Override

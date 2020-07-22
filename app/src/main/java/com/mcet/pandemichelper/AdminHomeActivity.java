@@ -31,7 +31,7 @@ public class AdminHomeActivity extends AppCompatActivity implements View.OnClick
         findViewById(R.id.card_v_labour).setOnClickListener(this);
         findViewById(R.id.card_geo).setOnClickListener(this);
         findViewById(R.id.card_sm).setOnClickListener(this);
-        findViewById(R.id.card_relif).setOnClickListener(this);
+
         findViewById(R.id.card_essential).setOnClickListener(this);
         findViewById(R.id.card_healthworker).setOnClickListener(this);
         findViewById(R.id.card_personalpass).setOnClickListener(this);
@@ -109,11 +109,6 @@ public class AdminHomeActivity extends AppCompatActivity implements View.OnClick
                 startActivity(iS);
                 break;
 
-            case R.id.card_relif:
-                Intent iR = new Intent(AdminHomeActivity.this, AdminVolunteerActivity.class);
-                iR.putExtra("id", "rm");
-                startActivity(iR);
-                break;
             case R.id.card_essential:
                 Intent iE=new Intent(AdminHomeActivity.this,AdminEssentialWorkerActivity.class);
                 iE.putExtra("id","ew");
