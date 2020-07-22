@@ -66,6 +66,7 @@ public class WorkAssignActivity extends AppCompatActivity {
                     assignIntent.putExtra("key", key);
                     assignIntent.putExtra("name", name);
                     startActivity(assignIntent);
+                    finish();
 
                 }
             });
@@ -89,6 +90,9 @@ public class WorkAssignActivity extends AppCompatActivity {
                     phone.setText(model.getPhoneNumber());
                     num.setText(model.getNoOfWorkers());
                     status.setText(model.getStatus());
+                    if (model.getStatus().equals("Assigned")) {
+                        assign.setVisibility(View.GONE);
+                    }
 
                 }
                 else {

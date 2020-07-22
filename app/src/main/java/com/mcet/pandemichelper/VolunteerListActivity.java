@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -78,6 +80,9 @@ public class VolunteerListActivity extends AppCompatActivity {
                         }
                     });
                 }
+                else {
+                    holder.checkBox.setVisibility(View.GONE);
+                }
 
             }
 
@@ -110,6 +115,12 @@ public class VolunteerListActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()){
                                 Log.d("D","Success");
+
+                                Toast.makeText(VolunteerListActivity.this, "Work Assigned", Toast.LENGTH_SHORT).show();
+                                Intent i = new Intent(VolunteerListActivity.this, AdminVolunteerActivity.class);
+                                i.putExtra("id", "admin");
+                                startActivity(i);
+                                finish();
                             }
                         }
                     });

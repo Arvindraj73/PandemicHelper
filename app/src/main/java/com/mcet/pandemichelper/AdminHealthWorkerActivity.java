@@ -42,7 +42,7 @@ public class AdminHealthWorkerActivity extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance();
 
         id = getIntent().getStringExtra("id");
-        mRef = mDatabase.getReference("EssentialWorks");
+        mRef = mDatabase.getReference("HealthWorks");
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
