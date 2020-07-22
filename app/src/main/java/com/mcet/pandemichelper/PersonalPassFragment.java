@@ -168,7 +168,6 @@ public class PersonalPassFragment extends Fragment implements View.OnClickListen
 //            ProgressDialog progressDialog = new ProgressDialog(getContext());
 //            progressDialog.setTitle("Applying ePass");
 //            progressDialog.show();
-
         PassDetailsModel model = new PassDetailsModel(
                 nameText.getEditText().getText().toString(),
                 ageText.getEditText().getText().toString(),
@@ -181,7 +180,8 @@ public class PersonalPassFragment extends Fragment implements View.OnClickListen
                 noOfPassengersText.getEditText().getText().toString(),
                 vehicleType.getSelectedItem().toString(),
                 vehicleNoText.getEditText().getText().toString(),
-                dateText.getEditText().getText().toString()
+                dateText.getEditText().getText().toString(),
+                "Pending"
         );
         String ref=databaseReference1.child(preferences.getString("uid", "")).child("epass").push().getKey();
         databaseReference1.child(preferences.getString("uid", "")).child("epass/"+ref).setValue(model);

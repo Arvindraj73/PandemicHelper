@@ -9,7 +9,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class EpassViewHolder extends RecyclerView.ViewHolder {
-    TextView name,from,to,date;
+    TextView name,from,to,date,status;
     CardView cardView;
     public EpassViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -18,6 +18,8 @@ public class EpassViewHolder extends RecyclerView.ViewHolder {
         from = itemView.findViewById(R.id.from);
         to=itemView.findViewById(R.id.to);
         date=itemView.findViewById(R.id.date);
+        status=itemView.findViewById(R.id.status);
+
         cardView = itemView.findViewById(R.id.EpasscardView);
 
     }
