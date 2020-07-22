@@ -597,6 +597,78 @@
 
 
                 </com.google.android.material.card.MaterialCardView>
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    app:cardCornerRadius="12dp"
+                    android:layout_margin="12dp"
+                    android:layout_centerInParent="true"
+                    android:id="@+id/card_vulnerable_center">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="@dimen/lPadding">
+
+                        <ImageView
+                            android:layout_width="13dp"
+                            android:layout_height="12dp"
+                            android:src="@drawable/ic_add_black_24dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:text="Add Vulnerable Centre"
+                            android:textColor="@color/primaryTextColor"
+                            android:textSize="@dimen/tsize"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+
+                </com.google.android.material.card.MaterialCardView>
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    app:cardCornerRadius="12dp"
+                    android:layout_margin="12dp"
+                    android:layout_centerInParent="true"
+                    android:id="@+id/card_food_Request">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="@dimen/lPadding">
+
+                        <ImageView
+                            android:layout_width="13dp"
+                            android:layout_height="12dp"
+                            android:src="@drawable/ic_add_black_24dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:text="View Food Request"
+                            android:textColor="@color/primaryTextColor"
+                            android:textSize="@dimen/tsize"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+
+                </com.google.android.material.card.MaterialCardView>
             </GridLayout>
         </com.google.android.material.card.MaterialCardView>
 

@@ -143,6 +143,11 @@ public class CreateWorkActivity extends AppCompatActivity {
             mDesc.setVisibility(View.GONE);
             mWork.setHint("Orphange Name");
         }
+        else if (id.equals("vc")){
+            mNum.setVisibility(View.GONE);
+            mDesc.setVisibility(View.GONE);
+            mWork.setHint("Centre Name");
+        }
 
 
         select.setOnClickListener(new View.OnClickListener() {
@@ -260,6 +265,22 @@ public class CreateWorkActivity extends AppCompatActivity {
                     else if (id.equals("oc")){
                         WorkDetailsModel workDetailsModel = new WorkDetailsModel(work,phone,lat,lon);
                         mRef.child("orphange Center/").push().setValue(workDetailsModel).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+
+                                if (task.isSuccessful()){
+
+                                    progressDialog.dismiss();
+                                    startActivity(new Intent(CreateWorkActivity.this,AdminHomeActivity.class));
+
+                                }
+
+                            }
+                        });
+                    }
+                    else if (id.equals("vc")){
+                        WorkDetailsModel workDetailsModel = new WorkDetailsModel(work,phone,lat,lon);
+                        mRef.child("Vulnerable/").push().setValue(workDetailsModel).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
 
