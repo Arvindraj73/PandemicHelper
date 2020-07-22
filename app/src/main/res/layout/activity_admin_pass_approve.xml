@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AdminPassApproveActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rv1"
+        android:layout_marginTop="@dimen/place_autocomplete_button_padding">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/btnChange"
+                android:layout_below="@+id/cv1"
+                android:orientation="vertical"
+                android:layout_alignEnd="@+id/cv1"
+                android:layout_margin="@dimen/place_autocomplete_button_padding">
+
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cv1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ta"
+                android:layout_margin="@dimen/place_autocomplete_button_padding">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/place_autocomplete_button_padding">
+
+                    <TextView
+                        android:id="@+id/t1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/mTop"
+                        android:fontFamily="@font/poppins_light"
+                        android:text="@string/name"
+                        android:textSize="@dimen/tsize3" />
+
+                    <TextView
+                        android:id="@+id/TName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/t1"
+                        android:fontFamily="@font/poppins_light"
+                        android:text="@string/name"
+                        android:textSize="@dimen/tsize2"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/t2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/TName"
+                        android:layout_marginTop="@dimen/mTop"
+                        android:fontFamily="@font/poppins_light"
+                        android:text="Gender"
+                        android:textSize="@dimen/tsize3" />
+
+                    <TextView
+                        android:id="@+id/Tgender"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/t2"
+                        android:fontFamily="@font/poppins_light"
+                        android:text="Gender"
+                        android:textSize="@dimen/tsize2"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/t3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/Tgender"
+                        android:layout_marginTop="@dimen/mTop"
+                        android:fontFamily="@font/poppins_light"
+                        android:text="Age"
+                        android:textSize="@dimen/tsize3" />
+
+                    <TextView
+                        android:id="@+id/TAge"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/t3"
+                        android:fontFamily="@font/poppins_light"
+                        android:text="Age"
+                        android:textSize="@dimen/tsize2"
+                        android:textStyle="bold" />
+
+                </RelativeLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cv2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ta"
+                android:layout_margin="@dimen/place_autocomplete_button_padding">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/place_autocomplete_button_padding">
+
+                    <TextView
+                        android:id="@+id/t4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/mTop"
+                        android:fontFamily="@font/poppins_light"
+                        android:text="From"
+                        android:textSize="@dimen/tsize3" />
+
+                    <TextView
+                        android:id="@+id/from"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/t4"
+                        android:fontFamily="@font/poppins_light"
+                        android:text="From"
+                        android:textSize="@dimen/tsize2"
+                        android:textStyle="bold" />
+
+
+                    <TextView
+                        android:id="@+id/t5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/from"
+                        android:layout_marginTop="@dimen/mTop"
+                        android:fontFamily="@font/poppins_light"
+                        android:text="To"
+                        android:textSize="@dimen/tsize3" />
+
+                    <TextView
+                        android:id="@+id/to"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/t5"
+                        android:fontFamily="@font/poppins_light"
+                        android:text="To"
+                        android:textSize="@dimen/tsize2"
+                        android:textStyle="bold" />
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/to"
+                            android:layout_centerHorizontal="true"
+                            android:text="View on Map"
+                            android:id="@+id/map"></Button>
+
+                      </RelativeLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cv3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/ta"
+                    android:layout_margin="@dimen/place_autocomplete_button_padding">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/place_autocomplete_button_padding">
+
+                        <TextView
+                            android:id="@+id/t6"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/mTop"
+                            android:fontFamily="@font/poppins_light"
+                            android:text="Proof"
+                            android:textSize="@dimen/tsize3" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/t6"
+                            android:layout_centerHorizontal="true"
+                            android:id="@+id/proof"></ImageView>
+                        <TextView
+                            android:id="@+id/t7"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/proof"
+                            android:layout_marginTop="@dimen/mTop"
+                            android:fontFamily="@font/poppins_light"
+                            android:text="Reason"
+                            android:textSize="@dimen/tsize3" />
+
+                        <TextView
+                            android:id="@+id/RProof"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/t7"
+                            android:fontFamily="@font/poppins_light"
+                            android:text="Reason"
+                            android:textSize="@dimen/tsize2"
+                            android:textStyle="bold" />
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/RProof"
+                            android:layout_centerHorizontal="true"
+                            android:id="@+id/ReasonProof"></ImageView>
+<Button
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+android:layout_below="@+id/ReasonProof"
+    android:text="Accept"
+    android:id="@+id/actbtn">
+</Button>
+                        <Button
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/actbtn"
+                            android:text="Reject"
+                            android:id="@+id/rjtbtn"></Button>
+                    </RelativeLayout>
+                </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>
