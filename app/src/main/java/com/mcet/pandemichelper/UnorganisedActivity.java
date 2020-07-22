@@ -23,10 +23,20 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.NumberPicker;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.sucho.placepicker.AddressData;
 import com.sucho.placepicker.MapType;
 import com.sucho.placepicker.PlacePicker;
@@ -36,9 +46,16 @@ import java.util.List;
 
 public class UnorganisedActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private TextView location;
-    private TextInputLayout name, work, worker_count, phoneNumber;
+    private DatabaseReference mRef;
+
+    private FirebaseUser mUser;
+
+    private TextView location, nameText, email, phone;
+    private TextInputLayout name, work, phoneNumber;
     private SharedPreferences preferences;
+
+    private DatabaseReference reference;
+    private String uid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,20 +64,33 @@ public class UnorganisedActivity extends AppCompatActivity implements View.OnCli
         findViewById(R.id.rBtn).setOnClickListener(this);
         findViewById(R.id.selectLocationW).setOnClickListener(this);
 
-        name = findViewById(R.id.nameW);
         work = findViewById(R.id.workName);
-        worker_count = findViewById(R.id.worker_count);
-        phoneNumber = findViewById(R.id.phnW);
+
+        nameText = findViewById(R.id.unorgName);
+        phone = findViewById(R.id.unorgPhone);
+        email = findViewById(R.id.unorgEmail);
+        location = findViewById(R.id.myLocationW);
+
+        mRef = FirebaseDatabase.getInstance().getReference("UserInfo/");
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
+        reference = FirebaseDatabase.getInstance().getReference("UserInfo/" + mUser.getUid());
 
         preferences = getApplicationContext().getSharedPreferences("UserData", MODE_PRIVATE);
-
-        worker_count.setEndIconOnClickListener(new View.OnClickListener() {
+        uid = getIntent().getStringExtra("uid");
+        mRef.child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onClick(View v) {
-                openNumberDialog();
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                UserModel mModel = dataSnapshot.getValue(UserModel.class);
+                nameText.setText(mModel.getName());
+                email.setText(mModel.getEmail());
+                phone.setText(mModel.getPhone());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
             }
         });
-
 
     }
 
@@ -94,7 +124,23 @@ public class UnorganisedActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void submitDetails() {
-
+        CallModel model = new CallModel(
+                nameText.getText().toString(),
+                location.getText().toString(),
+                phone.getText().toString(),
+                work.getEditText().getText().toString()
+                );
+        reference.child("UnorganisedWorkRequests").push().setValue(model).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    mRef.child(uid).child("Works").child(mUser.getUid()).setValue(model);
+                    Toast.makeText(UnorganisedActivity.this, "Request Send", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(UnorganisedActivity.this, HomeActivity.class));
+                    finish();
+                }
+            }
+        });
     }
 
     private void openLocation() {
@@ -107,26 +153,6 @@ public class UnorganisedActivity extends AppCompatActivity implements View.OnCli
                 .build(this);
         startActivityForResult(intent, 15);
 
-    }
-
-    private void openNumberDialog() {
-
-        View view = LayoutInflater.from(this).inflate(R.layout.number_picker_dialog_layout, null);
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setView(view);
-
-        NumberPicker picker = view.findViewById(R.id.number_picker);
-        builder.setTitle("Select No of Workers Required")
-                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Log.d("persons", String.valueOf(picker.getValue()));
-                        worker_count.getEditText().setText(String.valueOf(picker.getValue()));
-                    }
-                });
-
-        builder.show();
     }
 
 }

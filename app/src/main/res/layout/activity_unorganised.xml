@@ -13,40 +13,76 @@
         android:layout_marginTop="@dimen/dp30"
         android:textSize="@dimen/tsize2"
         android:id="@+id/reqName"
+        android:text="@string/worker_details"
+        android:textColor="@color/colorPrimaryDark" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/name"
+        android:id="@+id/doc3"
+        android:textSize="@dimen/tsize3"
+        android:layout_marginTop="@dimen/mTop"
+        android:layout_below="@id/reqName"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/name"
+        android:id="@+id/unorgName"
+        android:layout_below="@+id/doc3"
+        android:textSize="@dimen/tsize2" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/phone"
+        android:layout_marginTop="@dimen/mTop"
+        android:layout_below="@+id/unorgName"
+        android:id="@+id/doc1"
+        android:textSize="@dimen/tsize3" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/phone"
+        android:id="@+id/unorgPhone"
+        android:layout_below="@+id/doc1"
+        android:textSize="@dimen/tsize2" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/email"
+        android:layout_below="@+id/unorgPhone"
+        android:id="@+id/doc2"
+        android:layout_marginTop="@dimen/mTop"
+        android:textSize="@dimen/tsize3" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/email"
+        android:id="@+id/unorgEmail"
+        android:layout_below="@+id/doc2"
+        android:textSize="@dimen/tsize2" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp30"
+        android:textSize="@dimen/tsize2"
+        android:id="@+id/as"
         android:text="@string/enter_work_details"
+        android:layout_below="@+id/unorgEmail"
         android:textColor="@color/colorPrimaryDark" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/nameW"
-            style="@style/Widget.PandemicHelper.TextInputLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp150">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/nameHint"
-                android:inputType="text" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/phnW"
-            style="@style/Widget.PandemicHelper.TextInputLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/phone_number"
-                android:inputType="text" />
-        </com.google.android.material.textfield.TextInputLayout>
+        android:orientation="vertical"
+        android:layout_below="@id/as"
+        android:layout_marginTop="@dimen/mTop">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/workName"
@@ -59,22 +95,6 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/workName"
                 android:inputType="text" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/worker_count"
-            style="@style/Widget.PandemicHelper.TextInputLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:endIconDrawable="@drawable/ic_number"
-            app:endIconMode="custom"
-            android:visibility="visible">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/noOfLabours"
-                android:inputType="number" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <LinearLayout

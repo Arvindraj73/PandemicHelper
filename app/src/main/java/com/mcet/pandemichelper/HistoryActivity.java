@@ -162,10 +162,10 @@ public class HistoryActivity extends AppCompatActivity {
             }
         }
         else if (id.equals("unorg")) {
-            mRef = mDatabase.getReference("UserInfo").child(preferences.getString("uid", "")).child("unorg");
+            mRef = mDatabase.getReference("UserInfo").child(preferences.getString("uid", "")).child("UnorganisedWorkRequests");
             try{
-                FirebaseRecyclerOptions list = new FirebaseRecyclerOptions.Builder<PassDetailsModel>().setQuery(mRef,PassDetailsModel.class).build();
-                FirebaseRecyclerAdapter<PassDetailsModel, EpassViewHolder> adapter=new FirebaseRecyclerAdapter<PassDetailsModel,EpassViewHolder>(list) {
+                FirebaseRecyclerOptions list = new FirebaseRecyclerOptions.Builder<CallModel>().setQuery(mRef,CallModel.class).build();
+                FirebaseRecyclerAdapter<CallModel, EpassViewHolder> adapter=new FirebaseRecyclerAdapter<CallModel,EpassViewHolder>(list) {
 
                     @NonNull
                     @Override
@@ -175,12 +175,12 @@ public class HistoryActivity extends AppCompatActivity {
                     }
 
                     @Override
-                    protected void onBindViewHolder(@NonNull EpassViewHolder holder, int position, @NonNull PassDetailsModel model) {
+                    protected void onBindViewHolder(@NonNull EpassViewHolder holder, int position, @NonNull CallModel model) {
                         final String key = getRef(position).getKey();
-                        holder.name.setText("Name : \n"+model.getName());
-                        holder.from.setText("FromAddress : \n"+model.getFromAddress());
-                        holder.to.setText("ToAddress :\n"+model.getToAddress());
-                        holder.date.setText("TravelDate :\n"+model.getTravelDate());
+                        holder.name.setText("Worker Name : \n"+model.getWorkerName());
+                        holder.from.setText("Work : \n"+model.getWorkName());
+                        holder.to.setText("Address :\n"+model.getLocation());
+                        holder.date.setText("Worker Phone Number :\n"+model.getWorkerPhone());
 
                     }
                 };

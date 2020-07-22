@@ -81,6 +81,8 @@ public class DocViewActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
                                 Toast.makeText(DocViewActivity.this, "Appointment Registered.", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(DocViewActivity.this, HomeActivity.class));
+                                finish();
                             }
                         }
                     });

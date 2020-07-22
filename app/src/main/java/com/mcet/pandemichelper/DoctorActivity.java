@@ -248,6 +248,7 @@ public class DoctorActivity extends FragmentActivity implements OnMapReadyCallba
                     docIntent.putExtra("id", "user");
                     docIntent.putExtra("uid", marker.getTag().toString());
                     startActivity(docIntent);
+                    finish();
                 }
             });
         } else if (getIntent().getStringExtra("id").equals("psy")) {
@@ -294,9 +295,11 @@ public class DoctorActivity extends FragmentActivity implements OnMapReadyCallba
                     docIntent.putExtra("id", "user");
                     docIntent.putExtra("uid", marker.getTag().toString());
                     startActivity(docIntent);
+                    finish();
                 }
             });
-        } else if (getIntent().getStringExtra("id").equals("vul")) {
+        }
+        else if (getIntent().getStringExtra("id").equals("vul")) {
             mReference.child("Vulnerable").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -315,7 +318,8 @@ public class DoctorActivity extends FragmentActivity implements OnMapReadyCallba
 
                 }
             });
-        } else if (getIntent().getStringExtra("id").equals("orph")) {
+        }
+        else if (getIntent().getStringExtra("id").equals("orph")) {
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -363,6 +367,7 @@ public class DoctorActivity extends FragmentActivity implements OnMapReadyCallba
                     docIntent.putExtra("id", "user");
                     docIntent.putExtra("uid", marker.getTag().toString());
                     startActivity(docIntent);
+                    finish();
                 }
             });
         }
