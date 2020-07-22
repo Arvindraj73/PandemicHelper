@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -38,7 +39,8 @@ public class VolunteerActivity extends AppCompatActivity {
     private FirebaseUser user;
 
     private ArrayList<String> list;
-
+    private SharedPreferences preferences;
+    String role;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,8 +55,20 @@ public class VolunteerActivity extends AppCompatActivity {
         mWorkRef = mDatabase.getReference("UserInfo/" + user.getUid() + "/Works");
 
         list = new ArrayList<String>();
+        preferences = getApplicationContext().getSharedPreferences("UserData", MODE_PRIVATE);
 
-        mRef = mDatabase.getReference("VolunteerWorks");
+        Log.d("pre", preferences.toString());
+        role=preferences.getString("role","");
+
+        if(role.equals("Volunteer")) {
+            mRef = mDatabase.getReference("VolunteerWorks");
+        }
+        else if(role.equals("Health Worker")){
+            mRef = mDatabase.getReference("HealthWorks");
+        }
+        else if(role.equals("Essential Worker")){
+            mRef=mDatabase.getReference("EssentialWorks");
+        }
         //String key = mWorkRef.
 //
 //        mWorkRef.addValueEventListener(new ValueEventListener() {

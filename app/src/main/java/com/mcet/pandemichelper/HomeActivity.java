@@ -27,6 +27,7 @@ import com.android.volley.toolbox.Volley;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.card.MaterialCardView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -105,6 +106,13 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         preferences = getApplicationContext().getSharedPreferences("UserData", MODE_PRIVATE);
 
         Log.d("pre", preferences.toString());
+        sRole=preferences.getString("role","");
+        role=findViewById(R.id.role);
+        if(sRole.equals("Doctor")){
+        role.setText("Patients");}
+        else{
+            role.setText(sRole);
+        }
 
         mAppBar.setTitle(preferences.getString("name", "Wait"));
 
@@ -288,10 +296,15 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.card_volunteer:
-                Intent workIntent = new Intent(HomeActivity.this, VolunteerActivity.class);
-                startActivity(workIntent);
-                break;
-
+                if(sRole.equals("Doctor")){
+                    startActivity(new Intent(HomeActivity.this,PatientsActivity.class));
+                 break;
+                }
+                else {
+                    Intent workIntent = new Intent(HomeActivity.this, VolunteerActivity.class);
+                    startActivity(workIntent);
+                    break;
+                }
             case R.id.card_sos:
                 startActivity(new Intent(HomeActivity.this, FirstRespondersActivity.class));
                 break;

@@ -113,6 +113,12 @@ public class RegisterActivity extends AppCompatActivity implements GoogleApiClie
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (position == 3) {
                     Log.d("DocI", "inside");
+                    mSpeciality.setHint("Speciality");
+                    mSpeciality.setVisibility(View.VISIBLE);
+                }
+                else if (position == 6) {
+                    Log.d("DocI", "inside");
+                    mSpeciality.setHint("Work you do");
                     mSpeciality.setVisibility(View.VISIBLE);
                 }
             }
@@ -122,18 +128,6 @@ public class RegisterActivity extends AppCompatActivity implements GoogleApiClie
 
             }
         });
-        if (spinner.getSelectedItem().toString().equals("Doctor")) {
-            Log.d("Doc", "inside");
-            mSpeciality.setHint("Speciality");
-            mSpeciality.setVisibility(View.VISIBLE);
-        } else if (spinner.getSelectedItem().toString().equals("Unorganised Worker")) {
-            Log.d("Doc", "inside");
-            mSpeciality.setHint("Work you do");
-            mSpeciality.setVisibility(View.VISIBLE);
-        } else {
-            mSpeciality.setVisibility(View.GONE);
-        }
-
         mReg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

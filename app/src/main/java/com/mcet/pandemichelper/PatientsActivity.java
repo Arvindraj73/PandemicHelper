@@ -31,7 +31,6 @@ public class PatientsActivity extends AppCompatActivity {
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.p_container, fragment);
-        transaction.addToBackStack(null);
         transaction.commit();
 
     }
