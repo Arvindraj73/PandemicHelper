@@ -27,13 +27,13 @@ public class AdminTransportPassActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_transport_pass);
-        recyclerView = findViewById(R.id.perPassView);
+        recyclerView = findViewById(R.id.tpassView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         mDatabase = FirebaseDatabase.getInstance();
 
 
-        mRef = mDatabase.getReference("PersonalPass");
+        mRef = mDatabase.getReference("EssentialPass");
         try{
             FirebaseRecyclerOptions list = new FirebaseRecyclerOptions.Builder<PassDetailsModel>().setQuery(mRef,PassDetailsModel.class).build();
             adapter=new FirebaseRecyclerAdapter<PassDetailsModel,EpassViewHolder>(list) {

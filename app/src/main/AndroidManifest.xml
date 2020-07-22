@@ -64,6 +64,7 @@
         <activity android:name=".WorkAssignActivity" />
         <activity android:name=".CreateWorkActivity" />
         <activity android:name=".AdminVolunteerActivity" />
+        <activity android:name=".AdminHealthWorkerActivity" />
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps" />

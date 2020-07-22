@@ -211,23 +211,8 @@ public class EssentialPassFragment extends Fragment implements View.OnClickListe
     }
 
     private void showViews(int count) {
-
-        Log.d("ca", "called");
-
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-        );
-
-
-        TextInputLayout layout = new TextInputLayout(getContext());
-        TextInputEditText editText = new TextInputEditText(layout.getContext());
-        layout.setLayoutParams(params);
-        editText.setLayoutParams(params);
-        editText.setHint("Vehicle Number");
-
-        vehicleLayout.addView(layout);
         for (int i = 1; i <= count; i++) {
+
         }
 
     }

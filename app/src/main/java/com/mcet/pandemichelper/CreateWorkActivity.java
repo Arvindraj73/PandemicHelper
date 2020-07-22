@@ -219,7 +219,7 @@ public class CreateWorkActivity extends AppCompatActivity {
 
                                     progressDialog.dismiss();
                                     startActivity(new Intent(CreateWorkActivity.this,AdminHomeActivity.class));
-                                    finish();
+                                    
                                 }
 
                             }
@@ -235,7 +235,7 @@ public class CreateWorkActivity extends AppCompatActivity {
 
                                     progressDialog.dismiss();
                                     startActivity(new Intent(CreateWorkActivity.this,AdminHomeActivity.class));
-                                    finish();
+                                    
                                 }
 
                             }
@@ -251,7 +251,7 @@ public class CreateWorkActivity extends AppCompatActivity {
 
                                     progressDialog.dismiss();
                                     startActivity(new Intent(CreateWorkActivity.this,AdminHomeActivity.class));
-                                    finish();
+                                    
                                 }
 
                             }
@@ -267,7 +267,7 @@ public class CreateWorkActivity extends AppCompatActivity {
 
                                     progressDialog.dismiss();
                                     startActivity(new Intent(CreateWorkActivity.this,AdminHomeActivity.class));
-                                    finish();
+                                    
                                 }
 
                             }
@@ -285,7 +285,7 @@ public class CreateWorkActivity extends AppCompatActivity {
                                     Intent i = new Intent(CreateWorkActivity.this, AdminVolunteerActivity.class);
                                     i.putExtra("id", "admin");
                                     startActivity(i);
-                                    finish();
+                                    
                                 }
 
                             }
@@ -301,7 +301,7 @@ public class CreateWorkActivity extends AppCompatActivity {
 
                                     progressDialog.dismiss();
                                     startActivity(new Intent(CreateWorkActivity.this,AdminHomeActivity.class));
-                                    finish();
+                                    
                                 }
 
                             }
