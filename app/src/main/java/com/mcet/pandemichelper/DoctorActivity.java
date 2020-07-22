@@ -93,7 +93,9 @@ public class DoctorActivity extends FragmentActivity implements OnMapReadyCallba
         history.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent i = new Intent(DoctorActivity.this, HistoryActivity.class);
+                i.putExtra("id", "unorg");
+                startActivity(i);
             }
         });
         setUpLocation();
