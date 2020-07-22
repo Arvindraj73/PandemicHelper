@@ -34,7 +34,7 @@
                     android:padding="@dimen/place_autocomplete_button_padding">
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/nameApplicant"
+                        android:id="@+id/nameApplicantOr"
                         style="@style/Widget.PandemicHelper.TextInputLayout"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
@@ -54,7 +54,7 @@
                         android:id="@+id/applicantProofSpinner" />
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/idProofNo"
+                        android:id="@+id/idProofNoA"
                         style="@style/Widget.PandemicHelper.TextInputLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
@@ -75,7 +75,7 @@
 
                         <TextView
                             android:layout_width="0dp"
-                            android:id="@+id/chosen_file"
+                            android:id="@+id/chosen_file_app"
                             android:layout_height="match_parent"
                             android:text="@string/copy_of_id_proof_selected"
                             android:layout_weight="1"
@@ -84,7 +84,7 @@
                             android:nestedScrollingEnabled="true" />
 
                         <com.google.android.material.button.MaterialButton
-                            android:id="@+id/choose_file"
+                            android:id="@+id/choose_file_app"
                             style="@style/Widget.PandemicHelper.Button"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -168,7 +168,7 @@
                         android:layout_height="@dimen/imgSize"
                         android:entries="@array/oRProofType"
                         android:layout_weight="1"
-                        android:id="@+id/travel_reason_spinner" />
+                        android:id="@+id/oRProofType" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -179,7 +179,7 @@
 
                         <TextView
                             android:layout_width="0dp"
-                            android:id="@+id/chosen_reason_file"
+                            android:id="@+id/chosen_or_proof_file"
                             android:layout_height="match_parent"
                             android:text="@string/choose_proof_for_organisation"
                             android:layout_weight="1"
@@ -188,7 +188,7 @@
                             android:nestedScrollingEnabled="true" />
 
                         <com.google.android.material.button.MaterialButton
-                            android:id="@+id/choose_reason_file"
+                            android:id="@+id/choose_or_proof_file"
                             style="@style/Widget.PandemicHelper.Button"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -198,7 +198,7 @@
                     </LinearLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/passenger_count"
+                        android:id="@+id/emp_count"
                         style="@style/Widget.PandemicHelper.TextInputLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -264,6 +264,14 @@
 
                     </com.google.android.material.textfield.TextInputLayout>
 
+                    <ListView
+                        android:id="@+id/listView1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:animationCache="false"
+                        android:scrollingCache="false"
+                        android:smoothScrollbar="true"></ListView>
+
                 </LinearLayout>
 
             </com.google.android.material.card.MaterialCardView>
@@ -290,7 +298,7 @@
             <!--            </LinearLayout>-->
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/submit1"
+                android:id="@+id/submitOr"
                 style="@style/Widget.PandemicHelper.Button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

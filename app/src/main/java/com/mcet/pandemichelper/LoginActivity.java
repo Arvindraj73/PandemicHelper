@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,9 +13,21 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -26,16 +39,20 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
+import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static android.Manifest.permission.CALL_PHONE;
 import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks,
+        GoogleApiClient.OnConnectionFailedListener, LocationListener {
+
 
     private static final int PERMISSION_REQUEST_CODE = 200;
     private FirebaseAuth mAuth;
@@ -53,6 +70,17 @@ public class LoginActivity extends AppCompatActivity {
 
     private SharedPreferences preferences;
     private SharedPreferences.Editor editor;
+
+    private GoogleApiClient client;
+    private LocationRequest request;
+    private Location mLastlocation;
+
+    private static final int MY_REQUEST = 100;
+    private static final int PS_REQUEST = 200;
+
+    private static int UPDATE_INTERVAL = 5000;
+    private static int FASTEST_INTERVAL = 3000;
+    private static int DISPLACEMENT = 10;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -183,9 +211,14 @@ public class LoginActivity extends AppCompatActivity {
                     boolean readStorageAccepted = grantResults[2] == PackageManager.PERMISSION_GRANTED;
                     boolean writeStorageAccepted = grantResults[3] == PackageManager.PERMISSION_GRANTED;
 
-                    if (locationAccepted && cameraAccepted && readStorageAccepted && writeStorageAccepted)
+                    if (locationAccepted && cameraAccepted && readStorageAccepted && writeStorageAccepted) {
                         Log.d("LoginActivity.this", "Permissions Granted");
-                    else {
+                        if (checkServices()) {
+                            buildGoogleApiClient();
+                            createLocationRequest();
+                            displayLocation();
+                        }
+                    } else {
 
                         Toast.makeText(LoginActivity.this, "Permissions Denied", Toast.LENGTH_SHORT).show();
 
@@ -213,6 +246,73 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+    private void displayLocation() {
+        if (ActivityCompat.checkSelfPermission(this, ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(this, ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+        mLastlocation = LocationServices.FusedLocationApi.getLastLocation(client);
+        if (mLastlocation != null) {
+            double lat = mLastlocation.getLatitude();
+            double lon = mLastlocation.getLongitude();
+            editor.putString("lat", String.valueOf(lat));
+            editor.putString("lon", String.valueOf(lon));
+        }
+    }
+
+    private void createLocationRequest() {
+        request = new LocationRequest();
+        request.setInterval(UPDATE_INTERVAL);
+        request.setFastestInterval(FASTEST_INTERVAL);
+        request.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        request.setSmallestDisplacement(DISPLACEMENT);
+    }
+
+    private void buildGoogleApiClient() {
+        client = new GoogleApiClient.Builder(this)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .addApi(LocationServices.API)
+                .build();
+        client.connect();
+    }
+
+    private boolean checkServices() {
+
+        int resultcode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
+        if (resultcode != ConnectionResult.SUCCESS) {
+            if (GooglePlayServicesUtil.isUserRecoverableError(resultcode))
+                GooglePlayServicesUtil.getErrorDialog(resultcode, this, PS_REQUEST).show();
+            else {
+                Toast.makeText(this, "Device Not Supported", Toast.LENGTH_SHORT).show();
+                finish();
+            }
+            return false;
+        }
+        return true;
+
+    }
+
+
+    private void setUpLocation() {
+
+        if (ActivityCompat.checkSelfPermission(this, ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(this, ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{
+                    ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION
+            }, MY_REQUEST);
+
+        } else {
+
+            if (checkServices()) {
+                buildGoogleApiClient();
+                createLocationRequest();
+                displayLocation();
+            }
+
+        }
+
+    }
 
     private void showMessageOKCancel(String message, DialogInterface.OnClickListener okListener) {
         new AlertDialog.Builder(LoginActivity.this)
@@ -239,31 +339,37 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(new Intent(LoginActivity.this, HomeActivity.class));
                 finish();
             }
-//            DatabaseReference mRef = FirebaseDatabase.getInstance().getReference("UserInfo");
-//            mRef.child(mFirebaseUser.getUid()+"/role").addListenerForSingleValueEvent(new ValueEventListener() {
-//                @Override
-//                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                    role = dataSnapshot.getValue().toString();
-//                    Log.d("role",role);
-//                    if (role.equals("admin")){
-//                        progressDialog.dismiss();
-//                        startActivity(new Intent(LoginActivity.this, AdminHomeActivity.class));
-//                        finish();
-//                    }
-//                    else {
-//                        progressDialog.dismiss();
-//                        startActivity(new Intent(LoginActivity.this, HomeActivity.class));
-//                        finish();
-//                    }
-//                }
-//
-//                @Override
-//                public void onCancelled(@NonNull DatabaseError databaseError) {
-//                    Log.d("role",databaseError.toString());
-//                }
-//            });
         }
 
     }
 
+    @Override
+    public void onConnected(@Nullable Bundle bundle) {
+        displayLocation();
+        startLocationUpdate();
+    }
+
+    private void startLocationUpdate() {
+        if (ActivityCompat.checkSelfPermission(this, ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(this, ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+        LocationServices.FusedLocationApi.requestLocationUpdates(client, request, this);
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+        client.connect();
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        mLastlocation = location;
+        displayLocation();
+    }
 }

@@ -11,6 +11,7 @@ import androidx.viewpager.widget.ViewPager;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -37,6 +38,7 @@ public class UnorganisedActivity extends AppCompatActivity implements View.OnCli
 
     private TextView location;
     private TextInputLayout name, work, worker_count, phoneNumber;
+    private SharedPreferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +51,8 @@ public class UnorganisedActivity extends AppCompatActivity implements View.OnCli
         work = findViewById(R.id.workName);
         worker_count = findViewById(R.id.worker_count);
         phoneNumber = findViewById(R.id.phnW);
+
+        preferences = getApplicationContext().getSharedPreferences("UserData", MODE_PRIVATE);
 
         worker_count.setEndIconOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,7 +100,7 @@ public class UnorganisedActivity extends AppCompatActivity implements View.OnCli
     private void openLocation() {
 
         Intent intent = new PlacePicker.IntentBuilder()
-                .setLatLong(25.4670, 91.3662)
+                .setLatLong(Double.parseDouble(preferences.getString("lat", "25.4670")), Double.parseDouble(preferences.getString("lon", "91.3662")))
                 .showLatLong(true)
                 .setMapType(MapType.NORMAL)
                 .setPlaceSearchBar(true, String.valueOf(R.string.google_maps_key))

@@ -129,10 +129,42 @@
                             android:id="@+id/mailNumber"
                             style="@style/TextAppearance.AppCompat.Medium"
                             android:layout_width="match_parent"
-                            android:layout_height="6dp"
+                            android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/dp32"
                             android:layout_marginTop="@dimen/dp22"
                             android:text="@string/send_a_request_via_app"
+                            android:textColor="#000" />
+
+                    </LinearLayout>
+
+                    <View
+                        android:id="@+id/divider5"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="?android:attr/listDivider" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:id="@+id/viewFoodHistory">
+
+                        <ImageView
+                            android:id="@+id/history1"
+                            android:layout_width="@dimen/dp30"
+                            android:layout_height="@dimen/dp30"
+                            android:layout_marginStart="@dimen/dp12"
+                            android:layout_marginTop="@dimen/dp22"
+                            android:src="@drawable/ic_baseline_history_24" />
+
+                        <TextView
+                            android:id="@+id/historyFood"
+                            style="@style/TextAppearance.AppCompat.Medium"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dp32"
+                            android:layout_marginTop="@dimen/dp22"
+                            android:text="@string/view_history"
                             android:textColor="#000" />
 
                     </LinearLayout>
@@ -425,7 +457,88 @@
 
                     </LinearLayout>
 
+                    <View
+                        android:id="@+id/divider6"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="?android:attr/listDivider" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:id="@+id/viewMedHistory">
+
+                        <ImageView
+                            android:id="@+id/history2"
+                            android:layout_width="@dimen/dp30"
+                            android:layout_height="@dimen/dp30"
+                            android:layout_marginStart="@dimen/dp12"
+                            android:layout_marginTop="@dimen/dp22"
+                            android:src="@drawable/ic_baseline_history_24" />
+
+                        <TextView
+                            android:id="@+id/historyMed"
+                            style="@style/TextAppearance.AppCompat.Medium"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dp32"
+                            android:layout_marginTop="@dimen/dp22"
+                            android:text="@string/view_history"
+                            android:textColor="#000" />
+
+                    </LinearLayout>
                 </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardView3"
+            style="@style/CardView.Light"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp8"
+            android:layout_marginTop="@dimen/dp8"
+            android:layout_marginEnd="@dimen/dp8"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/dp12">
+
+                <ImageView
+                    android:id="@+id/imageView3"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:src="@drawable/hospital"
+                    app:layout_constraintDimensionRatio="H,16:9"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="?android:attr/listDivider"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView3"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/name3"
+                    style="@style/TextAppearance.AppCompat.Title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp32"
+                    android:layout_marginTop="@dimen/dp12"
+                    android:text="@string/hospital"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

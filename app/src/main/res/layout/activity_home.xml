@@ -423,6 +423,40 @@
                         android:layout_height="match_parent"
                         android:orientation="horizontal"
                         android:layout_margin="@dimen/mTop"
+                        android:id="@+id/epass">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_identity" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:text="@string/epass"
+                            android:layout_weight="10"
+                            android:gravity="center_vertical"
+                            android:layout_marginStart="@dimen/mTop" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/ic_baseline_keyboard_arrow_right_24"
+                            android:layout_gravity="center_vertical" />
+
+                    </LinearLayout>
+
+                    <View
+                        android:id="@+id/divider5"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="?android:attr/listDivider" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:layout_margin="@dimen/mTop"
                         android:id="@+id/unorg">
 
                         <ImageView

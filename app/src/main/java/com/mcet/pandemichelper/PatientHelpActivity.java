@@ -16,7 +16,7 @@ import com.google.android.material.card.MaterialCardView;
 public class PatientHelpActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ImageView arrow2, arrow, alarmBtn;
-    private MaterialCardView cardView, cardView1, cardView2;
+    private MaterialCardView cardView, cardView1, cardView2, cardView3;
     private LinearLayout expandable1, expandable;
 
     @Override
@@ -27,9 +27,11 @@ public class PatientHelpActivity extends AppCompatActivity implements View.OnCli
         findViewById(R.id.arrowBtn).setOnClickListener(this);
         findViewById(R.id.alarmBtn).setOnClickListener(this);
         findViewById(R.id.arrowBtn2).setOnClickListener(this);
-        findViewById(R.id.cardView).setOnClickListener(this);
         findViewById(R.id.reqFoodBtn).setOnClickListener(this);
         findViewById(R.id.reqMedBtn).setOnClickListener(this);
+        findViewById(R.id.viewFoodHistory).setOnClickListener(this);
+        findViewById(R.id.viewMedHistory).setOnClickListener(this);
+        findViewById(R.id.cardView3).setOnClickListener(this);
 
         arrow = findViewById(R.id.arrowBtn);
         alarmBtn = findViewById(R.id.alarmBtn);
@@ -88,6 +90,24 @@ public class PatientHelpActivity extends AppCompatActivity implements View.OnCli
                 medIntent.putExtra("id", "med");
                 startActivity(medIntent);
                 break;
+
+            case R.id.cardView3:
+                Intent i = new Intent(PatientHelpActivity.this, CoursesActivity.class);
+                i.putExtra("id", "hos");
+                startActivity(i);
+                break;
+
+//            case R.id.viewMedHistory:
+//                Intent j = new Intent(PatientHelpActivity.this, AdminHomeActivity.class);
+//                j.putExtra("id", "med");
+//                startActivity(j);
+//                break;
+//
+//            case R.id.viewFoodHistory:
+//                Intent k = new Intent(PatientHelpActivity.this, MaterialCardView.class);
+//                k.putExtra("id", "hos");
+//                startActivity(k);
+//                break;
 
         }
     }

@@ -241,7 +241,7 @@ public class PersonalPassFragment extends Fragment implements View.OnClickListen
     private void openLocationPicker(int requestCode) {
 
         Intent intent = new PlacePicker.IntentBuilder()
-                .setLatLong(25.4670, 91.3662)
+                .setLatLong(Double.parseDouble(preferences.getString("lat", "25.4670")), Double.parseDouble(preferences.getString("lon", "91.3662")))
                 .showLatLong(true)
                 .setMapType(MapType.NORMAL)
                 .setPlaceSearchBar(true, String.valueOf(R.string.google_maps_key))

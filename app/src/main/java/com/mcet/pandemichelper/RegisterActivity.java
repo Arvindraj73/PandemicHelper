@@ -7,6 +7,7 @@ import androidx.core.app.ActivityCompat;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
@@ -76,6 +77,9 @@ public class RegisterActivity extends AppCompatActivity implements GoogleApiClie
 
     private double lat, lon;
 
+    private SharedPreferences preferences;
+    private SharedPreferences.Editor editor;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,6 +98,10 @@ public class RegisterActivity extends AppCompatActivity implements GoogleApiClie
         mSpeciality = findViewById(R.id.specialityText);
 
         progressDialog = new ProgressDialog(this);
+
+
+        preferences = getApplicationContext().getSharedPreferences("UserData", MODE_PRIVATE);
+        editor = preferences.edit();
 
         mData = FirebaseDatabase.getInstance();
         mRef = mData.getReference();
@@ -116,7 +124,14 @@ public class RegisterActivity extends AppCompatActivity implements GoogleApiClie
         });
         if (spinner.getSelectedItem().toString().equals("Doctor")) {
             Log.d("Doc", "inside");
+            mSpeciality.setHint("Speciality");
             mSpeciality.setVisibility(View.VISIBLE);
+        } else if (spinner.getSelectedItem().toString().equals("Unorganised Worker")) {
+            Log.d("Doc", "inside");
+            mSpeciality.setHint("Work you do");
+            mSpeciality.setVisibility(View.VISIBLE);
+        } else {
+            mSpeciality.setVisibility(View.GONE);
         }
 
         mReg.setOnClickListener(new View.OnClickListener() {
@@ -223,21 +238,30 @@ public class RegisterActivity extends AppCompatActivity implements GoogleApiClie
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
 
-                            if (task.isSuccessful()){
+                            if (task.isSuccessful()) {
 
                                 FirebaseUser mFirebaseUser = mAuth.getCurrentUser();
 
-                                UserModel mUser = new UserModel(name, phone, email, pass, mFirebaseUser.getUid(), spinner.getSelectedItem().toString(), String.valueOf(lat), String.valueOf(lon), deviceToken);
-                                mRef.child("UserInfo/"+mFirebaseUser.getUid()).setValue(mUser).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                UserModel model = new UserModel(name, phone, email, pass, mFirebaseUser.getUid(), spinner.getSelectedItem().toString(), String.valueOf(lat), String.valueOf(lon), deviceToken);
+                                mRef.child("UserInfo/" + mFirebaseUser.getUid()).setValue(model).addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
 
                                         if (task.isSuccessful()) {
+                                            editor.putString("name", model.getName());
+                                            editor.putString("role", model.getRole());
+                                            editor.putString("email", model.getEmail());
+                                            editor.putString("phone", model.getPhone());
+                                            editor.putString("uid", mFirebaseUser.getUid());
+                                            editor.commit();
 
                                             if (spinner.getSelectedItem().toString().equals("Doctor")) {
                                                 mRef.child("UserInfo/" + mFirebaseUser.getUid()).child("/status").setValue("0");
-                                                mRef.child("Doctors").push().setValue(mUser.getUid());
+                                                mRef.child("Doctors").push().setValue(mFirebaseUser.getUid());
                                                 mRef.child("UserInfo/" + mFirebaseUser.getUid() + "/DocDetails/Speciality").setValue(mSpeciality.getEditText().getText().toString());
+                                            } else if (spinner.getSelectedItem().toString().equals("Unorganised Worker")) {
+                                                mRef.child("UnorgWorkers").push().setValue(mFirebaseUser.getUid());
+                                                mRef.child("UserInfo/" + mFirebaseUser.getUid() + "/work").setValue(mSpeciality.getEditText().getText().toString());
                                             }
 
                                             progressDialog.dismiss();
@@ -317,7 +341,10 @@ public class RegisterActivity extends AppCompatActivity implements GoogleApiClie
         try {
             lat = mLastlocation.getLatitude();
             lon = mLastlocation.getLongitude();
+            editor.putString("lat", String.valueOf(lat));
+            editor.putString("lon", String.valueOf(lon));
             Log.d("DATA", lat + " " + lon);
+
 
         } catch (Exception e) {
             Log.d("DATA", e.toString());

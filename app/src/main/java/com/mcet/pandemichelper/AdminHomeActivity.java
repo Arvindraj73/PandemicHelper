@@ -1,12 +1,23 @@
 package com.mcet.pandemichelper;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
+
+import com.google.android.material.appbar.MaterialToolbar;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class AdminHomeActivity extends AppCompatActivity implements View.OnClickListener {
+
+    private MaterialToolbar mAppBar;
+    private FirebaseAuth auth;
+    private SharedPreferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +35,29 @@ public class AdminHomeActivity extends AppCompatActivity implements View.OnClick
         findViewById(R.id.card_essential).setOnClickListener(this);
         findViewById(R.id.card_healthworker).setOnClickListener(this);
         findViewById(R.id.card_personalpass).setOnClickListener(this);
+        mAppBar = findViewById(R.id.appbarAdmin);
 
+        auth = FirebaseAuth.getInstance();
+        preferences = getApplicationContext().getSharedPreferences("UserData", MODE_PRIVATE);
+        mAppBar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.logout:
+                        logOut();
+                        return true;
+
+                    default:
+                        return false;
+                }
+            }
+        });
+    }
+
+    private void logOut() {
+        auth.signOut();
+        preferences.getAll().clear();
+        startActivity(new Intent(AdminHomeActivity.this, LoginActivity.class));
     }
 
     @Override

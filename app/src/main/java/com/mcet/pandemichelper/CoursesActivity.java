@@ -28,6 +28,8 @@ public class CoursesActivity extends AppCompatActivity {
             webView.loadUrl("http://cara.nic.in/");
         } else if (getIntent().getStringExtra("id").equals("io")) {
             webView.loadUrl("https://indianorphanage.com/");
+        } else if (getIntent().getStringExtra("id").equals("hos")) {
+            webView.loadUrl("https://ors.gov.in/copp/");
         }
 
     }

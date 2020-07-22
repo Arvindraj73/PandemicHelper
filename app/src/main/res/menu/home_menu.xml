@@ -4,7 +4,7 @@
 
     <item
         android:icon="@drawable/ic_translation"
-        android:title="Log Out"
+        android:title="Language"
         app:showAsAction="always">
 
         <menu>

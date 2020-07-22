@@ -140,6 +140,8 @@
     <string name="adopt">Adopt Orphans</string>
     <string name="vulnerable_cat">Vulnerable Category Shelters</string>
     <string name="msme_store">MSME Store</string>
+    <string name="hospital">Hospital Admission</string>
+    <string name="view_history">View History</string>
     <string-array name="role">
         <item>Select Your Role</item>
         <item>Essential Worker</item>
@@ -147,6 +149,7 @@
         <item>Doctor</item>
         <item>Labour</item>
         <item>Volunteer</item>
+        <item>Unorganised Worker</item>
     </string-array>
 
     <string-array name="gender">

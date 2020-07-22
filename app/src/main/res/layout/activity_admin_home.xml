@@ -15,11 +15,12 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/appbar"
+            android:id="@+id/appbarAdmin"
             style="@style/Widget.PandemicHelper.Toolbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:title="Admin">
+            app:title="Admin"
+            app:menu="@menu/filter_menu">
 
         </com.google.android.material.appbar.MaterialToolbar>
     </com.google.android.material.appbar.AppBarLayout>

@@ -22,7 +22,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/Widget.PandemicHelper.Toolbar"
-            app:menu="@menu/filter_menu"
             app:title="@string/app_name" />
 
         <com.google.android.material.tabs.TabLayout

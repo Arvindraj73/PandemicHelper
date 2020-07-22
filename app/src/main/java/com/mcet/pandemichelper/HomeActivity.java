@@ -91,6 +91,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.patients).setOnClickListener(this);
         findViewById(R.id.unorg).setOnClickListener(this);
         findViewById(R.id.store).setOnClickListener(this);
+        findViewById(R.id.epass).setOnClickListener(this);
 
         arrayList = new ArrayList<>();
 
@@ -170,6 +171,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
     private void logOut() {
         auth.signOut();
+        preferences.getAll().clear();
         startActivity(new Intent(HomeActivity.this, LoginActivity.class));
     }
 
@@ -285,7 +287,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.card_volunteer:
-                Intent workIntent = new Intent(HomeActivity.this, EPassActivity.class);
+                Intent workIntent = new Intent(HomeActivity.this, VolunteerActivity.class);
                 startActivity(workIntent);
                 break;
 
@@ -334,7 +336,9 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.unorg:
-                startActivity(new Intent(HomeActivity.this, UnorganisedActivity.class));
+                Intent k = new Intent(HomeActivity.this, DoctorActivity.class);
+                k.putExtra("id", "unorg");
+                startActivity(k);
                 break;
 
             case R.id.councel:
@@ -345,6 +349,12 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 Intent j = new Intent(HomeActivity.this, CoursesActivity.class);
                 j.putExtra("id", "msme");
                 startActivity(j);
+                break;
+
+            case R.id.epass:
+                Intent l = new Intent(HomeActivity.this, EPassActivity.class);
+                //j.putExtra("id", "msme");
+                startActivity(l);
                 break;
         }
 

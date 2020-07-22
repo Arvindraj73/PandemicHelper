@@ -38,6 +38,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -58,6 +59,8 @@ public class DoctorActivity extends FragmentActivity implements OnMapReadyCallba
     private GoogleApiClient client;
     private LocationRequest request;
     private Location mLastlocation;
+
+    private FloatingActionButton history;
 
     private static final int MY_REQUEST = 100;
     private static final int PS_REQUEST = 200;
@@ -86,10 +89,19 @@ public class DoctorActivity extends FragmentActivity implements OnMapReadyCallba
         mUser = FirebaseAuth.getInstance().getCurrentUser();
         mReference = FirebaseDatabase.getInstance().getReference();
 
+        history = findViewById(R.id.history_floating_action_button);
+        history.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
         setUpLocation();
         id = getIntent().getStringExtra("id");
         if (id.equals("unorg")) {
-
+            history.setVisibility(View.VISIBLE);
+        } else {
+            history.setVisibility(View.GONE);
         }
     }
 
@@ -204,10 +216,18 @@ public class DoctorActivity extends FragmentActivity implements OnMapReadyCallba
                             Log.d("in2", String.valueOf(s.child("/status").getValue()));
                             int status = Integer.parseInt(s.child("/status").getValue().toString());
                             if (status == 0) {
-                                marker = googleMap.addMarker(new MarkerOptions().icon(bitmapDescriptorFromVector(getApplicationContext(), R.drawable.ic_cancel)).title(mModel.getName()).position(new LatLng(Double.parseDouble(mModel.getLat()), Double.parseDouble(mModel.getLon()))));
+                                marker = googleMap.addMarker(new MarkerOptions()
+                                        .icon(bitmapDescriptorFromVector(getApplicationContext(), R.drawable.ic_cancel))
+                                        .title(mModel.getName())
+                                        .snippet(mModel.getSpeciality())
+                                        .position(new LatLng(Double.parseDouble(mModel.getLat()), Double.parseDouble(mModel.getLon()))));
                                 marker.setTag(mModel.getUid());
                             } else if (status == 1) {
-                                marker = googleMap.addMarker(new MarkerOptions().title(mModel.getName()).icon(bitmapDescriptorFromVector(getApplicationContext(), R.drawable.ic_location)).position(new LatLng(Double.parseDouble(mModel.getLat()), Double.parseDouble(mModel.getLon()))));
+                                marker = googleMap.addMarker(new MarkerOptions()
+                                        .title(mModel.getName())
+                                        .snippet(mModel.getSpeciality())
+                                        .icon(bitmapDescriptorFromVector(getApplicationContext(), R.drawable.ic_location))
+                                        .position(new LatLng(Double.parseDouble(mModel.getLat()), Double.parseDouble(mModel.getLon()))));
                                 marker.setTag(mModel.getUid());
                             }
                         }
@@ -242,10 +262,18 @@ public class DoctorActivity extends FragmentActivity implements OnMapReadyCallba
                             Log.d("in2", String.valueOf(s.child("/status").getValue()));
                             int status = Integer.parseInt(s.child("/status").getValue().toString());
                             if (status == 0) {
-                                marker = googleMap.addMarker(new MarkerOptions().icon(bitmapDescriptorFromVector(getApplicationContext(), R.drawable.ic_cancel)).title(mModel.getName()).position(new LatLng(Double.parseDouble(mModel.getLat()), Double.parseDouble(mModel.getLon()))));
+                                marker = googleMap.addMarker(new MarkerOptions()
+                                        .icon(bitmapDescriptorFromVector(getApplicationContext(), R.drawable.ic_cancel))
+                                        .title(mModel.getName())
+                                        .snippet(mModel.getSpeciality())
+                                        .position(new LatLng(Double.parseDouble(mModel.getLat()), Double.parseDouble(mModel.getLon()))));
                                 marker.setTag(mModel.getUid());
                             } else if (status == 1) {
-                                marker = googleMap.addMarker(new MarkerOptions().title(mModel.getName()).icon(bitmapDescriptorFromVector(getApplicationContext(), R.drawable.ic_location)).position(new LatLng(Double.parseDouble(mModel.getLat()), Double.parseDouble(mModel.getLon()))));
+                                marker = googleMap.addMarker(new MarkerOptions()
+                                        .title(mModel.getName())
+                                        .snippet(mModel.getSpeciality())
+                                        .icon(bitmapDescriptorFromVector(getApplicationContext(), R.drawable.ic_location))
+                                        .position(new LatLng(Double.parseDouble(mModel.getLat()), Double.parseDouble(mModel.getLon()))));
                                 marker.setTag(mModel.getUid());
                             }
                         }
@@ -311,7 +339,10 @@ public class DoctorActivity extends FragmentActivity implements OnMapReadyCallba
                         UserModel mModel = s.getValue(UserModel.class);
                         Log.d("in", mModel.getRole());
                         if (mModel.getRole().equals("Unorganised Worker")) {
-                            marker = googleMap.addMarker(new MarkerOptions().title(mModel.getName()).position(new LatLng(Double.parseDouble(mModel.getLat()), Double.parseDouble(mModel.getLon()))));
+                            marker = googleMap.addMarker(new MarkerOptions()
+                                    .title(mModel.getName())
+                                    .snippet(mModel.getSpeciality())
+                                    .position(new LatLng(Double.parseDouble(mModel.getLat()), Double.parseDouble(mModel.getLon()))));
                             marker.setTag(mModel.getUid());
 
                         }
