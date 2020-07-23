@@ -21,6 +21,7 @@ import android.widget.NumberPicker;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DatabaseReference;
@@ -32,6 +33,7 @@ import com.sucho.placepicker.MapType;
 import com.sucho.placepicker.PlacePicker;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Objects;
 
 import androidx.fragment.app.Fragment;
@@ -46,6 +48,7 @@ public class EssentialPassFragment extends Fragment implements View.OnClickListe
     private LinearLayout vehicleLayout;
 
     private ArrayList<Uri> filePath = new ArrayList<Uri>();
+    private ArrayList<View> views = new ArrayList<View>();
 
     private ImageView imageView, imageView2;
     private TextView chosen_file_app, chosen_or_proof_file;
@@ -61,13 +64,15 @@ public class EssentialPassFragment extends Fragment implements View.OnClickListe
     private SharedPreferences preferences;
 
     private String[] fileName = new String[]{"IdProof", "ReasonProof"};
+    private ArrayList<String> vehicle_no = new ArrayList<String>();
+    private ArrayList<String> vehicle_type = new ArrayList<String>();
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_essential_pass, container, false);
+        View myView = inflater.inflate(R.layout.fragment_essential_pass, container, false);
 
         preferences = Objects.requireNonNull(getActivity()).getSharedPreferences("UserData", Context.MODE_PRIVATE);
 
@@ -106,13 +111,13 @@ public class EssentialPassFragment extends Fragment implements View.OnClickListe
             }
         });
 
-        myView.findViewById(R.id.choose_file).setOnClickListener(this);
-        myView.findViewById(R.id.choose_reason_file).setOnClickListener(this);
+        myView.findViewById(R.id.choose_file_app).setOnClickListener(this);
+        myView.findViewById(R.id.choose_or_proof_file).setOnClickListener(this);
         myView.findViewById(R.id.submitOr).setOnClickListener(this);
         myView.findViewById(R.id.orAddress).setOnClickListener(this);
-        vehicleLayout = v.findViewById(R.id.vehicleInfo);
+        vehicleLayout = myView.findViewById(R.id.vehicleInfo);
 
-        vehicleReqText = v.findViewById(R.id.vehicle_count);
+        vehicleReqText = myView.findViewById(R.id.vehicle_count);
         vehicleReqText.setEndIconOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -120,7 +125,7 @@ public class EssentialPassFragment extends Fragment implements View.OnClickListe
             }
         });
 
-        return v;
+        return myView;
 
     }
 
@@ -211,10 +216,30 @@ public class EssentialPassFragment extends Fragment implements View.OnClickListe
     }
 
     private void showViews(int count) {
-        for (int i = 1; i <= count; i++) {
-
+        View childView;
+        LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        for (int i = 0; i < count; i++) {
+            childView = inflater.inflate(R.layout.vehicle_layout, null);
+            views.add(i, childView);
+            vehicleLayout.addView(childView);
         }
+        for (int i = 0; i < count; i++) {
+            View v = views.get(i);
+            MaterialButton button = v.findViewById(R.id.submit_vehicle);
+            TextInputLayout textInputLayout = v.findViewById(R.id.vehicleNo);
+            Spinner spinner = v.findViewById(R.id.vehicle_spinner);
+            int finalI = i;
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    vehicle_no.add(finalI,textInputLayout.getEditText().getText().toString());
+                    vehicle_type.add(finalI,spinner.getSelectedItem().toString());
 
+                    Log.d("veNoIN", vehicle_no.get(finalI));
+                    Log.d("veTyIN", vehicle_type.get(finalI));
+                }
+            });
+        }
     }
 
     @Override
@@ -226,12 +251,15 @@ public class EssentialPassFragment extends Fragment implements View.OnClickListe
             case R.id.choose_or_proof_file:
                 openFileExplorer(22);
                 break;
-//            case R.id.submitOr:
-//                submitDetails();
-//                break;
+            case R.id.submitOr:
+                submitDetails();
+                break;
         }
     }
-//        private void submitDetails() {
+        private void submitDetails() {
+
+            Log.d("veNo", String.valueOf(vehicle_no.size()));
+            Log.d("veTy", String.valueOf(vehicle_type.size()));
 ////
 ////            ProgressDialog progressDialog = new ProgressDialog(getContext());
 ////            progressDialog.setTitle("Applying ePass");
@@ -297,7 +325,7 @@ public class EssentialPassFragment extends Fragment implements View.OnClickListe
 //                }
 //            });
 //
-//        }
+        }
 
     private void openLocationPicker() {
 
