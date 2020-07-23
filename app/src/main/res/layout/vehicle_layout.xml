@@ -29,11 +29,19 @@
             android:layout_height="wrap_content"
             app:helperText="@string/format">
 
+
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/vehicleNo" />
         </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/submit_vehicle"
+            android:text="@string/submit"
+            style="@style/Widget.PandemicHelper.Button"
+            />
 
     </LinearLayout>
 
