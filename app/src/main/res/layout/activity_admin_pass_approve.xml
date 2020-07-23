@@ -156,6 +156,80 @@
 
                       </RelativeLayout>
             </com.google.android.material.card.MaterialCardView>
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cv4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/ta"
+                    android:layout_margin="@dimen/place_autocomplete_button_padding">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/place_autocomplete_button_padding">
+
+                        <TextView
+                            android:id="@+id/t8"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/mTop"
+                            android:fontFamily="@font/poppins_light"
+                            android:text="Organisation category"
+                            android:textSize="@dimen/tsize3" />
+
+                        <TextView
+                            android:id="@+id/Ocat"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/t8"
+                            android:fontFamily="@font/poppins_light"
+                            android:text="@string/name"
+                            android:textSize="@dimen/tsize2"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/t9"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/Ocat"
+                            android:layout_marginTop="@dimen/mTop"
+                            android:fontFamily="@font/poppins_light"
+                            android:text="Organisation Proof Type"
+                            android:textSize="@dimen/tsize3" />
+
+                        <TextView
+                            android:id="@+id/Oproof"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/t9"
+                            android:fontFamily="@font/poppins_light"
+                            android:text="Gender"
+                            android:textSize="@dimen/tsize2"
+                            android:textStyle="bold" />
+                        <TextView
+                            android:id="@+id/t10"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/Oproof"
+                            android:layout_marginTop="@dimen/mTop"
+                            android:fontFamily="@font/poppins_light"
+                            android:text="Organaisation Proof Number"
+                            android:textSize="@dimen/tsize3" />
+
+                        <TextView
+                            android:id="@+id/Oproofno"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/t10"
+                            android:fontFamily="@font/poppins_light"
+                            android:text=""
+                            android:textSize="@dimen/tsize2"
+                            android:textStyle="bold" />
+
+
+
+                    </RelativeLayout>
+                </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/cv3"

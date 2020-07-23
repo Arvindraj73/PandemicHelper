@@ -529,7 +529,7 @@ public class MaterialDetailsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Log.d("onClick", itemName.toString() + " " + quantity.toString());
-                MaterialModel modelUser = new MaterialModel(preferences.getString("name","null"),preferences.getString("phone","null"),lat,lon,location,String.valueOf(itemName.size()));
+                MaterialModel modelUser = new MaterialModel(preferences.getString("name","null"),preferences.getString("phone","null"),lat,lon,location,String.valueOf(itemName.size()), "Pending");
                 mRef.child(user.getUid()).setValue(modelUser);
                 for (int i = 0; i < quantity.size() && i < itemName.size(); i++) {
                     Log.d("for", itemName.get(i) + " " + quantity.get(i));

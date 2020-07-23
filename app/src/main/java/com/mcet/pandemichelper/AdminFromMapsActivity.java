@@ -47,6 +47,16 @@ public class AdminFromMapsActivity extends FragmentActivity implements OnMapRead
             mMap.moveCamera(CameraUpdateFactory.newLatLng(from));
 
         }
+        else if(getIntent().getStringExtra("id").equals("tp"))
+        {
+            flat=Float.parseFloat(getIntent().getStringExtra("lat"));
+            flog=Float.parseFloat(getIntent().getStringExtra("lon"));
+
+            LatLng from = new LatLng(flat, flog);
+            mMap.addMarker(new MarkerOptions().position(from).title(getIntent().getStringExtra("Here ")));
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(from));
+
+        }
         else if(getIntent().getStringExtra("id").equals("ew"))
         {
             flat=Float.parseFloat(getIntent().getStringExtra("lat"));
@@ -57,6 +67,7 @@ public class AdminFromMapsActivity extends FragmentActivity implements OnMapRead
             mMap.moveCamera(CameraUpdateFactory.newLatLng(from));
 
         }
+
         else{
         flat=Float.parseFloat(getIntent().getStringExtra("flat"));
         flog=Float.parseFloat(getIntent().getStringExtra("flog"));

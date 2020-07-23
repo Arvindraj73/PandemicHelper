@@ -129,8 +129,24 @@ public class fr2_Fragment extends Fragment {
                 protected void onBindViewHolder(@NonNull WorkViewHolder holder, int position, @NonNull MaterialModel model) {
                     final String key = getRef(position).getKey();
                     holder.work.setText("Name:" + model.getName());
-
                     holder.num.setText("Total : " + model.getTotal());
+                    if (model.getAssignedTo().equals("Pending")) {
+                        holder.asd.setText("Status :\nNot Assigned");
+                    } else {
+                        mDatabase.getReference("UserInfo").child(model.getAssignedTo()).addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                UserModel model = dataSnapshot.getValue(UserModel.class);
+                                holder.asd.setText("Assigned to :\n" + model.getName());
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+
+                    }
                     holder.cardView.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {

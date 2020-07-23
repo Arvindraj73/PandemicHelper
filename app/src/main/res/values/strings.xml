@@ -198,5 +198,7 @@
     <string name="workers">Workers</string>
     <string name="select_collection_location">Select Collection Location</string>
     <string name="items">Items</string>
+    <string name="orProofNo">Organisation Proof Number</string>
+    <string name="select_volunteer">Select Volunteer</string>
 
 </resources>

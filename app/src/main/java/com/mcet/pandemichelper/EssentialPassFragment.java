@@ -1,6 +1,7 @@
 package com.mcet.pandemichelper;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -20,14 +21,21 @@ import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.sucho.placepicker.AddressData;
 import com.sucho.placepicker.MapType;
 import com.sucho.placepicker.PlacePicker;
@@ -46,24 +54,24 @@ public class EssentialPassFragment extends Fragment implements View.OnClickListe
 
     private TextInputLayout vehicleReqText;
     private LinearLayout vehicleLayout;
-
+    private FloatingActionButton history;
     private ArrayList<Uri> filePath = new ArrayList<Uri>();
     private ArrayList<View> views = new ArrayList<View>();
 
-    private ImageView imageView, imageView2;
+    private ImageView imageView3, imageView4;
     private TextView chosen_file_app, chosen_or_proof_file;
-    private Spinner applicantProofSpinner, oRProofType, vehicleType;
+    private Spinner applicantProofSpinner, oRProofType;
 
-    private TextInputLayout emp_countText, orAddress, nameAText, idProofNoAText, vehicleNoText, orNameText, orTypeText, orCatText;
+    private TextInputLayout emp_countText, orAddress, nameAText, idProofNoAText, orNameText, orTypeText, orCatText;
 
     private View myView;
 
     private StorageReference storageReference;
-    private DatabaseReference databaseReference;
+    private DatabaseReference databaseReference,databaseReference1;
 
     private SharedPreferences preferences;
 
-    private String[] fileName = new String[]{"IdProof", "ReasonProof"};
+    private String[] fileName = new String[]{"IdProof", "OrganisationProof"};
     private ArrayList<String> vehicle_no = new ArrayList<String>();
     private ArrayList<String> vehicle_type = new ArrayList<String>();
 
@@ -77,15 +85,15 @@ public class EssentialPassFragment extends Fragment implements View.OnClickListe
         preferences = Objects.requireNonNull(getActivity()).getSharedPreferences("UserData", Context.MODE_PRIVATE);
 
         storageReference = FirebaseStorage.getInstance().getReference(preferences.getString("uid", ""));
-        databaseReference = FirebaseDatabase.getInstance().getReference("PersonalPass");
-
+        databaseReference = FirebaseDatabase.getInstance().getReference("TransportPass");
+        databaseReference1 = FirebaseDatabase.getInstance().getReference("UserInfo");
+        history = myView.findViewById(R.id.Tpass_history);
         applicantProofSpinner = myView.findViewById(R.id.applicantProofSpinner);
         chosen_file_app = myView.findViewById(R.id.chosen_file_app);
         chosen_or_proof_file = myView.findViewById(R.id.chosen_or_proof_file);
         oRProofType = myView.findViewById(R.id.oRProofType);
-        imageView = myView.findViewById(R.id.img);
-        imageView2 = myView.findViewById(R.id.img2);
-        vehicleType = myView.findViewById(R.id.vehicle_spinner);
+        imageView3 = myView.findViewById(R.id.img3);
+        imageView4 = myView.findViewById(R.id.img4);
         orAddress = myView.findViewById(R.id.orAddress);
         orCatText = myView.findViewById(R.id.orCat);
         orTypeText = myView.findViewById(R.id.orType);
@@ -93,21 +101,21 @@ public class EssentialPassFragment extends Fragment implements View.OnClickListe
 
         emp_countText = myView.findViewById(R.id.emp_count);
         nameAText = myView.findViewById(R.id.nameApplicantOr);
-        vehicleNoText = myView.findViewById(R.id.vehicleNo);
         idProofNoAText = myView.findViewById(R.id.idProofNoA);
 
-        emp_countText.getEditText().setEnabled(true);
-        emp_countText.setEndIconOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openNumberDialog("No of Employees");
-            }
-        });
         orAddress.getEditText().setEnabled(true);
         orAddress.setEndIconOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openLocationPicker();
+            }
+        });
+        history.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent his= new Intent(getContext(), HistoryActivity.class);
+                his.putExtra("id", "transPass");
+                startActivity(his);
             }
         });
 
@@ -237,6 +245,7 @@ public class EssentialPassFragment extends Fragment implements View.OnClickListe
 
                     Log.d("veNoIN", vehicle_no.get(finalI));
                     Log.d("veTyIN", vehicle_type.get(finalI));
+                    vehicleLayout.removeView(v);
                 }
             });
         }
@@ -260,71 +269,90 @@ public class EssentialPassFragment extends Fragment implements View.OnClickListe
 
             Log.d("veNo", String.valueOf(vehicle_no.size()));
             Log.d("veTy", String.valueOf(vehicle_type.size()));
-////
-////            ProgressDialog progressDialog = new ProgressDialog(getContext());
-////            progressDialog.setTitle("Applying ePass");
-////            progressDialog.show();
-//
-//            PassDetailsModel model = new PassDetailsModel(
-//                    nameAText.getEditText().getText().toString(),
-//                    oRProofType.getSelectedItem().toString(),
-//                    applicantProofSpinner.getSelectedItem().toString(),
-//                    idProofNoAText.getEditText().getText().toString(),
-//                    fromAddress,
-//                    toAddress,
-//                    emp_countText.getEditText().getText().toString(),
-//                    vehicleType.getSelectedItem().toString(),
-//                    vehicleNoText.getEditText().getText().toString(),
-//                    orAddress.getEditText().getText().toString()
-//            );
-//            databaseReference.child(preferences.getString("uid", "")).setValue(model).addOnCompleteListener(new OnCompleteListener<Void>() {
-//                @Override
-//                public void onComplete(@NonNull Task<Void> task) {
-//                    if (task.isSuccessful()) {
-//                        storageReference.child(fileName[0]).putFile(filePath.get(0)).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-//                            @Override
-//                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-//
-//                                storageReference.child(fileName[0]).getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
-//                                    @Override
-//                                    public void onComplete(@NonNull Task<Uri> task) {
-//                                        Log.d("urlm", task.getResult().toString());
-//                                        databaseReference.child(preferences.getString("uid", "") + "/idProof").setValue(task.getResult().toString());
-//                                    }
-//                                }).addOnFailureListener(new OnFailureListener() {
-//                                    @Override
-//                                    public void onFailure(@NonNull Exception e) {
-//                                        Log.d("urle", e.toString());
-//                                    }
-//                                });
-//                            }
-//                        });
-//                        storageReference.child(fileName[1]).putFile(filePath.get(1)).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-//                            @Override
-//                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-//
-//                                storageReference.child(fileName[1]).getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
-//                                    @Override
-//                                    public void onComplete(@NonNull Task<Uri> task) {
-//                                        Log.d("urlm", task.getResult().toString());
-//                                        databaseReference.child(preferences.getString("uid", "") + "/reasonProof").setValue(task.getResult().toString());
-//                                    }
-//                                }).addOnFailureListener(new OnFailureListener() {
-//                                    @Override
-//                                    public void onFailure(@NonNull Exception e) {
-//                                        Log.d("urle", e.toString());
-//                                    }
-//                                });
-//                            }
-//                        });
-//
-//                        //new Notify(myView, "Success").showSnack("short");
-//
-//                    }
-//
-//                }
-//            });
-//
+
+//            ProgressDialog progressDialog = new ProgressDialog(getContext());
+//            progressDialog.setTitle("Applying ePass");
+//            progressDialog.show();
+
+            EssentialPassModel model = new EssentialPassModel(
+                    nameAText.getEditText().getText().toString(),
+                    applicantProofSpinner.getSelectedItem().toString(),
+                    idProofNoAText.getEditText().getText().toString(),
+                    orNameText.getEditText().getText().toString(),
+                    orTypeText.getEditText().getText().toString(),
+                    orCatText.getEditText().getText().toString(),
+                    oRProofType.getSelectedItem().toString(),
+                    emp_countText.getEditText().getText().toString(),
+                    orAddress.getEditText().getText().toString(),
+                    vehicleReqText.getEditText().getText().toString(),
+                    "Pending"
+            );
+            String key=databaseReference1.child(preferences.getString("uid", "")).child("TPass").push().getKey();
+            databaseReference1.child(preferences.getString("uid", "")).child("TPass/"+key).setValue(model);
+
+            databaseReference.child(preferences.getString("uid", "")).setValue(model).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (task.isSuccessful()) {
+                        databaseReference.child(preferences.getString("uid", "")).child("key").setValue(key);
+                        storageReference.child(fileName[0]).putFile(filePath.get(0)).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                                storageReference.child(fileName[0]).getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Uri> task) {
+                                        Log.d("urlm", task.getResult().toString());
+                                        databaseReference.child(preferences.getString("uid", "") + "/applicantProof").setValue(task.getResult().toString());
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.d("urle", e.toString());
+                                    }
+                                });
+                            }
+                        });
+                        storageReference.child(fileName[1]).putFile(filePath.get(1)).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                                storageReference.child(fileName[1]).getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Uri> task) {
+                                        Log.d("urlm", task.getResult().toString());
+                                        databaseReference.child(preferences.getString("uid", "") + "/orProof").setValue(task.getResult().toString());
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.d("urle", e.toString());
+                                    }
+                                });
+                            }
+                        });
+
+                        for (int i = 0; i < vehicle_no.size() && i < vehicle_type.size(); i++) {
+                            Log.d("for", vehicle_no.get(i) + " " + vehicle_type.get(i));
+                            EssentialPassModel modelItem = new EssentialPassModel(vehicle_type.get(i), vehicle_no.get(i));
+                            databaseReference.child(preferences.getString("uid", "")+"/Vehicles").push().setValue(modelItem).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        Toast.makeText(getContext(), "Thank you for Donating.\nWait for your pickup", Toast.LENGTH_SHORT).show();
+                                        startActivity(new Intent(getContext(), HomeActivity.class));
+                                        getActivity().finish();
+                                    }
+                                }
+                            });
+                        }
+
+                    }
+
+                }
+            });
+
+
         }
 
     private void openLocationPicker() {

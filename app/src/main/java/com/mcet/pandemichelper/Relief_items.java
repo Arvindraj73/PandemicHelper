@@ -17,19 +17,24 @@ import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.material.button.MaterialButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class Relief_items extends AppCompatActivity {
     private RecyclerView recyclerView;
 
     private FirebaseDatabase database;
     private DatabaseReference reference,refItems;
-    private TextView tv2;
-    private String key;
+    private TextView itemName, itemPhone;
+    private String key, lat, lon, address;
+    private MaterialButton selectVolunteer;
     private FirebaseRecyclerAdapter<MaterialModel,WorkViewHolder> adapter;
 
     @Override
@@ -37,11 +42,27 @@ public class Relief_items extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_relief_items);
 
-        tv2 = findViewById(R.id.tv2);
+        itemName = findViewById(R.id.itemName);
+        itemPhone = findViewById(R.id.itemPhone);
+        selectVolunteer = findViewById(R.id.iBtn);
         database = FirebaseDatabase.getInstance();
         reference = database.getReference();
         recyclerView = (RecyclerView) findViewById(R.id.ItemList);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        selectVolunteer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(Relief_items.this, WorkerWorkMapsActivity.class);
+                i.putExtra("id", "ri");
+                i.putExtra("address", address);
+                i.putExtra("lat", lat);
+                i.putExtra("lon", lon);
+                i.putExtra("job", key);
+                startActivity(i);
+                finish();
+            }
+        });
 
         key = getIntent().getStringExtra("key");
         reference.child("ReliefMaterials/"+key).addValueEventListener(new ValueEventListener() {
@@ -49,13 +70,13 @@ public class Relief_items extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 MaterialModel model = dataSnapshot.getValue(MaterialModel.class);
-
-
-                tv2.setText(model.getName());
-
-
-
-
+                itemName.setText(model.getName());
+                itemPhone.setText(model.getPhone());
+                List data = Arrays.asList(model.getLocation().split("\n"));
+                Log.d("list", String.valueOf(data));
+                lat = data.get(0).toString();
+                lon = data.get(1).toString();
+                address = data.get(2).toString();
             }
 
             @Override

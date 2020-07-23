@@ -39,6 +39,7 @@ public class WorkerWorkMapsActivity extends FragmentActivity implements OnMapRea
     private DatabaseReference mReference;
     private UserModel model;
     private HelpModel modelJob;
+    private MaterialModel materialModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,6 +106,36 @@ public class WorkerWorkMapsActivity extends FragmentActivity implements OnMapRea
                 }
             });
         }
+        else if (getIntent().getStringExtra("id").equals("ri")) {
+            mReference.child("UserInfo").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    for (DataSnapshot s : dataSnapshot.getChildren()) {
+                        Log.d("Children", s.toString());
+                        UserModel mModel = s.getValue(UserModel.class);
+                        Log.d("in", mModel.getRole());
+                        if (mModel.getRole().equals("Volunteer")) {
+                            marker = googleMap.addMarker(new MarkerOptions()
+                                    .title(mModel.getName())
+                                    .position(new LatLng(Double.parseDouble(mModel.getLat()), Double.parseDouble(mModel.getLon()))));
+                            marker.setTag(mModel.getUid());
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
+            mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+                @Override
+                public void onInfoWindowClick(Marker marker) {
+                    openWorkerDialog(marker.getTag().toString());
+                }
+            });
+        }
     }
 
     private void openWorkerDialog(String uid) {
@@ -130,27 +161,56 @@ public class WorkerWorkMapsActivity extends FragmentActivity implements OnMapRea
         builder.setPositiveButton(R.string.assign, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                mReference.child("HealthWorks").child(job).addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        modelJob = dataSnapshot.getValue(HelpModel.class);
-                        Log.d("da", dataSnapshot.toString());
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });
-                mReference.child("UserInfo").child(uid).child("Works").child(job).setValue(modelJob).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            mReference.child("HealthWorks").child(job).child("assignedTo").setValue(uid);
-                            Toast.makeText(WorkerWorkMapsActivity.this, "Assigned", Toast.LENGTH_SHORT).show();
+                if (getIntent().getStringExtra("id").equals("hw")) {
+                    mReference.child("HealthWorks").child(job).addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            modelJob = dataSnapshot.getValue(HelpModel.class);
+                            Log.d("da", dataSnapshot.toString());
                         }
-                    }
-                });
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+                    mReference.child("UserInfo").child(uid).child("Works").child(job).setValue(modelJob).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                mReference.child("HealthWorks").child(job).child("assignedTo").setValue(uid);
+                                Toast.makeText(WorkerWorkMapsActivity.this, "Assigned", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(WorkerWorkMapsActivity.this, AdminHealthWorkerActivity.class));
+                                finish();
+                            }
+                        }
+                    });
+                }
+                else if (getIntent().getStringExtra("id").equals("ri")) {
+                    mReference.child("ReliefMaterials").child(job).addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            materialModel = dataSnapshot.getValue(MaterialModel.class);
+                            Log.d("da", dataSnapshot.toString());
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+                    mReference.child("UserInfo").child(uid).child("Works").child(job).push().setValue(materialModel).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                mReference.child("ReliefMaterials").child(job).child("assignedTo").setValue(uid);
+                                Toast.makeText(WorkerWorkMapsActivity.this, "Assigned", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(WorkerWorkMapsActivity.this, fr2_Fragment.class));
+                                finish();
+                            }
+                        }
+                    });
+                }
             }
         }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override

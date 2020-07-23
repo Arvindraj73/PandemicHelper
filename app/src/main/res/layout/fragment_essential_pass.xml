@@ -202,14 +202,13 @@
                         style="@style/Widget.PandemicHelper.TextInputLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:endIconDrawable="@drawable/ic_number"
-                        app:endIconMode="custom"
                         android:layout_marginTop="@dimen/mTop">
+
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="@string/noOfEmployees"
+                            android:hint="@string/orProofNo"
                             android:inputType="number" />
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -270,25 +269,25 @@
             </com.google.android.material.card.MaterialCardView>
 
 
-            <!--            <LinearLayout-->
-            <!--                android:layout_width="match_parent"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:baselineAligned="false"-->
-            <!--                android:layout_marginTop="@dimen/mTop"-->
-            <!--                android:orientation="horizontal">-->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:baselineAligned="false"
+                            android:layout_marginTop="@dimen/mTop"
+                            android:orientation="horizontal">
 
-            <!--                <ImageView-->
-            <!--                    android:layout_width="match_parent"-->
-            <!--                    android:layout_height="@dimen/dp150"-->
-            <!--                    android:id="@+id/img"-->
-            <!--                    android:layout_weight="1"/>-->
-            <!--                <ImageView-->
-            <!--                    android:layout_width="match_parent"-->
-            <!--                    android:layout_height="@dimen/dp150"-->
-            <!--                    android:id="@+id/img2"-->
-            <!--                    android:layout_weight="1"/>-->
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/dp150"
+                                android:id="@+id/img3"
+                                android:layout_weight="1"/>
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/dp150"
+                                android:id="@+id/img4"
+                                android:layout_weight="1"/>
 
-            <!--            </LinearLayout>-->
+                        </LinearLayout>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/submitOr"
@@ -302,7 +301,15 @@
         </LinearLayout>
 
     </ScrollView>
-
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/Tpass_history"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="@dimen/text_margin"
+        android:backgroundTint="@color/colorPrimary"
+        app:srcCompat="@drawable/ic_baseline_history_24" />
 </RelativeLayout>
 
 

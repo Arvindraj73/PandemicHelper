@@ -8,6 +8,15 @@ public class MaterialModel {
     String total;
     String location;
     String phone;
+    String assignedTo;
+
+    public String getAssignedTo() {
+        return assignedTo;
+    }
+
+    public void setAssignedTo(String assignedTo) {
+        this.assignedTo = assignedTo;
+    }
 
     public String getLocation() {
         return location;
@@ -29,13 +38,14 @@ public class MaterialModel {
         return total;
     }
 
-    public MaterialModel(String name,String phone, String lon, String lat, String location, String total) {
+    public MaterialModel(String name,String phone, String lon, String lat, String location, String total, String assignedTo) {
         this.name = name;
         this.lon = lon;
         this.lat = lat;
         this.total = total;
         this.location = location;
         this.phone = phone;
+        this.assignedTo = assignedTo;
     }
 
     public void setTotal(String total) {

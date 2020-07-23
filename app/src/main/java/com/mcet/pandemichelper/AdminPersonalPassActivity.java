@@ -63,6 +63,7 @@ try{
                 @Override
                 public void onClick(View v) {
                     Intent i=new Intent(AdminPersonalPassActivity.this,AdminPassApproveActivity.class);
+                    i.putExtra("id", "perPass");
                     i.putExtra("path",key);
                     startActivity(i);
                 }

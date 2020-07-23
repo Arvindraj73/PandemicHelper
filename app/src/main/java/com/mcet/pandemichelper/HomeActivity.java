@@ -235,7 +235,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onErrorResponse(VolleyError error) {
 
-                Log.d("TAG", error.getMessage());
+                //Log.d("TAG", error.getMessage());
 
             }
         });

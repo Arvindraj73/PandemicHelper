@@ -12,9 +12,14 @@ import android.os.Bundle;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -124,6 +129,7 @@ public class HistoryActivity extends AppCompatActivity {
 
                     }
                 };
+
                 adapter.startListening();
                 adapter.notifyDataSetChanged();
                 recyclerView.setAdapter(adapter);
@@ -132,10 +138,10 @@ public class HistoryActivity extends AppCompatActivity {
             }
         }
         else if (id.equals("transPass")) {
-            mRef = mDatabase.getReference("UserInfo").child(preferences.getString("uid", "")).child("epass");
+            mRef = mDatabase.getReference("UserInfo").child(preferences.getString("uid", "")).child("TPass");
             try{
-                FirebaseRecyclerOptions list = new FirebaseRecyclerOptions.Builder<PassDetailsModel>().setQuery(mRef,PassDetailsModel.class).build();
-                FirebaseRecyclerAdapter<PassDetailsModel, EpassViewHolder> adapter=new FirebaseRecyclerAdapter<PassDetailsModel,EpassViewHolder>(list) {
+                FirebaseRecyclerOptions list = new FirebaseRecyclerOptions.Builder<EssentialPassModel>().setQuery(mRef,EssentialPassModel.class).build();
+                FirebaseRecyclerAdapter<EssentialPassModel, EpassViewHolder> adapter=new FirebaseRecyclerAdapter<EssentialPassModel,EpassViewHolder>(list) {
 
                     @NonNull
                     @Override
@@ -145,15 +151,15 @@ public class HistoryActivity extends AppCompatActivity {
                     }
 
                     @Override
-                    protected void onBindViewHolder(@NonNull EpassViewHolder holder, int position, @NonNull PassDetailsModel model) {
+                    protected void onBindViewHolder(@NonNull EpassViewHolder holder, int position, @NonNull EssentialPassModel model) {
                         final String key = getRef(position).getKey();
-                        holder.name.setText("Name : \n"+model.getName());
-                        holder.from.setText("FromAddress : \n"+model.getFromAddress());
-                        holder.to.setText("ToAddress :\n"+model.getToAddress());
-                        holder.date.setText("TravelDate :\n"+model.getTravelDate());
-
+                        holder.name.setText("Name : \n"+model.getApplicantName());
+                        holder.from.setText("Organisation Name :\n"+model.getOrName());
+                        holder.to.setText("Vehicle Count :\n"+model.getVehicleCount());
+                        holder.status.setText("Status :\n"+model.getStatus());
                     }
                 };
+
                 adapter.startListening();
                 adapter.notifyDataSetChanged();
                 recyclerView.setAdapter(adapter);

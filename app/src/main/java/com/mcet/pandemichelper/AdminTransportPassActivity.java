@@ -22,7 +22,7 @@ public class AdminTransportPassActivity extends AppCompatActivity {
     private FirebaseDatabase mDatabase;
     private DatabaseReference mRef;
 
-    private FirebaseRecyclerAdapter<PassDetailsModel, EpassViewHolder> adapter;
+    private FirebaseRecyclerAdapter<EssentialPassModel, EpassViewHolder> adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,10 +33,10 @@ public class AdminTransportPassActivity extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance();
 
 
-        mRef = mDatabase.getReference("EssentialPass");
+        mRef = mDatabase.getReference("TransportPass");
         try{
-            FirebaseRecyclerOptions list = new FirebaseRecyclerOptions.Builder<PassDetailsModel>().setQuery(mRef,PassDetailsModel.class).build();
-            adapter=new FirebaseRecyclerAdapter<PassDetailsModel,EpassViewHolder>(list) {
+            FirebaseRecyclerOptions list = new FirebaseRecyclerOptions.Builder<EssentialPassModel>().setQuery(mRef,EssentialPassModel.class).build();
+            adapter=new FirebaseRecyclerAdapter<EssentialPassModel,EpassViewHolder>(list) {
 
                 @NonNull
                 @Override
@@ -46,17 +46,18 @@ public class AdminTransportPassActivity extends AppCompatActivity {
                 }
 
                 @Override
-                protected void onBindViewHolder(@NonNull EpassViewHolder holder, int position, @NonNull PassDetailsModel model) {
+                protected void onBindViewHolder(@NonNull EpassViewHolder holder, int position, @NonNull EssentialPassModel model) {
                     final String key = getRef(position).getKey();
-                    holder.name.setText(model.getName());
-                    holder.from.setText(model.getFromAddress());
-                    holder.to.setText(model.getToAddress());
-                    holder.date.setText(model.getTravelDate());
+                    holder.name.setText("Name : \n"+model.getApplicantName());
+                    holder.from.setText("Organisation Name :\n"+model.getOrName());
+                    holder.to.setText("Vehicle Count :\n"+model.getVehicleCount());
+                    holder.status.setText("Status :\n"+model.getStatus());
 
                     holder.cardView.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             Intent i=new Intent(AdminTransportPassActivity.this,AdminPassApproveActivity.class);
+                            i.putExtra("id", "transPass");
                             i.putExtra("path",key);
                             startActivity(i);
                         }

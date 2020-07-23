@@ -220,7 +220,16 @@ public class PersonalPassFragment extends Fragment implements View.OnClickListen
                                 public void onComplete(@NonNull Task<Uri> task) {
                                     Log.d("urlm", task.getResult().toString());
                                     databaseReference.child(preferences.getString("uid", "") + "/reasonProof").setValue(task.getResult().toString());
-                                    databaseReference1.child("epass/"+key).child("/reasonProof").setValue(task.getResult().toString());
+                                    databaseReference1.child("epass/"+key).child("/reasonProof").setValue(task.getResult().toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if (task.isSuccessful()) {
+                                                Toast.makeText(getContext(), "Wait For Approval", Toast.LENGTH_SHORT).show();
+                                                startActivity(new Intent(getContext(), HomeActivity.class));
+                                                getActivity().finish();
+                                            }
+                                        }
+                                    });
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
                                 @Override

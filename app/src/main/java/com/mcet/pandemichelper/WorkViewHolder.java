@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class WorkViewHolder extends RecyclerView.ViewHolder {
 
-    TextView work,num;
+    TextView work,num,asd;
     CardView cardView;
 
     public WorkViewHolder(@NonNull View itemView) {
@@ -17,6 +17,7 @@ public class WorkViewHolder extends RecyclerView.ViewHolder {
 
         work = itemView.findViewById(R.id.work);
         num = itemView.findViewById(R.id.num);
+        asd = itemView.findViewById(R.id.asd);
         cardView = itemView.findViewById(R.id.cardView);
 
     }

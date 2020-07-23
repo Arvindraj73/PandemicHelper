@@ -119,6 +119,7 @@ user= FirebaseAuth.getInstance().getCurrentUser();
                                 i.putExtra("id", "ew");
                                 i.putExtra("key", key);
                                 startActivity(i);
+                                finish();
                             }
                         });
                     }
