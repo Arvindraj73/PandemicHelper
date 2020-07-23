@@ -50,7 +50,7 @@ public class CreateWorkActivity extends AppCompatActivity {
     private FirebaseDatabase mData;
     private DatabaseReference mRef;
 
-    private String id,lat,lon;
+    private String id,lat,lon, location;
 
     private int REQUEST_CODE = 100;
 
@@ -62,6 +62,7 @@ public class CreateWorkActivity extends AppCompatActivity {
             lat = String.valueOf(addressData.getLatitude());
             lon = String.valueOf(addressData.getLongitude());
             Toast.makeText(CreateWorkActivity.this, addressData.toString(), Toast.LENGTH_SHORT).show();
+            location = data.toString();
         }
     }
 //
@@ -148,7 +149,14 @@ public class CreateWorkActivity extends AppCompatActivity {
             mDesc.setVisibility(View.GONE);
             mWork.setHint("Centre Name");
         }
+        else if(id.equals("ew")){
+            mWork.setHint("Work Name");
 
+        }
+        else if(id.equals("hw")){
+            mWork.setHint("Work Name");
+            mNum.setVisibility(View.GONE);
+        }
 
         select.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -172,7 +180,7 @@ public class CreateWorkActivity extends AppCompatActivity {
                 phone = mPhone.getEditText().getText().toString();
                 work = mWork.getEditText().getText().toString();
                 desc = mDesc.getEditText().getText().toString();
-                numWorkers = mNum.getEditText().getText().toString();
+                numWorkers=mNum.getEditText().getText().toString();
 
 //                //Log.d("df",String.valueOf(phoneStr.length()));
 //                if (work.isEmpty()) {
@@ -371,6 +379,22 @@ public class CreateWorkActivity extends AppCompatActivity {
                                     progressDialog.dismiss();
                                     startActivity(new Intent(CreateWorkActivity.this,AdminHomeActivity.class));
                                     
+                                }
+
+                            }
+                        });
+                    }
+                    else if (id.equals("ew")){
+                        WorkDetailsModel workDetailsModel = new WorkDetailsModel(work,desc,phone,numWorkers,"Not Assigned",lat,lon,0);
+                        mRef.child("EssentialWorks/").push().setValue(workDetailsModel).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+
+                                if (task.isSuccessful()){
+
+                                    progressDialog.dismiss();
+                                    startActivity(new Intent(CreateWorkActivity.this,AdminHomeActivity.class));
+
                                 }
 
                             }

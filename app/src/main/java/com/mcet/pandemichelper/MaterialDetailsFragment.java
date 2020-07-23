@@ -5,6 +5,7 @@ import android.app.NotificationManager;
 import android.app.admin.DelegatedAdminReceiver;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,9 +14,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -30,6 +33,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.sucho.placepicker.AddressData;
+import com.sucho.placepicker.MapType;
+import com.sucho.placepicker.PlacePicker;
 
 import java.util.ArrayList;
 
@@ -39,6 +44,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import static android.app.Activity.RESULT_OK;
+import static android.content.Context.MODE_PRIVATE;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -49,12 +55,15 @@ public class MaterialDetailsFragment extends Fragment {
     private DatabaseReference reference;
 
     private Chip toilet, cloth, sanitary, stationery, med, food;
+
+    private SharedPreferences preferences;
     private LinearLayout l_toilet, l_cloth, l_sanitary, l_stationery, l_med, l_food;
     private RelativeLayout chipGroup;
     private Double dbl_lon,dbl_lat;
     private int REQUEST_CODE = 100;
     private String lat,name;
-    private String lon;
+    private String lon,location;
+    private TextView col_location_view;
     private CheckBox ch1, ch2, ch3, ch4, ch5, ch6, ch7, ch8, ch9, ch10,
             ch11, ch12, ch13, ch14, ch15, ch16, ch17, ch18, ch19, ch20,
             ch21, ch22, ch23, ch24, ch25, ch26, ch27, ch28, ch29, ch30,
@@ -80,11 +89,13 @@ public class MaterialDetailsFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
+        if (requestCode == 30 && resultCode == RESULT_OK) {
             AddressData addressData = data.getParcelableExtra("ADDRESS_INTENT");
             lat = String.valueOf(addressData.getLatitude());
             lon = String.valueOf(addressData.getLongitude());
+            location = addressData.toString();
             Toast.makeText(getContext(), addressData.toString(), Toast.LENGTH_SHORT).show();
+            col_location_view.setText(addressData.toString());
         }
     }
 
@@ -137,6 +148,7 @@ public class MaterialDetailsFragment extends Fragment {
         sanitary = view.findViewById(R.id.chip3);
         med = view.findViewById(R.id.chip5);
         chipGroup = view.findViewById(R.id.chipGroup);
+        col_location_view = view.findViewById(R.id.col_location_view);
 
         l_cloth = view.findViewById(R.id.lcloth);
         l_med = view.findViewById(R.id.lmed);
@@ -144,6 +156,7 @@ public class MaterialDetailsFragment extends Fragment {
         l_toilet = view.findViewById(R.id.ltoilet);
         l_sanitary = view.findViewById(R.id.lsan);
         l_stationery = view.findViewById(R.id.lstat);
+        preferences = getActivity().getApplicationContext().getSharedPreferences("UserData", MODE_PRIVATE);
 
         ch1 = view.findViewById(R.id.ch_1);
         ch2 = view.findViewById(R.id.ch_2);
@@ -201,25 +214,6 @@ public class MaterialDetailsFragment extends Fragment {
 
         itemName = new ArrayList<String>();
         quantity = new ArrayList<String>();
-
-        reference = FirebaseDatabase.getInstance().getReference("UserInfo/" + user.getUid());
-        reference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                UserModel model = dataSnapshot.getValue(UserModel.class);
-                name = model.getName();
-                lat=model.getLat();
-                lon=model.getLon();
-                dbl_lat=Double.parseDouble(lat);
-                dbl_lon=Double.parseDouble(lon);
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
 
         CompoundButton.OnCheckedChangeListener checkListener = new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -382,6 +376,19 @@ public class MaterialDetailsFragment extends Fragment {
             }
         };
 
+        ImageButton col_location = view.findViewById(R.id.col_location);
+        col_location.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new PlacePicker.IntentBuilder()
+                        .setLatLong(Double.parseDouble(preferences.getString("lat", "25.4670")), Double.parseDouble(preferences.getString("lon", "91.3662")))
+                        .showLatLong(true)
+                        .setMapType(MapType.NORMAL)
+                        .build(getActivity());
+                startActivityForResult(intent, 30);
+            }
+        });
+
         ch1.setOnCheckedChangeListener(checkListener);
         ch2.setOnCheckedChangeListener(checkListener);
         ch3.setOnCheckedChangeListener(checkListener);
@@ -522,7 +529,7 @@ public class MaterialDetailsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Log.d("onClick", itemName.toString() + " " + quantity.toString());
-                MaterialModel modelUser = new MaterialModel(name,lat,lon,String.valueOf(itemName.size()));
+                MaterialModel modelUser = new MaterialModel(preferences.getString("name","null"),preferences.getString("phone","null"),lat,lon,location,String.valueOf(itemName.size()));
                 mRef.child(user.getUid()).setValue(modelUser);
                 for (int i = 0; i < quantity.size() && i < itemName.size(); i++) {
                     Log.d("for", itemName.get(i) + " " + quantity.get(i));
@@ -532,6 +539,8 @@ public class MaterialDetailsFragment extends Fragment {
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
                                 Toast.makeText(getContext(), "Thank you for Donating.\nWait for your pickup", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(getContext(), HomeActivity.class));
+                                getActivity().finish();
                             }
                         }
                     });
@@ -593,14 +602,9 @@ public class MaterialDetailsFragment extends Fragment {
     }
 
     private void showLayout(boolean isChecked, LinearLayout layout) {
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
         if (isChecked) {
-            params.addRule(RelativeLayout.ALIGN_PARENT_TOP);
-            chipGroup.setLayoutParams(params);
             layout.setVisibility(View.VISIBLE);
         } else {
-            params.addRule(RelativeLayout.CENTER_IN_PARENT);
-            chipGroup.setLayoutParams(params);
             layout.setVisibility(View.GONE);
         }
     }

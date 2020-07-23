@@ -24,7 +24,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".AdminFoodRequestActivity"></activity>
+        <activity android:name=".WorksViewActivity"></activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -37,6 +37,10 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
+        <activity
+            android:name=".WorkerWorkMapsActivity"
+            android:label="@string/title_activity_worker_work_maps" />
+        <activity android:name=".AdminFoodRequestActivity" />
         <activity android:name=".HistoryActivity" />
         <activity
             android:name=".AdminFromMapsActivity"

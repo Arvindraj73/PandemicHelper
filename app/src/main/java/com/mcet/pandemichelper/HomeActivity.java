@@ -300,8 +300,27 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                     startActivity(new Intent(HomeActivity.this,PatientsActivity.class));
                  break;
                 }
-                else {
-                    Intent workIntent = new Intent(HomeActivity.this, VolunteerActivity.class);
+                else if (sRole.equals("Health Worker")){
+                    Intent workIntent = new Intent(HomeActivity.this, AdminHealthWorkerActivity.class);
+                    workIntent.putExtra("id", "user");
+                    startActivity(workIntent);
+                    break;
+                }
+                else if(sRole.equals("Essential Worker")){
+                    Intent workIntent = new Intent(HomeActivity.this, AdminEssentialWorkerActivity.class);
+                    workIntent.putExtra("id", "user");
+                    startActivity(workIntent);
+                    break;
+            }
+                else if(sRole.equals("Unorganised Worker")){
+                    Intent workIntent = new Intent(HomeActivity.this, AdminHealthWorkerActivity.class);
+                    workIntent.putExtra("id", "unorg");
+                    startActivity(workIntent);
+                    break;
+                }
+                else if(sRole.equals("Volunteer")){
+                    Intent workIntent = new Intent(HomeActivity.this, WorkAssignActivity.class);
+                    workIntent.putExtra("id", "user");
                     startActivity(workIntent);
                     break;
                 }

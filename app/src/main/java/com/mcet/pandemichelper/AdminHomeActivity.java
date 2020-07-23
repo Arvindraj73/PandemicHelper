@@ -111,12 +111,12 @@ public class AdminHomeActivity extends AppCompatActivity implements View.OnClick
 
             case R.id.card_essential:
                 Intent iE=new Intent(AdminHomeActivity.this,AdminEssentialWorkerActivity.class);
-                iE.putExtra("id","ew");
+                iE.putExtra("id","admin");
                 startActivity(iE);
                 break;
             case R.id.card_healthworker:
                 Intent ih=new Intent(AdminHomeActivity.this, AdminHealthWorkerActivity.class);
-                ih.putExtra("id","hw");
+                ih.putExtra("id","admin");
                 startActivity(ih);
                 break;
             case R.id.card_personalpass:

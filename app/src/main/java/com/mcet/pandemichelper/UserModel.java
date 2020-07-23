@@ -15,12 +15,13 @@ public class UserModel {
     String time;
     String dailyLimit;
 
+
     public String getSpeciality() {
-        return speciality;
+        return Speciality;
     }
 
     public void setSpeciality(String speciality) {
-        this.speciality = speciality;
+        this.Speciality = speciality;
     }
 
     public UserModel(String name, String phone, String email, String pass, String uid, String role, String lat, String lon, String deviceToken, String limit, String time, String dailyLimit, String speciality) {
@@ -36,10 +37,10 @@ public class UserModel {
         this.limit = limit;
         this.time = time;
         this.dailyLimit = dailyLimit;
-        this.speciality = speciality;
+        this.Speciality = speciality;
     }
 
-    String speciality;
+    String Speciality;
 
     public String getDailyLimit() {
         return dailyLimit;

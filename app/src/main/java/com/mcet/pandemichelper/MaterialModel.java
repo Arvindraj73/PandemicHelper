@@ -6,16 +6,36 @@ public class MaterialModel {
     String quantity;
     String name,lon,lat;
     String total;
+    String location;
+    String phone;
+
+    public String getLocation() {
+        return location;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
 
     public String getTotal() {
         return total;
     }
 
-    public MaterialModel(String name, String lon, String lat, String total) {
+    public MaterialModel(String name,String phone, String lon, String lat, String location, String total) {
         this.name = name;
         this.lon = lon;
         this.lat = lat;
         this.total = total;
+        this.location = location;
+        this.phone = phone;
     }
 
     public void setTotal(String total) {

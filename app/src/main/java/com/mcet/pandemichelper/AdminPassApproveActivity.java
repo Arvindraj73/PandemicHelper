@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.model.Marker;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -31,6 +32,7 @@ public class AdminPassApproveActivity extends AppCompatActivity {
     FirebaseDatabase database;
     DatabaseReference reference;
     String fromaddress, toaddress,strstatus, path;
+    Marker marker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

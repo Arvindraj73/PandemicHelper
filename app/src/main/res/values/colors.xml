@@ -10,4 +10,6 @@
     <color name="green">#6DF473</color>
     <color name="black">#000000</color>
     <color name="grey">#2B2B2B</color>
+    <color name="hue_orange">#FF9800</color>
+    <color name="dark_red">#FFFFFF</color>
 </resources>

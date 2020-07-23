@@ -5,39 +5,49 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Relief_items">
-
+    tools:context=".Relief_items"
+    android:padding="@dimen/text_margin">
     <TextView
-        android:id="@+id/tv1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
         android:text="@string/name"
+        android:id="@+id/doc3"
         android:textSize="@dimen/tsize3"
-        android:textStyle="bold" />
+        android:layout_marginTop="@dimen/mTop"/>
 
     <TextView
-        android:id="@+id/tv2"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tv1"
-
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="23dp"
         android:text="@string/name"
+        android:id="@+id/itemName"
+        android:layout_below="@+id/doc3"
+        android:textSize="@dimen/tsize2" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/phone"
+        android:layout_marginTop="@dimen/mTop"
+        android:layout_below="@+id/itemName"
+        android:id="@+id/doc1"
+        android:textSize="@dimen/tsize3" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/phone"
+        android:id="@+id/itemPhone"
+        android:layout_below="@+id/doc1"
         android:textSize="@dimen/tsize2" />
 
     <TextView
         android:id="@+id/item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tv2"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="0dp"
+        android:layout_below="@+id/itemPhone"
+        android:layout_marginTop="@dimen/text_margin"
         android:textStyle="bold"
-        android:layout_marginTop="45dp"
-        android:text="Item"
+        android:text="@string/items"
         android:textSize="@dimen/tsize2" />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -45,11 +55,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/item"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="17dp"
-        android:layout_marginEnd="0dp" />
+        android:layout_marginTop="@dimen/text_margin"/>
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/iBtn"
+        style="@style/Widget.PandemicHelper.Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="@string/assign" />
 
 </RelativeLayout>

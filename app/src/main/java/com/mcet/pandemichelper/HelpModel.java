@@ -1,7 +1,20 @@
 package com.mcet.pandemichelper;
 
 public class HelpModel {
-    String name, symptoms, disease, location, person_count;
+    String name;
+    String symptoms;
+    String disease;
+    String location;
+    String person_count;
+    String assignedTo;
+
+    public String getAssignedTo() {
+        return assignedTo;
+    }
+
+    public void setAssignedTo(String assignedTo) {
+        this.assignedTo = assignedTo;
+    }
 
     public String getName() {
         return name;
@@ -51,6 +64,14 @@ public class HelpModel {
         this.symptoms = symptoms;
         this.disease = disease;
         this.location = location;
+    }
+
+    public HelpModel(String name, String symptoms, String disease, String location, String assignedTo) {
+        this.name = name;
+        this.symptoms = symptoms;
+        this.disease = disease;
+        this.location = location;
+        this.assignedTo = assignedTo;
     }
 
     public HelpModel(String name, String location, String person_count) {

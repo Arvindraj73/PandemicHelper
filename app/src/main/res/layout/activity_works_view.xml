@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DocProfileFragment"
+    android:padding="@dimen/text_margin">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/name"
+        android:id="@+id/work3"
+        android:textSize="@dimen/tsize3"
+        android:layout_marginTop="@dimen/mTop" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/name"
+        android:id="@+id/workName"
+        android:layout_below="@+id/work3"
+        android:textSize="@dimen/tsize2" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/disease"
+        android:layout_marginTop="@dimen/mTop"
+        android:layout_below="@+id/workName"
+        android:id="@+id/work1"
+        android:textSize="@dimen/tsize3" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/disease"
+        android:id="@+id/workDisease"
+        android:layout_below="@+id/work1"
+        android:textSize="@dimen/tsize2" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/symptoms"
+        android:layout_below="@+id/workDisease"
+        android:id="@+id/work2"
+        android:layout_marginTop="@dimen/mTop"
+        android:textSize="@dimen/tsize3" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/symptoms"
+        android:id="@+id/workSymptoms"
+        android:layout_below="@+id/work2"
+        android:textSize="@dimen/tsize2" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/location"
+        android:layout_below="@+id/workSymptoms"
+        android:id="@+id/work4"
+        android:layout_marginTop="@dimen/mTop"
+        android:textSize="@dimen/tsize3" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/location"
+        android:layout_below="@+id/work4"
+        android:id="@+id/workLocation"
+        android:textSize="@dimen/tsize2" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/status"
+        android:layout_below="@+id/workLocation"
+        android:id="@+id/work5"
+        android:layout_marginTop="@dimen/mTop"
+        android:textSize="@dimen/tsize3" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/status"
+        android:layout_below="@+id/work5"
+        android:id="@+id/workStatus"
+        android:textSize="@dimen/tsize2" />
+
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/Widget.PandemicHelper.Button"
+        android:layout_alignParentBottom="true"
+        android:text="@string/appoint"
+        android:id="@+id/appoint" />
+
+</RelativeLayout>

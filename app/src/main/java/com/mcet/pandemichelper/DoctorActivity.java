@@ -20,6 +20,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -60,6 +61,7 @@ public class DoctorActivity extends FragmentActivity implements OnMapReadyCallba
     private LocationRequest request;
     private Location mLastlocation;
 
+    private LinearLayout legend;
     private FloatingActionButton history;
 
     private static final int MY_REQUEST = 100;
@@ -89,6 +91,7 @@ public class DoctorActivity extends FragmentActivity implements OnMapReadyCallba
         mUser = FirebaseAuth.getInstance().getCurrentUser();
         mReference = FirebaseDatabase.getInstance().getReference();
 
+        legend = findViewById(R.id.legend);
         history = findViewById(R.id.history_floating_action_button);
         history.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -206,6 +209,7 @@ public class DoctorActivity extends FragmentActivity implements OnMapReadyCallba
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         if (getIntent().getStringExtra("id").equals("doc")) {
+            legend.setVisibility(View.VISIBLE);
             mReference.child("UserInfo").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -214,7 +218,8 @@ public class DoctorActivity extends FragmentActivity implements OnMapReadyCallba
                         UserModel mModel = s.getValue(UserModel.class);
                         Log.d("in", mModel.getRole());
                         if (mModel.getRole().equals("Doctor")) {
-                            Log.d("in2", String.valueOf(s.child("/status").getValue()));
+                            Log.d("in", mModel.getRole());
+                            //Log.d("in2", String.valueOf(s.child("/status").getValue()));
                             int status = Integer.parseInt(s.child("/status").getValue().toString());
                             if (status == 0) {
                                 marker = googleMap.addMarker(new MarkerOptions()
@@ -253,6 +258,7 @@ public class DoctorActivity extends FragmentActivity implements OnMapReadyCallba
                 }
             });
         } else if (getIntent().getStringExtra("id").equals("psy")) {
+            legend.setVisibility(View.VISIBLE);
             mReference.child("UserInfo").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -301,6 +307,7 @@ public class DoctorActivity extends FragmentActivity implements OnMapReadyCallba
             });
         }
         else if (getIntent().getStringExtra("id").equals("vul")) {
+            legend.setVisibility(View.GONE);
             mReference.child("Vulnerable").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -321,6 +328,7 @@ public class DoctorActivity extends FragmentActivity implements OnMapReadyCallba
             });
         }
         else if (getIntent().getStringExtra("id").equals("orph")) {
+            legend.setVisibility(View.GONE);
             mReference.child("orphange Center").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -344,6 +352,7 @@ public class DoctorActivity extends FragmentActivity implements OnMapReadyCallba
             });
         }
         else if (getIntent().getStringExtra("id").equals("unorg")) {
+            legend.setVisibility(View.GONE);
             mReference.child("UserInfo").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

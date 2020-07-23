@@ -192,5 +192,11 @@
     <string name="title_activity_orphanage">Map</string>
     <string name="work_you_do">Work you do</string>
     <string name="worker_details">Worker Details</string>
+    <string name="title_activity_worker_work_maps">Map</string>
+    <string name="worker_name">Worker Name</string>
+    <string name="location">Location</string>
+    <string name="workers">Workers</string>
+    <string name="select_collection_location">Select Collection Location</string>
+    <string name="items">Items</string>
 
 </resources>

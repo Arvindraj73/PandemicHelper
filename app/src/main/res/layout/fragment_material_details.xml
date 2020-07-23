@@ -672,8 +672,7 @@
         android:id="@+id/chipGroup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/padding"
-        android:layout_centerInParent="true">
+        android:padding="@dimen/padding">
 
         <TextView
             android:id="@+id/tv"
@@ -752,6 +751,32 @@
 
 
     </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:baselineAligned="false"
+        android:layout_marginTop="@dimen/mTop"
+        android:orientation="horizontal"
+        android:layout_above="@+id/submitItems">
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:text="@string/select_collection_location"
+        android:layout_weight="1"
+        android:textSize="@dimen/tsize4"
+        android:gravity="center"
+        android:id="@+id/col_location_view"
+        android:nestedScrollingEnabled="true" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/col_location"
+        android:src="@drawable/ic_baseline_my_location_24"
+        android:backgroundTint="@color/colorPrimary" />
+
+</LinearLayout>
 
     <com.google.android.material.button.MaterialButton
         android:layout_width="match_parent"

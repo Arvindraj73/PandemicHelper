@@ -37,6 +37,27 @@ public class AdminFromMapsActivity extends FragmentActivity implements OnMapRead
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        if(getIntent().getStringExtra("id").equals("hw"))
+        {
+            flat=Float.parseFloat(getIntent().getStringExtra("lat"));
+            flog=Float.parseFloat(getIntent().getStringExtra("lon"));
+
+            LatLng from = new LatLng(flat, flog);
+            mMap.addMarker(new MarkerOptions().position(from).title(getIntent().getStringExtra("address")));
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(from));
+
+        }
+        else if(getIntent().getStringExtra("id").equals("ew"))
+        {
+            flat=Float.parseFloat(getIntent().getStringExtra("lat"));
+            flog=Float.parseFloat(getIntent().getStringExtra("lon"));
+
+            LatLng from = new LatLng(flat, flog);
+            mMap.addMarker(new MarkerOptions().position(from).title(getIntent().getStringExtra("job")));
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(from));
+
+        }
+        else{
         flat=Float.parseFloat(getIntent().getStringExtra("flat"));
         flog=Float.parseFloat(getIntent().getStringExtra("flog"));
         tlat=Float.parseFloat(getIntent().getStringExtra("tlat"));
@@ -50,5 +71,5 @@ public class AdminFromMapsActivity extends FragmentActivity implements OnMapRead
         LatLng to = new LatLng(tlat, tlog);
         mMap.addMarker(new MarkerOptions().position(to).title("To Location"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(to));
-    }
+    }}
 }

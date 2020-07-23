@@ -10,6 +10,25 @@ public class WorkDetailsModel {
     String lat;
     String lon;
     String key;
+    String location;
+    int i;
+    String assignedTo;
+
+    public String getAssignedTo() {
+        return assignedTo;
+    }
+
+    public void setAssignedTo(String assignedTo) {
+        this.assignedTo = assignedTo;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
 
     public WorkDetailsModel(String name, String lat, String lon) {
         Name = name;
@@ -97,6 +116,14 @@ public class WorkDetailsModel {
     public WorkDetailsModel() {
     }
 
+    public WorkDetailsModel(String name, String description, String phoneNumber, String lat, String lon) {
+        Name = name;
+        Description = description;
+        PhoneNumber = phoneNumber;
+        this.lat = lat;
+        this.lon = lon;
+    }
+
     public WorkDetailsModel(String name, String description, String phoneNumber, String noOfWorkers, String status, String lat, String lon) {
         Name = name;
         Description = description;
@@ -105,5 +132,16 @@ public class WorkDetailsModel {
         Status = status;
         this.lat = lat;
         this.lon = lon;
+    }
+
+    public WorkDetailsModel(String name, String description, String phoneNumber, String noOfWorkers, String assignedTo, String lat, String lon, int i) {
+        Name = name;
+        Description = description;
+        PhoneNumber = phoneNumber;
+        NoOfWorkers = noOfWorkers;
+        this.assignedTo = assignedTo;
+        this.lat = lat;
+        this.lon = lon;
+        this.i = i;
     }
 }

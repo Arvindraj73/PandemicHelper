@@ -30,14 +30,14 @@ import java.util.ArrayList;
 public class VolunteerListActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
-    private DatabaseReference mReference,workRef;
-    private FirebaseRecyclerAdapter<UserModel,VolunteerListHolder> adapter;
+    private DatabaseReference mReference, workRef;
+    private FirebaseRecyclerAdapter<UserModel, VolunteerListHolder> adapter;
 
     private MaterialButton mSelect;
 
     private ArrayList<String> volunteer;
 
-    String key,name;
+    String key, name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,78 +55,145 @@ public class VolunteerListActivity extends AppCompatActivity {
         volunteer = new ArrayList<String>();
 
         mReference = FirebaseDatabase.getInstance().getReference("UserInfo");
-        workRef = FirebaseDatabase.getInstance().getReference("VolunteerWorks");
 
-        FirebaseRecyclerOptions options = new FirebaseRecyclerOptions.Builder<UserModel>().setQuery(mReference,UserModel.class).build();
+        if (getIntent().getStringExtra("id").equals("vol")) {
+            workRef = FirebaseDatabase.getInstance().getReference("VolunteerWorks");
 
-        adapter = new FirebaseRecyclerAdapter<UserModel, VolunteerListHolder>(options) {
-            @Override
-            protected void onBindViewHolder(@NonNull VolunteerListHolder holder, int position, @NonNull final UserModel model) {
+            FirebaseRecyclerOptions options = new FirebaseRecyclerOptions.Builder<UserModel>().setQuery(mReference, UserModel.class).build();
 
-                if (model.getRole().equals("Volunteer")){
-                    holder.checkBox.setText(model.getName());
-                    Log.d("MODEL",model.getUid());
+            adapter = new FirebaseRecyclerAdapter<UserModel, VolunteerListHolder>(options) {
+                @Override
+                protected void onBindViewHolder(@NonNull VolunteerListHolder holder, int position, @NonNull final UserModel model) {
 
-                    holder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                        @Override
-                        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                            if(isChecked){
-                                Log.d("MODEL",model.getUid());
-                                volunteer.add(model.getUid());
+                    if (model.getRole().equals("Volunteer")) {
+                        holder.checkBox.setText(model.getName());
+                        Log.d("MODEL", model.getUid());
+
+                        holder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                            @Override
+                            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                                if (isChecked) {
+                                    Log.d("MODEL", model.getUid());
+                                    volunteer.add(model.getUid());
+                                } else {
+                                    volunteer.remove(model.getUid());
+                                }
                             }
-                            else{
-                                volunteer.remove(model.getUid());
+                        });
+                    } else {
+                        holder.checkBox.setVisibility(View.GONE);
+                    }
+
+                }
+
+                @NonNull
+                @Override
+                public VolunteerListHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
+                    View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.volunteer_list_layout, parent, false);
+
+                    return new VolunteerListHolder(view);
+                }
+            };
+        }
+        else if (getIntent().getStringExtra("id").equals("ew")){
+            workRef = FirebaseDatabase.getInstance().getReference("EssentialWorks");
+
+            FirebaseRecyclerOptions options = new FirebaseRecyclerOptions.Builder<UserModel>().setQuery(mReference, UserModel.class).build();
+
+            adapter = new FirebaseRecyclerAdapter<UserModel, VolunteerListHolder>(options) {
+                @Override
+                protected void onBindViewHolder(@NonNull VolunteerListHolder holder, int position, @NonNull final UserModel model) {
+
+                    if (model.getRole().equals("Essential Worker")) {
+                        holder.checkBox.setText(model.getName());
+                        Log.d("MODEL", model.getUid());
+
+                        holder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                            @Override
+                            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                                if (isChecked) {
+                                    Log.d("MODEL", model.getUid());
+                                    volunteer.add(model.getUid());
+                                } else {
+                                    volunteer.remove(model.getUid());
+                                }
                             }
-                        }
-                    });
+                        });
+                    } else {
+                        holder.checkBox.setVisibility(View.GONE);
+                    }
+
                 }
-                else {
-                    holder.checkBox.setVisibility(View.GONE);
+
+                @NonNull
+                @Override
+                public VolunteerListHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
+                    View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.volunteer_list_layout, parent, false);
+
+                    return new VolunteerListHolder(view);
                 }
+            };
 
-            }
-
-            @NonNull
-            @Override
-            public VolunteerListHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
-                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.volunteer_list_layout,parent,false);
-
-                return new VolunteerListHolder(view);
-            }
-        };
+        }
 
         mSelect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Log.d("VOLUNTEER",volunteer.toString());
+                Log.d("VOLUNTEER", volunteer.toString());
 
                 //DatabaseReference reference = FirebaseDatabase.getInstance().getReference("UserInfo");
 
-                WorkDetailsModel model = new WorkDetailsModel(name,key);
+                WorkDetailsModel model = new WorkDetailsModel(name, key);
+                if (getIntent().getStringExtra("id").equals("vol")) {
+                    workRef.child(key + "/status").setValue("Assigned");
 
-                workRef.child(key+"/status").setValue("Assigned");
+                    for (String s : volunteer) {
 
-                for (String s : volunteer){
+                        mReference.child(s).child("Works").push().setValue(model).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    Log.d("D", "Success");
 
-                    mReference.child(s).child("Works").push().setValue(model).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()){
-                                Log.d("D","Success");
-
-                                Toast.makeText(VolunteerListActivity.this, "Work Assigned", Toast.LENGTH_SHORT).show();
-                                Intent i = new Intent(VolunteerListActivity.this, AdminVolunteerActivity.class);
-                                i.putExtra("id", "admin");
-                                startActivity(i);
-                                finish();
+                                    Toast.makeText(VolunteerListActivity.this, "Work Assigned", Toast.LENGTH_SHORT).show();
+                                    Intent i = new Intent(VolunteerListActivity.this, AdminVolunteerActivity.class);
+                                    i.putExtra("id", "admin");
+                                    startActivity(i);
+                                    finish();
+                                }
                             }
-                        }
-                    });
+                        });
+
+                    }
 
                 }
+                else{
 
+                    mSelect.setText("Select Workers");
+                    StringBuilder builder = new StringBuilder();
+                    for (String s : volunteer) {
+                        builder.append(s).append(",");
+                        mReference.child(s).child("Works").push().setValue(model).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    Log.d("D", "Success");
+                                    Toast.makeText(VolunteerListActivity.this, "Work Assigned", Toast.LENGTH_SHORT).show();
+                                    Intent i = new Intent(VolunteerListActivity.this, AdminEssentialWorkerActivity.class);
+                                    i.putExtra("id", "admin");
+                                    startActivity(i);
+                                    finish();
+                                }
+                            }
+                        });
+
+                    }
+
+                    workRef.child(key + "/assignedTo").setValue(builder.toString());
+                }
             }
         });
 
@@ -136,8 +203,9 @@ public class VolunteerListActivity extends AppCompatActivity {
 
     }
 
-    public class VolunteerListHolder extends RecyclerView.ViewHolder{
+    public class VolunteerListHolder extends RecyclerView.ViewHolder {
         CheckBox checkBox;
+
         public VolunteerListHolder(@NonNull View itemView) {
             super(itemView);
             checkBox = itemView.findViewById(R.id.checkbox);

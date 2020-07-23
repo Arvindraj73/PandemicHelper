@@ -131,6 +131,8 @@ public class RequestHelpActivity extends AppCompatActivity implements View.OnCli
                     if (task.isSuccessful()) {
                         ref.child("HealthWorks").child(user.getUid()).setValue(model);
                         Toast.makeText(RequestHelpActivity.this, "Request Send", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(RequestHelpActivity.this, HomeActivity.class));
+                        finish();
                     }
                 }
             });
@@ -146,6 +148,8 @@ public class RequestHelpActivity extends AppCompatActivity implements View.OnCli
                     if (task.isSuccessful()) {
                         ref.child("FoodRequests").child(user.getUid()).setValue(model);
                         Toast.makeText(RequestHelpActivity.this, "Request Send", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(RequestHelpActivity.this, HomeActivity.class));
+                        finish();
                     }
                 }
             });
@@ -173,6 +177,8 @@ public class RequestHelpActivity extends AppCompatActivity implements View.OnCli
         builder.setView(view);
 
         NumberPicker picker = view.findViewById(R.id.number_picker);
+        picker.setMaxValue(10);
+        picker.setMinValue(1);
         builder.setTitle("Select No of Persons")
                 .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     @Override

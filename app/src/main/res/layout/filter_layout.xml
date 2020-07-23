@@ -11,18 +11,6 @@
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/completed"
-            android:id="@+id/completed" />
-
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/notCompleted"
-            android:id="@+id/notCompleted" />
-
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:text="@string/assigned"
             android:id="@+id/assigned" />
 

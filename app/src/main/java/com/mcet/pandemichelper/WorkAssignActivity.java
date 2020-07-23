@@ -65,6 +65,7 @@ public class WorkAssignActivity extends AppCompatActivity {
                     Intent assignIntent = new Intent(WorkAssignActivity.this, VolunteerListActivity.class);
                     assignIntent.putExtra("key", key);
                     assignIntent.putExtra("name", name);
+                    assignIntent.putExtra("id", "vol");
                     startActivity(assignIntent);
 
                 }
