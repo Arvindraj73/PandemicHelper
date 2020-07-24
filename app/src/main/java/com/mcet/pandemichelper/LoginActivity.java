@@ -10,6 +10,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +26,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -66,7 +69,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
     private String email, pass, role;
 
-    private TextView registerClick;
+    private TextView registerClick,forget;
 
     private SharedPreferences preferences;
     private SharedPreferences.Editor editor;
@@ -86,7 +89,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        forget = findViewById(R.id.forgetPass);
         mEmail = findViewById(R.id.emailText);
         mPass = findViewById(R.id.passText);
         mLogin = findViewById(R.id.loginBtn);
@@ -99,7 +102,41 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         View nv = findViewById(android.R.id.content).getRootView();
         preferences = getApplicationContext().getSharedPreferences("UserData", MODE_PRIVATE);
         editor = preferences.edit();
+        forget.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText resetmail=new EditText(v.getContext());
+                AlertDialog.Builder passwordResetDialog =new AlertDialog.Builder(v.getContext());
+                passwordResetDialog.setTitle("Reset Password?");
+                passwordResetDialog.setMessage("Enter your mail id to receive reset link");
+                passwordResetDialog.setView(resetmail);
+                passwordResetDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                            String mail=resetmail.getText().toString();
+                            mAuth.sendPasswordResetEmail(mail).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    new Notify(nv, "Reset link is sent to your mail").showSnack("long");
 
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    new Notify(nv, "Error! Reset link is not sent"+e.getMessage()).showSnack("long");
+                                }
+                            });
+                    }
+                });
+                passwordResetDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                passwordResetDialog.create().show();
+            }
+        });
         registerClick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

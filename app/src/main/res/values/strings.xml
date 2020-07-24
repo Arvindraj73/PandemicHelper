@@ -201,5 +201,6 @@
     <string name="orProofNo">Organisation Proof Number</string>
     <string name="select_volunteer">Select Volunteer</string>
     <string name="viewLocation">View Location</string>
+    <string name="forgot">Forgot Password?</string>
 
 </resources>
