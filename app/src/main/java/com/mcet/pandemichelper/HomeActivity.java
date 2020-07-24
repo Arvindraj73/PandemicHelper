@@ -15,6 +15,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,7 +28,9 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -47,9 +51,12 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private DatabaseReference reference;
     private FirebaseUser user;
     private FirebaseAuth auth;
-
+    private ScrollView sclview;
     private MaterialToolbar mAppBar;
-    private TextView role;
+    private TextView role, tvError;
+    private AppBarLayout sc;
+    private RelativeLayout emailVerify;
+    private MaterialButton login;
 
     private VideoDetailsModel videoDetailsModel;
     private ArrayList<VideoDetailsModel> arrayList;
@@ -70,13 +77,17 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         Intent is = new Intent(this, LocationService.class);
         is.putExtra("na", "start");
         startService(is);
-
+        sc = findViewById(R.id.sc);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         mListView = findViewById(R.id.recyclerView);
+        emailVerify = findViewById(R.id.emailVerify);
+        login = findViewById(R.id.loginVerified);
         mListView.setLayoutManager(linearLayoutManager);
 
         mAppBar = findViewById(R.id.appbar);
+        tvError = findViewById(R.id.tvError);
         role = findViewById(R.id.role);
+        sclview=findViewById(R.id.sclview);
         findViewById(R.id.card_donate).setOnClickListener(this);
         findViewById(R.id.card_sos).setOnClickListener(this);
         findViewById(R.id.card_health).setOnClickListener(this);
@@ -86,6 +97,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.card_doc).setOnClickListener(this);
         findViewById(R.id.card_eservices).setOnClickListener(this);
         findViewById(R.id.card_courses).setOnClickListener(this);
+
+
 
         findViewById(R.id.orphan).setOnClickListener(this);
         findViewById(R.id.councel).setOnClickListener(this);
@@ -101,6 +114,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
+
         reference = FirebaseDatabase.getInstance().getReference("UserInfo/" + user.getUid());
 
         preferences = getApplicationContext().getSharedPreferences("UserData", MODE_PRIVATE);

@@ -233,7 +233,19 @@ public class RegisterActivity extends AppCompatActivity implements GoogleApiClie
                         public void onComplete(@NonNull Task<AuthResult> task) {
 
                             if (task.isSuccessful()) {
-
+                            mAuth.getCurrentUser().sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                if(task.isSuccessful())
+                                {
+                                    Log.d("email","sent");
+                                }
+                                else
+                                {
+                                    Log.d("email","not sent");
+                                }
+                                }
+                            });
                                 FirebaseUser mFirebaseUser = mAuth.getCurrentUser();
 
                                 UserModel model = new UserModel(name, phone, email, pass, mFirebaseUser.getUid(), spinner.getSelectedItem().toString(), String.valueOf(lat), String.valueOf(lon), deviceToken);

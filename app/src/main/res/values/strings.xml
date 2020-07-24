@@ -202,5 +202,6 @@
     <string name="select_volunteer">Select Volunteer</string>
     <string name="viewLocation">View Location</string>
     <string name="forgot">Forgot Password?</string>
+    <string name="please_verify_your_mail_to_get_started">Please Verify your mail to\nGet Started</string>
 
 </resources>
