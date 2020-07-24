@@ -53,11 +53,24 @@
             android:textStyle="bold" />
 
     </RelativeLayout>
-
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/tvError"
+    android:text="@string/please_verify_your_mail_to_get_started"
+    android:textColor="@color/colorPrimaryDark"
+    android:textSize="@dimen/tsize2"
+    android:layout_centerInParent="true"
+    android:visibility="gone"
+    android:gravity="center"
+    android:background="@color/white"
+    />
     <ScrollView
+        android:id="@+id/sclview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/nameHome">
+        android:layout_below="@+id/nameHome"
+        android:visibility="gone">
 
         <RelativeLayout
             android:layout_width="match_parent"

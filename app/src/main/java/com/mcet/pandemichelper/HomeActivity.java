@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,9 +48,9 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private DatabaseReference reference;
     private FirebaseUser user;
     private FirebaseAuth auth;
-
+    private ScrollView sclview;
     private MaterialToolbar mAppBar;
-    private TextView role;
+    private TextView role, tvError;
 
     private VideoDetailsModel videoDetailsModel;
     private ArrayList<VideoDetailsModel> arrayList;
@@ -76,7 +77,9 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         mListView.setLayoutManager(linearLayoutManager);
 
         mAppBar = findViewById(R.id.appbar);
+        tvError = findViewById(R.id.tvError);
         role = findViewById(R.id.role);
+        sclview=findViewById(R.id.sclview);
         findViewById(R.id.card_donate).setOnClickListener(this);
         findViewById(R.id.card_sos).setOnClickListener(this);
         findViewById(R.id.card_health).setOnClickListener(this);
@@ -87,6 +90,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.card_eservices).setOnClickListener(this);
         findViewById(R.id.card_courses).setOnClickListener(this);
 
+
+
         findViewById(R.id.orphan).setOnClickListener(this);
         findViewById(R.id.councel).setOnClickListener(this);
         findViewById(R.id.patients).setOnClickListener(this);
@@ -95,12 +100,24 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.epass).setOnClickListener(this);
 
         arrayList = new ArrayList<>();
+        if(auth.getCurrentUser().isEmailVerified())
+        {
+            sclview.setVisibility(View.VISIBLE);
+            tvError.setVisibility(View.GONE);
+        }
+        else
+        {
+            sclview.setVisibility(View.GONE);
+            tvError.setVisibility(View.VISIBLE);
+        }
+
 
         adapter = new VideoDetailsAdapter(HomeActivity.this, arrayList);
         adapter.setOnItemClickListener(onItemClickListener);
 
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
+
         reference = FirebaseDatabase.getInstance().getReference("UserInfo/" + user.getUid());
 
         preferences = getApplicationContext().getSharedPreferences("UserData", MODE_PRIVATE);
@@ -286,110 +303,106 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         return false;
     }
     @Override
-    public void onClick(View v) {
+    public void onClick(View v){
 
-        switch (v.getId()) {
+            switch (v.getId()) {
 
-            case R.id.card_donate:
-                Intent i = new Intent(HomeActivity.this, DonateActivity.class);
-                startActivity(i);
-                break;
-
-            case R.id.card_volunteer:
-                if(sRole.equals("Doctor")){
-                    startActivity(new Intent(HomeActivity.this,PatientsActivity.class));
-                 break;
-                }
-                else if (sRole.equals("Health Worker")){
-                    Intent workIntent = new Intent(HomeActivity.this, AdminHealthWorkerActivity.class);
-                    workIntent.putExtra("id", "user");
-                    startActivity(workIntent);
+                case R.id.card_donate:
+                    Intent i = new Intent(HomeActivity.this, DonateActivity.class);
+                    startActivity(i);
                     break;
-                }
-                else if(sRole.equals("Essential Worker")){
-                    Intent workIntent = new Intent(HomeActivity.this, AdminEssentialWorkerActivity.class);
-                    workIntent.putExtra("id", "user");
-                    startActivity(workIntent);
+
+                case R.id.card_volunteer:
+                    if (sRole.equals("Doctor")) {
+                        startActivity(new Intent(HomeActivity.this, PatientsActivity.class));
+                        break;
+                    } else if (sRole.equals("Health Worker")) {
+                        Intent workIntent = new Intent(HomeActivity.this, AdminHealthWorkerActivity.class);
+                        workIntent.putExtra("id", "user");
+                        startActivity(workIntent);
+                        break;
+                    } else if (sRole.equals("Essential Worker")) {
+                        Intent workIntent = new Intent(HomeActivity.this, AdminEssentialWorkerActivity.class);
+                        workIntent.putExtra("id", "user");
+                        startActivity(workIntent);
+                        break;
+                    } else if (sRole.equals("Unorganised Worker")) {
+                        Intent workIntent = new Intent(HomeActivity.this, AdminHealthWorkerActivity.class);
+                        workIntent.putExtra("id", "unorg");
+                        startActivity(workIntent);
+                        break;
+                    } else if (sRole.equals("Volunteer")) {
+                        Intent workIntent = new Intent(HomeActivity.this, WorkAssignActivity.class);
+                        workIntent.putExtra("id", "user");
+                        startActivity(workIntent);
+                        break;
+                    }
+                case R.id.card_sos:
+                    startActivity(new Intent(HomeActivity.this, FirstRespondersActivity.class));
+                    break;
+
+                case R.id.card_health:
+                    startActivity(new Intent(HomeActivity.this, HealthCareActivity.class));
+                    break;
+
+                case R.id.card_toll:
+                    startActivity(new Intent(HomeActivity.this, TollFreeActivity.class));
+                    break;
+
+                case R.id.card_labour:
+                    Intent i2 = new Intent(HomeActivity.this, MapsActivity.class);
+                    startActivity(i2);
+                    break;
+
+                case R.id.card_doc:
+                    Intent docIntent = new Intent(HomeActivity.this, DoctorActivity.class);
+                    docIntent.putExtra("id", "doc");
+                    startActivity(docIntent);
+                    break;
+
+                case R.id.card_eservices:
+                    Intent esIntent = new Intent(HomeActivity.this, EservicesActivity.class);
+                    esIntent.putExtra("name", preferences.getString("name", "Wait"));
+                    startActivity(esIntent);
+                    break;
+
+                case R.id.card_courses:
+                    Intent cIntent = new Intent(HomeActivity.this, CoursesActivity.class);
+                    cIntent.putExtra("name", preferences.getString("name", "Wait"));
+                    cIntent.putExtra("id", "course");
+                    startActivity(cIntent);
+                    break;
+
+                case R.id.patients:
+                    startActivity(new Intent(HomeActivity.this, PatientHelpActivity.class));
+                    break;
+
+                case R.id.orphan:
+                    startActivity(new Intent(HomeActivity.this, OrphansActivity.class));
+                    break;
+
+                case R.id.unorg:
+                    Intent k = new Intent(HomeActivity.this, DoctorActivity.class);
+                    k.putExtra("id", "unorg");
+                    startActivity(k);
+                    break;
+
+                case R.id.councel:
+                    startActivity(new Intent(HomeActivity.this, CounsellingActivity.class));
+                    break;
+
+                case R.id.store:
+                    Intent j = new Intent(HomeActivity.this, CoursesActivity.class);
+                    j.putExtra("id", "msme");
+                    startActivity(j);
+                    break;
+
+                case R.id.epass:
+                    Intent l = new Intent(HomeActivity.this, EPassActivity.class);
+                    //j.putExtra("id", "msme");
+                    startActivity(l);
                     break;
             }
-                else if(sRole.equals("Unorganised Worker")){
-                    Intent workIntent = new Intent(HomeActivity.this, AdminHealthWorkerActivity.class);
-                    workIntent.putExtra("id", "unorg");
-                    startActivity(workIntent);
-                    break;
-                }
-                else if(sRole.equals("Volunteer")){
-                    Intent workIntent = new Intent(HomeActivity.this, WorkAssignActivity.class);
-                    workIntent.putExtra("id", "user");
-                    startActivity(workIntent);
-                    break;
-                }
-            case R.id.card_sos:
-                startActivity(new Intent(HomeActivity.this, FirstRespondersActivity.class));
-                break;
-
-            case R.id.card_health:
-                startActivity(new Intent(HomeActivity.this, HealthCareActivity.class));
-                break;
-
-            case R.id.card_toll:
-                startActivity(new Intent(HomeActivity.this, TollFreeActivity.class));
-                break;
-
-            case R.id.card_labour:
-                Intent i2 = new Intent(HomeActivity.this, MapsActivity.class);
-                startActivity(i2);
-                break;
-
-            case R.id.card_doc:
-                Intent docIntent = new Intent(HomeActivity.this, DoctorActivity.class);
-                docIntent.putExtra("id", "doc");
-                startActivity(docIntent);
-                break;
-
-            case R.id.card_eservices:
-                Intent esIntent = new Intent(HomeActivity.this, EservicesActivity.class);
-                esIntent.putExtra("name", preferences.getString("name", "Wait"));
-                startActivity(esIntent);
-                break;
-
-            case R.id.card_courses:
-                Intent cIntent = new Intent(HomeActivity.this, CoursesActivity.class);
-                cIntent.putExtra("name", preferences.getString("name", "Wait"));
-                cIntent.putExtra("id", "course");
-                startActivity(cIntent);
-                break;
-
-            case R.id.patients:
-                startActivity(new Intent(HomeActivity.this, PatientHelpActivity.class));
-                break;
-
-            case R.id.orphan:
-                startActivity(new Intent(HomeActivity.this, OrphansActivity.class));
-                break;
-
-            case R.id.unorg:
-                Intent k = new Intent(HomeActivity.this, DoctorActivity.class);
-                k.putExtra("id", "unorg");
-                startActivity(k);
-                break;
-
-            case R.id.councel:
-                startActivity(new Intent(HomeActivity.this, CounsellingActivity.class));
-                break;
-
-            case R.id.store:
-                Intent j = new Intent(HomeActivity.this, CoursesActivity.class);
-                j.putExtra("id", "msme");
-                startActivity(j);
-                break;
-
-            case R.id.epass:
-                Intent l = new Intent(HomeActivity.this, EPassActivity.class);
-                //j.putExtra("id", "msme");
-                startActivity(l);
-                break;
-        }
 
     }
 }

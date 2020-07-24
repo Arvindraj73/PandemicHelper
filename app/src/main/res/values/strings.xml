@@ -200,5 +200,6 @@
     <string name="items">Items</string>
     <string name="orProofNo">Organisation Proof Number</string>
     <string name="select_volunteer">Select Volunteer</string>
+    <string name="please_verify_your_mail_to_get_started">Please Verify your mail to\nGet Started</string>
 
 </resources>
