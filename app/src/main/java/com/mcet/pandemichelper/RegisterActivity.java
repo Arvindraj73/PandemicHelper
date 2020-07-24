@@ -265,7 +265,8 @@ public class RegisterActivity extends AppCompatActivity implements GoogleApiClie
                                                 mRef.child("UserInfo/" + mFirebaseUser.getUid()).child("/status").setValue("0");
                                                 mRef.child("Doctors").push().setValue(mFirebaseUser.getUid());
                                                 mRef.child("UserInfo/" + mFirebaseUser.getUid() + "/Speciality").setValue(mSpeciality.getEditText().getText().toString());
-                                            } else if (spinner.getSelectedItem().toString().equals("Unorganised Worker")) {
+                                            }
+                                            else if (spinner.getSelectedItem().toString().equals("Unorganised Worker")) {
                                                 mRef.child("UnorgWorkers").push().setValue(mFirebaseUser.getUid());
                                                 mRef.child("UserInfo/" + mFirebaseUser.getUid() + "/WorkCanDo").setValue(mSpeciality.getEditText().getText().toString());
                                             }

@@ -27,6 +27,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.MaterialToolbar;
@@ -73,7 +74,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         loadLocale();
         setContentView(R.layout.activity_home);
-
+        View nv = findViewById(android.R.id.content).getRootView();
         Intent is = new Intent(this, LocationService.class);
         is.putExtra("na", "start");
         startService(is);
@@ -139,6 +140,33 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 }
             }
         });
+
+        if(!user.isEmailVerified())
+        {
+            sclview.setVisibility(View.GONE);
+            emailVerify.setVisibility(View.VISIBLE);
+            sc.setVisibility(View.GONE);
+            login.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    user.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                          logOut();
+                        }
+                    });
+                }
+            });
+
+        }
+        else
+        {
+            sclview.setVisibility(View.VISIBLE);
+            emailVerify.setVisibility(View.GONE);
+            sc.setVisibility(View.VISIBLE);
+
+        }
+
 
         mAppBar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
