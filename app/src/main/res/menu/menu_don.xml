@@ -13,4 +13,10 @@
         android:icon="@drawable/ic_donation_1"
         android:id="@+id/materials" />
 
+    <item
+        android:enabled="true"
+        android:title="@string/view_history"
+        android:icon="@drawable/ic_baseline_history_24"
+        android:id="@+id/history" />
+
 </menu>

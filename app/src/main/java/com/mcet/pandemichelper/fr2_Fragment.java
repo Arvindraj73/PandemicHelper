@@ -152,7 +152,7 @@ public class fr2_Fragment extends Fragment {
                         public void onClick(View v) {
                             Intent i = new Intent(getContext(),Relief_items.class);
                             i.putExtra("key",key);
-
+                            i.putExtra("id", "admin");
                             i.putExtra("name",model.getName());
                             startActivity(i);
                         }

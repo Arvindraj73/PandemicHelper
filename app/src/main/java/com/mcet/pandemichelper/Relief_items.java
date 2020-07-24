@@ -33,7 +33,7 @@ public class Relief_items extends AppCompatActivity {
     private FirebaseDatabase database;
     private DatabaseReference reference,refItems;
     private TextView itemName, itemPhone;
-    private String key, lat, lon, address;
+    private String key, lat, lon, address, userKey;
     private MaterialButton selectVolunteer;
     private FirebaseRecyclerAdapter<MaterialModel,WorkViewHolder> adapter;
 
@@ -50,19 +50,43 @@ public class Relief_items extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.ItemList);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        selectVolunteer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(Relief_items.this, WorkerWorkMapsActivity.class);
-                i.putExtra("id", "ri");
-                i.putExtra("address", address);
-                i.putExtra("lat", lat);
-                i.putExtra("lon", lon);
-                i.putExtra("job", key);
-                startActivity(i);
-                finish();
-            }
-        });
+        if (getIntent().getStringExtra("id").equals("user")){
+            selectVolunteer.setText(R.string.viewLocation);
+            selectVolunteer.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(Relief_items.this, AdminFromMapsActivity.class);
+                    i.putExtra("id", "ri");
+                    i.putExtra("address", address);
+                    i.putExtra("lat", lat);
+                    i.putExtra("lon", lon);
+                    i.putExtra("job", key);
+                    startActivity(i);
+                    finish();
+                }
+            });
+        }
+        else if (getIntent().getStringExtra("id").equals("userView")){
+            selectVolunteer.setVisibility(View.INVISIBLE);
+        }
+        else {
+            selectVolunteer.setText(R.string.select_volunteer);
+            selectVolunteer.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(Relief_items.this, WorkerWorkMapsActivity.class);
+                    i.putExtra("id", "ri");
+                    i.putExtra("address", address);
+                    i.putExtra("lat", lat);
+                    i.putExtra("lon", lon);
+                    i.putExtra("job", key);
+                    i.putExtra("key", userKey);
+                    startActivity(i);
+                    finish();
+                }
+            });
+        }
+
 
         key = getIntent().getStringExtra("key");
         reference.child("ReliefMaterials/"+key).addValueEventListener(new ValueEventListener() {
@@ -77,6 +101,7 @@ public class Relief_items extends AppCompatActivity {
                 lat = data.get(0).toString();
                 lon = data.get(1).toString();
                 address = data.get(2).toString();
+                userKey = model.getKey();
             }
 
             @Override

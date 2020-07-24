@@ -63,6 +63,11 @@ public class DonateActivity extends AppCompatActivity {
                 case R.id.materials:
                     openFragment(new MaterialsFragment());
                     return true;
+                case R.id.history:
+                    Intent intent = new Intent(getApplicationContext(), HistoryActivity.class);
+                    intent.putExtra("id", "rm");
+                    startActivity(intent);
+                    return true;
             }
             return false;
         }

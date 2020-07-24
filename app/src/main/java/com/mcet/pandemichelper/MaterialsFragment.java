@@ -1,5 +1,6 @@
 package com.mcet.pandemichelper;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -68,6 +69,7 @@ public class MaterialsFragment extends Fragment implements View.OnClickListener 
 
         view.findViewById(R.id.mapSelect).setOnClickListener(this);
         view.findViewById(R.id.details).setOnClickListener(this);
+
         return view;
     }
 

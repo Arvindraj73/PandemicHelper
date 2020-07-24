@@ -319,7 +319,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                     break;
                 }
                 else if(sRole.equals("Volunteer")){
-                    Intent workIntent = new Intent(HomeActivity.this, WorkAssignActivity.class);
+                    Intent workIntent = new Intent(HomeActivity.this, VolunteerActivity.class);
                     workIntent.putExtra("id", "user");
                     startActivity(workIntent);
                     break;

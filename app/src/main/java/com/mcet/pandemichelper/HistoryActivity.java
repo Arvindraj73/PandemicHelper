@@ -197,6 +197,66 @@ public class HistoryActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
+        else if (id.equals("rm")) {
+            mRef = mDatabase.getReference("UserInfo").child(preferences.getString("uid", "")).child("ReliefMaterials");
+            try{
+                FirebaseRecyclerOptions list = new FirebaseRecyclerOptions.Builder<MaterialModel>().setQuery(mRef,MaterialModel.class).build();
+                FirebaseRecyclerAdapter<MaterialModel, EpassViewHolder> adapter=new FirebaseRecyclerAdapter<MaterialModel,EpassViewHolder>(list) {
+
+                    @NonNull
+                    @Override
+                    public EpassViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.pass_view_layout,parent,false);
+                        return new EpassViewHolder(view);
+                    }
+
+                    @Override
+                    protected void onBindViewHolder(@NonNull EpassViewHolder holder, int position, @NonNull MaterialModel model) {
+                        final String key = getRef(position).getKey();
+
+                        holder.name.setText("Name : \n"+model.getName());
+                        holder.from.setText("Phone : \n"+model.getPhone());
+                        if(model.getAssignedTo().equals("Pending")) {
+                            holder.to.setText("AssignedTo :\n" + model.getAssignedTo());
+                        }
+                        else
+                        {
+                            mDatabase.getReference("UserInfo").child(model.getAssignedTo()).addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    UserModel userModel=dataSnapshot.getValue(UserModel.class);
+
+                                    holder.to.setText("AssignedTo:\n" + userModel.getName());
+                                    holder.date.setText("Volunteer No:\n"+userModel.getPhone());
+                                    holder.status.setText("Assigned");
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                }
+                            });
+
+                        }
+                        holder.cardView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent i = new Intent(HistoryActivity.this, Relief_items.class);
+                                i.putExtra("key",preferences.getString("uid",""));
+                                i.putExtra("id", "userView");
+                                startActivity(i);
+                            }
+                        });
+
+                    }
+                };
+                adapter.startListening();
+                adapter.notifyDataSetChanged();
+                recyclerView.setAdapter(adapter);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
 
     }
 }

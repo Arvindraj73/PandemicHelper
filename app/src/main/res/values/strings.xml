@@ -200,5 +200,6 @@
     <string name="items">Items</string>
     <string name="orProofNo">Organisation Proof Number</string>
     <string name="select_volunteer">Select Volunteer</string>
+    <string name="viewLocation">View Location</string>
 
 </resources>

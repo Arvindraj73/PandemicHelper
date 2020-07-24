@@ -530,17 +530,27 @@ public class MaterialDetailsFragment extends Fragment {
             public void onClick(View v) {
                 Log.d("onClick", itemName.toString() + " " + quantity.toString());
                 MaterialModel modelUser = new MaterialModel(preferences.getString("name","null"),preferences.getString("phone","null"),lat,lon,location,String.valueOf(itemName.size()), "Pending");
+
+                DatabaseReference reference = FirebaseDatabase.getInstance().getReference("UserInfo");
+                String key = reference.child(user.getUid()).child("ReliefMaterials").push().getKey();
+                reference.child(user.getUid()).child("ReliefMaterials").child(key).setValue(modelUser);
+                
                 mRef.child(user.getUid()).setValue(modelUser);
+                mRef.child(user.getUid()).child("key").setValue(key);
                 for (int i = 0; i < quantity.size() && i < itemName.size(); i++) {
                     Log.d("for", itemName.get(i) + " " + quantity.get(i));
                     MaterialModel modelItem = new MaterialModel(itemName.get(i), quantity.get(i));
-                    mRef.child(user.getUid()+"/Items").push().setValue(modelItem).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    int finalI = i;
+                    mRef.child(user.getUid()).child("Items").push().setValue(modelItem).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
-                                Toast.makeText(getContext(), "Thank you for Donating.\nWait for your pickup", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(getContext(), HomeActivity.class));
-                                getActivity().finish();
+                                reference.child(user.getUid()).child("/ReliefMaterials/"+key+"/Items").push().setValue(modelItem);
+                                if (finalI == quantity.size()-1) {
+                                    Toast.makeText(getContext(), "Thank you for Donating.\nWait for your pickup", Toast.LENGTH_SHORT).show();
+                                    startActivity(new Intent(getContext(), HomeActivity.class));
+                                    getActivity().finish();
+                                }
                             }
                         }
                     });

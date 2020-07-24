@@ -9,6 +9,24 @@ public class MaterialModel {
     String location;
     String phone;
     String assignedTo;
+    String WorkName;
+    String key;
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
+
+    public String getWorkName() {
+        return WorkName;
+    }
+
+    public void setWorkName(String workName) {
+        WorkName = workName;
+    }
 
     public String getAssignedTo() {
         return assignedTo;

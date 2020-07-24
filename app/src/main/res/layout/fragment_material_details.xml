@@ -757,7 +757,8 @@
         android:baselineAligned="false"
         android:layout_marginTop="@dimen/mTop"
         android:orientation="horizontal"
-        android:layout_above="@+id/submitItems">
+        android:layout_above="@+id/submitItems"
+        android:background="@color/white">
 
     <TextView
         android:layout_width="0dp"

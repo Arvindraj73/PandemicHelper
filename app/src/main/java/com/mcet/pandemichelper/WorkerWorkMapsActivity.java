@@ -187,25 +187,17 @@ public class WorkerWorkMapsActivity extends FragmentActivity implements OnMapRea
                     });
                 }
                 else if (getIntent().getStringExtra("id").equals("ri")) {
-                    mReference.child("ReliefMaterials").child(job).addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            materialModel = dataSnapshot.getValue(MaterialModel.class);
-                            Log.d("da", dataSnapshot.toString());
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                        }
-                    });
-                    mReference.child("UserInfo").child(uid).child("Works").child(job).push().setValue(materialModel).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    Log.d("job",job);
+                    WorkDetailsModel workDetailsModel = new WorkDetailsModel("Collection of Relief Materials", job);
+                    String workey = mReference.child("UserInfo").child(uid).child("Works").push().getKey();
+                    mReference.child("UserInfo").child(uid).child("Works").child(workey).setValue(workDetailsModel).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
                                 mReference.child("ReliefMaterials").child(job).child("assignedTo").setValue(uid);
+                                mReference.child("UserInfo").child(job).child("ReliefMaterials").child(getIntent().getStringExtra("key")).child("assignedTo").setValue(uid);
                                 Toast.makeText(WorkerWorkMapsActivity.this, "Assigned", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(WorkerWorkMapsActivity.this, fr2_Fragment.class));
+                                startActivity(new Intent(WorkerWorkMapsActivity.this, AdminHomeActivity.class));
                                 finish();
                             }
                         }
