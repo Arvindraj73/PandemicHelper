@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,7 +28,9 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -51,6 +54,9 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private ScrollView sclview;
     private MaterialToolbar mAppBar;
     private TextView role, tvError;
+    private AppBarLayout sc;
+    private RelativeLayout emailVerify;
+    private MaterialButton login;
 
     private VideoDetailsModel videoDetailsModel;
     private ArrayList<VideoDetailsModel> arrayList;
@@ -71,9 +77,11 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         Intent is = new Intent(this, LocationService.class);
         is.putExtra("na", "start");
         startService(is);
-
+        sc = findViewById(R.id.sc);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         mListView = findViewById(R.id.recyclerView);
+        emailVerify = findViewById(R.id.emailVerify);
+        login = findViewById(R.id.loginVerified);
         mListView.setLayoutManager(linearLayoutManager);
 
         mAppBar = findViewById(R.id.appbar);
@@ -100,17 +108,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.epass).setOnClickListener(this);
 
         arrayList = new ArrayList<>();
-        if(auth.getCurrentUser().isEmailVerified())
-        {
-            sclview.setVisibility(View.VISIBLE);
-            tvError.setVisibility(View.GONE);
-        }
-        else
-        {
-            sclview.setVisibility(View.GONE);
-            tvError.setVisibility(View.VISIBLE);
-        }
-
 
         adapter = new VideoDetailsAdapter(HomeActivity.this, arrayList);
         adapter.setOnItemClickListener(onItemClickListener);
@@ -139,6 +136,33 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 if (task.isSuccessful()) {
                     deviceToken = task.getResult().getToken();
                     Log.d("token", deviceToken);
+                }
+            }
+        });
+
+        if(auth.getCurrentUser().isEmailVerified())
+        {
+            sclview.setVisibility(View.VISIBLE);
+            emailVerify.setVisibility(View.GONE);
+            sc.setVisibility(View.VISIBLE);
+        }
+        else
+        {
+            sclview.setVisibility(View.GONE);
+            emailVerify.setVisibility(View.VISIBLE);
+            sc.setVisibility(View.GONE);
+        }
+
+        login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(auth.getCurrentUser().isEmailVerified())
+                {
+                    startActivity(new Intent(HomeActivity.this, LoginActivity.class));
+                }
+                else
+                {
+                    Toast.makeText(HomeActivity.this, "Please Verify your eMail Id", Toast.LENGTH_LONG).show();
                 }
             }
         });
