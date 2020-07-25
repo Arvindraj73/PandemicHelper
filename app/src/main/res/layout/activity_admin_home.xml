@@ -25,68 +25,25 @@
         </com.google.android.material.appbar.MaterialToolbar>
     </com.google.android.material.appbar.AppBarLayout>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/rHeight"
-        android:background="@drawable/my_gradient"
-        android:layout_below="@+id/sc">
 
-        <ImageView
-            android:id="@+id/img"
-            android:layout_width="@dimen/imgSize"
-            android:layout_height="@dimen/imgSize"
-            android:layout_centerHorizontal="true"
-            android:contentDescription="@string/todo"
-            android:src="@drawable/earth"
-            android:layout_marginTop="@dimen/mTop"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/img"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/lPadding"
-            android:text="@string/app_name"
-            android:textColor="#000000"
-            android:textSize="@dimen/tsize2"
-            android:textStyle="bold" />
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:padding="@dimen/lPadding">
-
-
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardCornerRadius="8dp"
-            android:backgroundTint="#FFFFFF"
-            android:layout_centerInParent="true"
-            app:cardElevation="4dp">
-
-            <GridLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:alignmentMode="alignMargins"
-                android:columnCount="3"
-                android:columnOrderPreserved="false"
-                android:rowCount="2">
+                android:orientation="vertical"
+                android:layout_centerInParent="true">
 
 
-
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
                 <com.google.android.material.card.MaterialCardView
                     android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:layout_columnWeight="1"
-                    android:layout_rowWeight="1"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
                     app:cardCornerRadius="12dp"
-                    android:layout_margin="12dp"
-                    android:layout_centerInParent="true"
-                    android:id="@+id/card_add_lab">
+                    android:id="@+id/card_add_lab"
+                    android:layout_margin="@dimen/dp8">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -118,14 +75,12 @@
 
 
                 <com.google.android.material.card.MaterialCardView
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:layout_columnWeight="1"
-                    android:layout_rowWeight="1"
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
                     app:cardCornerRadius="12dp"
-                    android:layout_margin="12dp"
                     android:id="@+id/card_add_health"
-                    android:layout_centerInParent="true">
+                    android:layout_margin="@dimen/dp8">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -157,14 +112,12 @@
 
 
                 <com.google.android.material.card.MaterialCardView
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:layout_columnWeight="1"
-                    android:layout_rowWeight="1"
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
                     app:cardCornerRadius="12dp"
-                    android:layout_margin="12dp"
-                    android:layout_centerInParent="true"
-                    android:id="@+id/card_add_toll">
+                    android:id="@+id/card_add_toll"
+                    android:layout_margin="@dimen/dp8">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -192,18 +145,19 @@
 
 
                 </com.google.android.material.card.MaterialCardView>
-
-
+            </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
                 <com.google.android.material.card.MaterialCardView
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:layout_columnWeight="1"
-                    android:layout_rowWeight="1"
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
                     app:cardCornerRadius="12dp"
-                    android:layout_margin="12dp"
-                    android:layout_centerInParent="true"
-                    android:id="@+id/card_add_volunteer">
+                    android:id="@+id/card_add_volunteer"
+                    android:layout_margin="@dimen/dp8">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -235,14 +189,12 @@
 
 
                 <com.google.android.material.card.MaterialCardView
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:layout_columnWeight="1"
-                    android:layout_rowWeight="1"
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
                     app:cardCornerRadius="12dp"
-                    android:layout_margin="12dp"
-                    android:layout_centerInParent="true"
-                    android:id="@+id/card_v_labour">
+                    android:id="@+id/card_v_labour"
+                    android:layout_margin="@dimen/dp8">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -274,14 +226,12 @@
 
 
                 <com.google.android.material.card.MaterialCardView
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:layout_columnWeight="1"
-                    android:layout_rowWeight="1"
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
                     app:cardCornerRadius="12dp"
-                    android:layout_margin="12dp"
-                    android:layout_centerInParent="true"
-                    android:id="@+id/card_geo">
+                    android:id="@+id/card_geo"
+                    android:layout_margin="@dimen/dp8">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -308,17 +258,18 @@
 
                 </com.google.android.material.card.MaterialCardView>
 
-
-
-                <com.google.android.material.card.MaterialCardView
+            </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:layout_columnWeight="1"
-                    android:layout_rowWeight="1"
+                    android:orientation="horizontal">
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
                     app:cardCornerRadius="12dp"
-                    android:layout_margin="12dp"
-                    android:layout_centerInParent="true"
-                    android:id="@+id/card_sm">
+                    android:id="@+id/card_sm"
+                    android:layout_margin="@dimen/dp8">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -347,17 +298,15 @@
 
 
                 <com.google.android.material.card.MaterialCardView
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:layout_columnWeight="1"
-                    android:layout_rowWeight="1"
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
                     app:cardCornerRadius="12dp"
-                    android:layout_margin="12dp"
-                    android:layout_centerInParent="true"
-                    android:id="@+id/card_essential">
+                    android:id="@+id/card_essential"
+                    android:layout_margin="@dimen/dp8">
 
                     <LinearLayout
-                        android:layout_width="102dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:gravity="center"
@@ -383,14 +332,12 @@
 
                 </com.google.android.material.card.MaterialCardView>
                 <com.google.android.material.card.MaterialCardView
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:layout_columnWeight="1"
-                    android:layout_rowWeight="1"
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
                     app:cardCornerRadius="12dp"
-                    android:layout_margin="12dp"
-                    android:layout_centerInParent="true"
-                    android:id="@+id/card_healthworker">
+                    android:id="@+id/card_healthworker"
+                    android:layout_margin="@dimen/dp8">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -401,8 +348,8 @@
                         android:padding="@dimen/lPadding">
 
                         <ImageView
-                            android:layout_width="13dp"
-                            android:layout_height="12dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:src="@drawable/ic_add_black_24dp" />
 
                         <TextView
@@ -418,15 +365,18 @@
 
 
                 </com.google.android.material.card.MaterialCardView>
-                <com.google.android.material.card.MaterialCardView
+            </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:layout_columnWeight="1"
-                    android:layout_rowWeight="1"
+                    android:orientation="horizontal">
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
                     app:cardCornerRadius="12dp"
-                    android:layout_margin="12dp"
-                    android:layout_centerInParent="true"
-                    android:id="@+id/card_Tpass">
+                    android:id="@+id/card_Tpass"
+                    android:layout_margin="@dimen/dp8">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -437,8 +387,8 @@
                         android:padding="@dimen/lPadding">
 
                         <ImageView
-                            android:layout_width="13dp"
-                            android:layout_height="12dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:src="@drawable/ic_add_black_24dp" />
 
                         <TextView
@@ -455,14 +405,12 @@
 
                 </com.google.android.material.card.MaterialCardView>
                 <com.google.android.material.card.MaterialCardView
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:layout_columnWeight="1"
-                    android:layout_rowWeight="1"
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
                     app:cardCornerRadius="12dp"
-                    android:layout_margin="12dp"
-                    android:layout_centerInParent="true"
-                    android:id="@+id/card_personalpass">
+                    android:id="@+id/card_personalpass"
+                    android:layout_margin="@dimen/dp8">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -473,8 +421,8 @@
                         android:padding="@dimen/lPadding">
 
                         <ImageView
-                            android:layout_width="13dp"
-                            android:layout_height="12dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:src="@drawable/ic_add_black_24dp" />
 
                         <TextView
@@ -491,14 +439,12 @@
 
                 </com.google.android.material.card.MaterialCardView>
                 <com.google.android.material.card.MaterialCardView
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:layout_columnWeight="1"
-                    android:layout_rowWeight="1"
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
                     app:cardCornerRadius="12dp"
-                    android:layout_margin="12dp"
-                    android:layout_centerInParent="true"
-                    android:id="@+id/card_reliefmaterialcenter">
+                    android:id="@+id/card_reliefmaterialcenter"
+                    android:layout_margin="@dimen/dp8">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -509,8 +455,8 @@
                         android:padding="@dimen/lPadding">
 
                         <ImageView
-                            android:layout_width="13dp"
-                            android:layout_height="12dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:src="@drawable/ic_add_black_24dp" />
 
                         <TextView
@@ -526,15 +472,18 @@
 
 
                 </com.google.android.material.card.MaterialCardView>
-                <com.google.android.material.card.MaterialCardView
+            </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:layout_columnWeight="1"
-                    android:layout_rowWeight="1"
+                    android:orientation="horizontal">
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
                     app:cardCornerRadius="12dp"
-                    android:layout_margin="12dp"
-                    android:layout_centerInParent="true"
-                    android:id="@+id/card_orphange_center">
+                    android:id="@+id/card_orphange_center"
+                    android:layout_margin="@dimen/dp8">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -545,8 +494,8 @@
                         android:padding="@dimen/lPadding">
 
                         <ImageView
-                            android:layout_width="13dp"
-                            android:layout_height="12dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:src="@drawable/ic_add_black_24dp" />
 
                         <TextView
@@ -563,14 +512,12 @@
 
                 </com.google.android.material.card.MaterialCardView>
                 <com.google.android.material.card.MaterialCardView
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:layout_columnWeight="1"
-                    android:layout_rowWeight="1"
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
                     app:cardCornerRadius="12dp"
-                    android:layout_margin="12dp"
-                    android:layout_centerInParent="true"
-                    android:id="@+id/card_vulnerable_center">
+                    android:id="@+id/card_vulnerable_center"
+                    android:layout_margin="@dimen/dp8">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -581,8 +528,8 @@
                         android:padding="@dimen/lPadding">
 
                         <ImageView
-                            android:layout_width="13dp"
-                            android:layout_height="12dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:src="@drawable/ic_add_black_24dp" />
 
                         <TextView
@@ -599,14 +546,12 @@
 
                 </com.google.android.material.card.MaterialCardView>
                 <com.google.android.material.card.MaterialCardView
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:layout_columnWeight="1"
-                    android:layout_rowWeight="1"
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
                     app:cardCornerRadius="12dp"
-                    android:layout_margin="12dp"
-                    android:layout_centerInParent="true"
-                    android:id="@+id/card_food_Request">
+                    android:id="@+id/card_food_Request"
+                    android:layout_margin="@dimen/dp8">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -617,8 +562,8 @@
                         android:padding="@dimen/lPadding">
 
                         <ImageView
-                            android:layout_width="13dp"
-                            android:layout_height="12dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:src="@drawable/ic_add_black_24dp" />
 
                         <TextView
@@ -634,10 +579,8 @@
 
 
                 </com.google.android.material.card.MaterialCardView>
-            </GridLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-    </RelativeLayout>
+                </LinearLayout>
+            </LinearLayout>
 
 
 
