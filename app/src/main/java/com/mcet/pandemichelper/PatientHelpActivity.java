@@ -32,6 +32,7 @@ public class PatientHelpActivity extends AppCompatActivity implements View.OnCli
         findViewById(R.id.viewFoodHistory).setOnClickListener(this);
         findViewById(R.id.viewMedHistory).setOnClickListener(this);
         findViewById(R.id.cardView3).setOnClickListener(this);
+        findViewById(R.id.cardView4).setOnClickListener(this);
 
         arrow = findViewById(R.id.arrowBtn);
         alarmBtn = findViewById(R.id.alarmBtn);
@@ -107,6 +108,12 @@ public class PatientHelpActivity extends AppCompatActivity implements View.OnCli
                 Intent k = new Intent(PatientHelpActivity.this, HistoryActivity.class);
                 k.putExtra("id", "food");
                 startActivity(k);
+                break;
+
+            case R.id.cardView4:
+                Intent l = new Intent(PatientHelpActivity.this, CoursesActivity.class);
+                l.putExtra("id", "ldc");
+                startActivity(l);
                 break;
 
         }
