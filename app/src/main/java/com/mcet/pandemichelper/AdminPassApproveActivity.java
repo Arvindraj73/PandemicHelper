@@ -107,7 +107,7 @@ public class AdminPassApproveActivity extends AppCompatActivity {
                     fm.putExtra("flog", flog);
                     fm.putExtra("tlat", tlat);
                     fm.putExtra("tlog", tlog);
-
+                    fm.putExtra("id","pp");
                     startActivity(fm);
                 }
             });

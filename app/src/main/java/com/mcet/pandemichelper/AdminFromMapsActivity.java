@@ -90,8 +90,8 @@ public class AdminFromMapsActivity extends FragmentActivity implements OnMapRead
         }
         else if(getIntent().getStringExtra("id").equals("tp"))
         {
-            flat=Float.parseFloat(getIntent().getStringExtra("lat"));
-            flog=Float.parseFloat(getIntent().getStringExtra("lon"));
+            flat=Float.parseFloat(getIntent().getStringExtra("flat"));
+            flog=Float.parseFloat(getIntent().getStringExtra("flog"));
 
             LatLng from = new LatLng(flat, flog);
             mMap.addMarker(new MarkerOptions().position(from).title(getIntent().getStringExtra("Here ")));
